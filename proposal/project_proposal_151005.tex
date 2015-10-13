@@ -1,0 +1,140 @@
+\documentclass[]{article}
+
+\title{\textbf{Project Proposal: \textit{Investigating the M-index: A useful metric for rock deformation?}}}
+\author{Student: Lewis Bailey\\Supervisor: Dr Andrew Walker}
+\date{}
+
+\usepackage[margin=2.0cm]{geometry}
+\usepackage{charter}    
+
+\usepackage{natbib}     
+
+\usepackage{mathtools}  
+\numberwithin{equation}{section}
+
+%-------------------Document--------------------
+\begin{document}
+\maketitle
+
+%------------------------------------------------
+\section{Executive summary}
+\textit{Summary}
+
+%------------------------------------------------
+\section{Introduction/background} \label{intro}
+
+\begin{itemize}
+
+	\item Discuss rock texture/some background 
+	\item Introduce all methods to be used briefly \citep{Mainprice}
+	\item Introduce key terms/equations? Maybe in \ref{methods}? 
+	\item Introduce (briefly) data sets? 
+	
+\end{itemize}
+
+%------------------------------------------------
+\section{Aims and objectives}
+
+\begin{itemize}
+	\item \textbf{Aim:} to investigate a range of methods for determining the strength of rock texture.
+	 
+	\item \textbf{Objectives}
+	\begin{itemize}
+		\item Compile a suite of \texttt{Matlab} functions to compute the various methods of texture classification for a standardised input file. I will do this following certain coding principals \citep{Computing} using version control to keep track of the software development.
+		\item Attempt to replicate some of \cite{Skemer} and \cite{Mainprice} for non-Olivine samples to confirm or deny their observations are consistent across sample types.
+		\item Calculate texture indexes for a range of samples and models and draw comparisons between the results. Determine the most robust and reliable method. Use shear strain as a proxy for texture strength and investigate correlations between this an the indexes calculated.
+	\end{itemize}
+\end{itemize}
+
+%------------------------------------------------
+\section{Project details}
+\subsection{Data \& Models}
+
+\begin{itemize}
+  \item More detailed introduction to data sets used.
+  \item Include pole figures - good way to display datasets
+  \item Information on calculation of texture models - perhaps just references?
+\end{itemize}
+
+\subsection{Methods} \label{methods} 
+
+\subsubsection{J-index}
+Before the definition of the J-index can be introduced, it is first important to expand on the definitions for ODF and MDF as 
+mentioned in section \ref{intro}. \cite{Mainprice} provide a definition of the ODF to be the ratio of the number of crystals
+of a specific orientation $(\Delta{V(g)})$ in an infinitesimal volume elemtent $(\mathrm{d}g)$ to the total number of crystals of that phase 
+in the entire sample $(V)$. As such the most general form of the ODF $(f(g))$ can be defined as;
+
+\begin{equation}
+\frac{\Delta{V(g)}}{V} = f(g)\ \mathrm{d}g
+\end{equation}
+\\
+From this definition it is clear that a sample with uniform texture will have ODF = 1. Using a similar approach, a misorientation
+distribution function can also be discribed (see \cite{Mainprice} for details). From these functions, the relevant texture indexes 
+can be defined as the $L^2$-norm of either the ODF or the MDF after \textbf{BUNGE NEED TO LOOK UP}.
+
+\begin{equation}
+ J_{ODF} = \int |f(g)|^2\ \mathrm{d}g = ||f||^2_{L^2}
+\end{equation}
+\\
+The \texttt{MTEX} package provides functions to calculate the ODF, MDF and relevant J-index.
+
+\subsubsection{M-index}
+The M-idex is defined as the difference between the observed distribution of uncorrelated misorientation 
+andgles and the theoretical distribution of that of a random fabric. Although this can be defined as a continuous function, 
+for practical computation the M-index is calculated for a number of bins. A multipliplication factor of $\frac{1}{2}$ is used
+to give a range of values from 0 to 1, representing a random fabric or single crystal fabric respectively (\cite{Skemer} for
+complete definition). 
+
+\begin{equation} \label{mindex}
+M \equiv \sum_{i=1}^{n} | R^{T}_{i} - R^{O}_{i} | \cdot \frac{\theta_{max}}{2n} 
+\end{equation}
+\\
+Here, $n$ is the number of bins, $R^{T}_{i}$ is the theoretical distribution and $R^{O}_{i}$ is the observed distribution
+of misorientation angles. \cite{Mainprice} note that the M-index is the $L^1$-norm as it does not involve squaring the
+integrand (in the continuous definition) as in the J-index \textbf{EXPAND?}. Although it is possible to calculate the M-index 
+using continuous functions in \texttt{MTEX}, I may have to write some \texttt{Matlab} code in order to implement the discrete form given in equation \ref{mindex}.
+
+\subsubsection{Pole figures}
+
+\subsubsection{Eigenvalue methods}
+
+Give more detailed description of methods to be use, include equations and possibly whether code exists or needs to be written?
+
+\begin{itemize}
+  \item M-index \citep{Skemer,Helmut}
+  \item $J_{ODF}$ and $J_{MDF}$ \citep{Mainprice}
+  \item Pole figures $J_{PF}$ 
+  \item Eigenvalue methods 
+    \begin{itemize}
+	\item Compare \cite{Lisle} and \cite{Woodcock}?
+	\item Possibly include symmetry methods \citep{Ulrich} (need to look up Vollmer 1990 as referenced in U\&M)
+	\end{itemize}
+  \item Elastic tensor calculation? \citep{Mainprice}
+\end{itemize}
+
+\subsection{Software development} \label{software}
+
+
+\begin{itemize}
+  \item Software development using version control \citep{Walker}
+  \item Methodology behind software (how various methods are implemented) 
+  \item Details of function use/documentation 
+\end{itemize}
+
+\subsection{Interpretation}
+
+\begin{itemize}
+  \item Run models for various datasets (both samples and models) using software as described in \ref{software}.
+  \item Plot results against strain and compare to determine which methods provide most accurate metric. 
+  \item Investigate weaknesses in methods/find examples of when they are inappropriate to use.
+\end{itemize}
+
+%------------------------------------------------
+\section{Project timeline}
+Include Gantt chart for project progress
+
+%------------------------------------------------
+\bibliographystyle{leedsHarvard}
+\bibliography{proposalBib}
+
+\end{document}
