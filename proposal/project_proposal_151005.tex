@@ -1,16 +1,31 @@
-\documentclass[]{article}
+\documentclass[a4paper,11pt]{article}
+\usepackage[left=1.7cm,right=1.7cm,bottom=2cm,top=2cm]{geometry}
 
-\title{\textbf{Project Proposal: \textit{Investigating the M-index: A useful metric for rock deformation?}}}
-\author{Student: Lewis Bailey\\Supervisor: Dr Andrew Walker}
-\date{}
+\usepackage{setspace}
+\setstretch{1.15}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{SOEE3058}
+\rhead{200695089}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
 
-\usepackage[margin=2.0cm]{geometry}
 \usepackage{charter}    
 
 \usepackage{natbib}     
 
+\usepackage[font=it]{caption}
+\usepackage{chngcntr}
+\counterwithin{figure}{section}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+
 \usepackage{mathtools}  
 \numberwithin{equation}{section}
+
+\title{\textbf{Project Proposal: \textit{Investigating the M-index: A useful metric for rock deformation?}}}
+\author{Student: Lewis Bailey\\Supervisor: Dr Andrew Walker}
+\date{}
 
 %-------------------Document--------------------
 \begin{document}
@@ -18,19 +33,15 @@
 
 %------------------------------------------------
 \section{Executive summary}
-\textit{Summary}
+The main subject matter of this report is quantifying  the strength of rock texture, or the crystal preferred orientation (CPO). A number of methods exist for both describing, displaying  and attempting to determine the magnitude of the CPO of a given sample \citep{Mainprice,Skemer,Woodcock} - I intend to provide a comprehensive analysis and comparison of the various metrics available in the literature. To accomplish this analysis I will pull together existing functions with additions of my own to develop a streamlined software package that will calculate the desired texture indicies and any relevant plots as required. This will be developed using version control software and following principals outlined by \cite{Computing} and \cite{Walker} to develop useful and well documented code. Utilising this software, I will analyse the various indicies by applying them to both numerically modelled samples and also to data from the Karakoram fault zone in the North-West Himalayas. My interpretation will consist mainly of a detailed analysis of the effectiveness of the metrics by investigating their relationship with the strain of samples, as well as direct comparison. The number of samples required to provide accurate texture analysis will also be investigated.  
 
 %------------------------------------------------
-\section{Introduction/background} \label{intro}
+\section{Introduction} \label{sec:intro}
+Quantitative analysis of rock textures has become increasingly more important in geoscience, with applications in industry such as analysing seismic anisotropy, as well as in research of fabric development and micro-structural characteristics of tectonics. Previous studies have attempted to quantify the lattice-preferred orientation (LPO) in samples, in order to give a simple metric for texture strength in a given rock, however few have comprehensively compared these various texture indicies. Improvements in measuring crystal orientations using electron backscatter diffraction (EBSD) and increased computing power have advanced texture analysis from its classical beginnings, and lead to the development of new indicies and analytic software. 
 
-\begin{itemize}
+Although \cite{Mainprice} offer a relatively brief overview of a number of texture indicies, it is my aim to provide a detailed analysis and comparison of these metrics. Previous work has been focused largely on olivine deformation, whereas in this study I will test the effectiveness of the indicies across a range of both models and samples. The metric used most extensively in the literature is the J-index, which is effectively a way of finding the magnitude of an orientation distribution function (ODF), or simirlarly a misorientation distribution (MDF). These functions describe the fractional volume of crystals with similar orientations, and therefore the texture of a sample. \cite{Skemer} propose a new index, the M-index - these two methods will form the basis of my investigation, although other methods of texture classification to be used are outlined in \S\ref{sec:methods}.
 
-	\item Discuss rock texture/some background 
-	\item Introduce all methods to be used briefly \citep{Mainprice}
-	\item Introduce key terms/equations? Maybe in \ref{methods}? 
-	\item Introduce (briefly) data sets? 
-	
-\end{itemize}
+In conducting this analysis, I will utilise existing software (specifically the \texttt{MTEX} package for \texttt{Matlab}) as well as writing my own functions in order to create a streamlined software package that can be used to efficiently calculate the indicies and other related plots as required. This will be created using version control software to monitor development. Although existing software allows the creation of models for almost any combination of texture and deformation history, I will combine these models with real datasets in order to assess the effectiveness of the methods for field samples of a range of rocks.
 
 %------------------------------------------------
 \section{Aims and objectives}
@@ -41,26 +52,30 @@
 	\item \textbf{Objectives}
 	\begin{itemize}
 		\item Compile a suite of \texttt{Matlab} functions to compute the various methods of texture classification for a standardised input file. I will do this following certain coding principals \citep{Computing} using version control to keep track of the software development.
-		\item Attempt to replicate some of \cite{Skemer} and \cite{Mainprice} for non-Olivine samples to confirm or deny their observations are consistent across sample types.
+		\item Attempt to replicate some of \cite{Skemer} and \cite{Mainprice} for non-olivine samples to confirm or deny their observations are consistent across sample types.
 		\item Calculate texture indexes for a range of samples and models and draw comparisons between the results. Determine the most robust and reliable method. Use shear strain as a proxy for texture strength and investigate correlations between this an the indexes calculated.
 	\end{itemize}
 \end{itemize}
 
 %------------------------------------------------
-\section{Project details}
-\subsection{Data \& Models}
+\section{Models \& data}
+The most diverse source of data for this investigation is the ability to model the deformation of polycrystalline aggregates, using a range of visco-plastic self consistent methods. One advantage of this dataset is that there is little constraint on what is possible to generate - in addition, the strain is known precisely as well as the deformation history. Knowing this makes it simple to compare whether the magnitude  of the various indexes increase with strain (see section \ref{sec:interp}). However, as these data are models, there are factors missing that would be present in deformed rocks.   
 
-\begin{itemize}
-  \item More detailed introduction to data sets used.
-  \item Include pole figures - good way to display datasets
-  \item Information on calculation of texture models - perhaps just references?
-\end{itemize}
+To compliment the modelled data, I intend to use a number of field samples, collected from regions around ductile shear zones. For these samples, electron backscatter diffraction (EBSD) data will be used to determine the orientation of crystals within the rock. The main source of samples is a PhD study of the Karakoram fault zone in the North-West Himalayas, where samples have been taken along a transect of a fault zone. This provides a range of different strains, generally increasing as distance to the fault decreases. This dataset also contains samples of both deformed marbles and quartzite (containing calcite and quartz respectively), allowing a more comprehensive analysis of indexes (i.e. are results consistent across sample types). This is especially useful to expand on the work of \cite{Mainprice} and \cite{Skemer} - both of which focused only on olivine. A useful tool for visualising orientation data is pole plots - essentially these are lower-hemisphere projections of vectors normal to a certain crystal plane (definition of these planes varies between crystal types). An example of this can be seen in figure \ref{fig:pole_plot}.
 
-\subsection{Methods} \label{methods} 
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.85\textwidth,trim={3.2cm 10cm 0 0},clip]{poles}
+  \caption{Example of pole figures for a modelled olivine sample. The Miller indices are displayed above the the lower hemisphere projections.}
+  \label{fig:pole_plot}
+\end{figure}
 
-\subsubsection{J-index}
+\section{Methods} \label{sec:methods} 
+
+
+\subsection{J-index}
 Before the definition of the J-index can be introduced, it is first important to expand on the definitions for ODF and MDF as 
-mentioned in section \ref{intro}. \cite{Mainprice} provide a definition of the ODF to be the ratio of the number of crystals
+mentioned in section \ref{sec:intro}. \cite{Mainprice} provide a definition of the ODF to be the ratio of the number of crystals
 of a specific orientation $(\Delta{V(g)})$ in an infinitesimal volume elemtent $(\mathrm{d}g)$ to the total number of crystals of that phase 
 in the entire sample $(V)$. As such the most general form of the ODF $(f(g))$ can be defined as;
 
@@ -68,17 +83,17 @@ in the entire sample $(V)$. As such the most general form of the ODF $(f(g))$ ca
 \frac{\Delta{V(g)}}{V} = f(g)\ \mathrm{d}g
 \end{equation}
 \\
-From this definition it is clear that a sample with uniform texture will have ODF = 1. Using a similar approach, a misorientation
-distribution function can also be discribed (see \cite{Mainprice} for details). From these functions, the relevant texture indexes 
-can be defined as the $L^2$-norm of either the ODF or the MDF after \textbf{BUNGE NEED TO LOOK UP}.
+From this definition it is clear that a sample with uniform texture will have ODF = 1. Using a similar approach, a misorientation distribution function can also be discribed (see \cite{Mainprice} for details). From these functions, the relevant texture indexes 
+can be defined as the $\mathrm{L^2}$-norm of either the ODF or the MDF (equation \ref{eq:J-index}).
 
 \begin{equation}
  J_{ODF} = \int |f(g)|^2\ \mathrm{d}g = ||f||^2_{L^2}
+ \label{eq:J-index}
 \end{equation}
-\\
-The \texttt{MTEX} package provides functions to calculate the ODF, MDF and relevant J-index.
 
-\subsubsection{M-index}
+The \texttt{MTEX} package provides functions to calculate the ODF, MDF and relevant J-index. I intend to automate this functionality to work for an internal data file format. 
+
+\subsection{M-index}
 The M-idex is defined as the difference between the observed distribution of uncorrelated misorientation 
 andgles and the theoretical distribution of that of a random fabric. Although this can be defined as a continuous function, 
 for practical computation the M-index is calculated for a number of bins. A multipliplication factor of $\frac{1}{2}$ is used
@@ -90,48 +105,34 @@ M \equiv \sum_{i=1}^{n} | R^{T}_{i} - R^{O}_{i} | \cdot \frac{\theta_{max}}{2n}
 \end{equation}
 \\
 Here, $n$ is the number of bins, $R^{T}_{i}$ is the theoretical distribution and $R^{O}_{i}$ is the observed distribution
-of misorientation angles. \cite{Mainprice} note that the M-index is the $L^1$-norm as it does not involve squaring the
-integrand (in the continuous definition) as in the J-index \textbf{EXPAND?}. Although it is possible to calculate the M-index 
+of misorientation angles. \cite{Mainprice} note that the M-index is the $\mathrm{L^1}$-norm as it does not involve squaring the
+integrand (in the continuous definition) as in the J-index. Although it is possible to calculate the M-index 
 using continuous functions in \texttt{MTEX}, I may have to write some \texttt{Matlab} code in order to implement the discrete form given in equation \ref{mindex}.
 
-\subsubsection{Pole figures}
 
-\subsubsection{Eigenvalue methods}
+\subsection{Eigenvalue methods \& elastic tensor}
+A slightly different approach to quantifying texture strength is to use the properties of an orientation tensor, that describes the orientation of a given crystal. The three eigenvectors of this matrix $(\mathbf{v_1,v_2,v_3})$ correspond to three orthogonal principal axes of the sample. The vector $\mathbf{v_1}$ is the mean direction of the data, and the vector $\mathbf{v_3}$ is the pole to any girdle present in the data \citep{Woodcock}. The corresponding eigenvalues $(\lambda_1,\lambda_2,\lambda_3)$, the sum of which is equal to $N$ (number of samples in the distribution) describe the shape of the data sample. Various analyses can be conducted using the nomalised eigenvalues (i.e. $S_1 + S_2 + S_3 = 1$ where $S_i = {\lambda_i}/{N}$) and their relative seizes \citep{Lisle}. From these a number of fabric indicies can be calculated, although only for one pole figure at a time \citep{Ulrich}. In addition to this, an elastic tensor can be calculated from which further conclusions of rock texture strength can be drawn \citep{Mainprice}. 
 
-Give more detailed description of methods to be use, include equations and possibly whether code exists or needs to be written?
+\section{Software development} \label{sec:software}
 
-\begin{itemize}
-  \item M-index \citep{Skemer,Helmut}
-  \item $J_{ODF}$ and $J_{MDF}$ \citep{Mainprice}
-  \item Pole figures $J_{PF}$ 
-  \item Eigenvalue methods 
-    \begin{itemize}
-	\item Compare \cite{Lisle} and \cite{Woodcock}?
-	\item Possibly include symmetry methods \citep{Ulrich} (need to look up Vollmer 1990 as referenced in U\&M)
-	\end{itemize}
-  \item Elastic tensor calculation? \citep{Mainprice}
-\end{itemize}
+\subsection{Implementation}
+One of the main objectives of this investigation is to write fully documented and functional software to pull together, and also add to, existing routines in order to create a comprehensive package for measuring rock texture. \cite{Mainprice} demonstrate the usefulness of an existing toolbox,the \texttt{MTEX} package, for texture analysis. I intend to combine a selection of functions from this package, along with code of my own, with the objective of having a set of programs that can calculate a specific texture index for a standardised input file, in a streamlined way. 
 
-\subsection{Software development} \label{software}
+Although it is difficult at such an early stage to speculate as to which or how many functions I will use to implement a certain texture calculation, I can set out the approach I intend to follow. \cite{FileStructure} outlines an effective way to organise a computational project - an important aspect of which is the separation of data, analysis, and tools to carry out the analysis. I intend to follow these principals, specifically by running analyses using shell scripts to, in effect, self document any program runs and allow for easy recreation or modification of results. Aside from this overarching methodology, I intend to follow techniques outlined by \cite{Computing} for writing of individual programs.     
 
+\subsection{Version control}
+Due to the code being central to the project, as well as the hope that it will be utilised in the future, version control software (VCS) is essential to allow for transparent and efficient development. As well as ensuring that future users are able to see the evolution of the code, VCS also encourages detailed documentation and manual pages, making the code as accessible as possible.
 
-\begin{itemize}
-  \item Software development using version control \citep{Walker}
-  \item Methodology behind software (how various methods are implemented) 
-  \item Details of function use/documentation 
-\end{itemize}
+I intend to use \texttt{Github}, a VCS that provides online repository storing that not only provides regular backups but also allows easy distribution to potential users, as well as allowing them to see the development history. \cite{Walker} provide an example of this approach to scientific software development.
 
-\subsection{Interpretation}
+\section{Interpretation} \label{sec:interp}
+The main aim of this investigation is to assess whether the described methods are an effective index for rock deformation. A logical way to do this is to plot the relationship between the indexes calculated and the measured (or modelled) strain of the rock. For an index to be a useful quantisation of deformation, its magnitude is expected to increase with strain, as a larger strain indicates greater deformation to the rock. Here I intend to analyse the relationship to strain - for example do all the indexes increase linearly with strain, and are there instances where the methods collapse or provide an inaccurate quantisation of deformation?
 
-\begin{itemize}
-  \item Run models for various datasets (both samples and models) using software as described in \ref{software}.
-  \item Plot results against strain and compare to determine which methods provide most accurate metric. 
-  \item Investigate weaknesses in methods/find examples of when they are inappropriate to use.
-\end{itemize}
+Aside from plotting against strain, a different approach to comparing indexes is to plot them against one another. Here, some relationship would be expected - if one index increases and the other does not, they must be quantifying the deformation differently. This analysis method allows for direct comparison of methods. Another important aspect of an index is variations in performance when presented with fewer data. For example, \cite{Skemer} note that the J-index is extremely sensitive to this factor - I intend to compare this feature across all methods, to determine which, if any, are consistent for a range of sample sizes. 
 
 %------------------------------------------------
 \section{Project timeline}
-Include Gantt chart for project progress
+Include Gantt chart for project progress - needs discussion...
 
 %------------------------------------------------
 \bibliographystyle{leedsHarvard}
