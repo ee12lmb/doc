@@ -14,7 +14,7 @@
 \usepackage{titlesec}
 \titleformat{\chapter}[display]
   {\normalfont\bfseries\vspace{-2cm}}{}{0pt}{\Huge}
-\setcounter{secnumdepth}{1}
+\setcounter{secnumdepth}{2}
 
 % font
 \usepackage{charter}    
@@ -37,8 +37,8 @@
 \numberwithin{equation}{chapter}
 
 % title etc
-\title{The M-index: A useful metric for rock deformation?}
-\author{Lewis Bailey}
+\title{\textbf{The M-index: A useful metric for rock deformation?}}
+\author{Student: Lewis Bailey\\Student number: 200695089\\Supervisor: Dr Andrew Walker}
 \date{}
 
 
@@ -47,6 +47,8 @@
 \maketitle
 
 \tableofcontents
+
+\listoffigures
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -61,6 +63,8 @@
 %---------------------------------------------------------------------------
 \section{Motivation} \label{sec:motivation}
 %---------------------------------------------------------------------------
+\cite{Tommasi2000} mentions difficulty of measuring strain - make sure to read to end as there is a section on mantle anisotropy.
+
 
 %---------------------------------------------------------------------------
 \section{Aims and objectives} \label{sec:aims+objs}
@@ -106,7 +110,7 @@ The orientation $g$ can be described in a number of ways. The principal method I
 \begin{figure}[h!]
   \centering
     \includegraphics[width=0.6\textwidth]{euler_angles}
-  \caption{Example of how the coordinate system of a sheet sample (here the $Z$ axis is in the normal direction ND and the $X$ axis is in the rolling direction RD) can be translated to that of the crystal coordinate system through three rotations $\varphi_1,\Phi,\varphi_2$. From \cite{Randle2000}.}
+  \caption[Euler angle description]{Example of how the coordinate system of a sheet sample (here the $Z$ axis is in the normal direction ND and the $X$ axis is in the rolling direction RD) can be translated to that of the crystal coordinate system through three rotations $\varphi_1,\Phi,\varphi_2$. From \cite{Randle2000}.}
   \label{fig:euler_angles}
 \end{figure}
 
@@ -160,7 +164,7 @@ In addition to Euler angles and rotation matrices, another method for describing
 \begin{figure}[h!]
   \centering
     \includegraphics[width=0.6\textwidth]{pole_figure}
-  \caption{Orientation of the basal (0001) plane in a hexagonal crystal. Projecting the orientation on the reference sphere requires two angles, $\alpha$ and $\beta$. In this example, the crystal still has freedom to rotate about the 0001 axis, so more information is required (the $\mathit{10\overline{1}0}$ pole) to describe the orientation in three dimensions. From \cite{Randle2000}.}
+  \caption[Pole figure visualisation]{Orientation of the basal (0001) plane in a hexagonal crystal. Projecting the orientation on the reference sphere requires two angles, $\alpha$ and $\beta$. In this example, the crystal still has freedom to rotate about the 0001 axis, so more information is required (the $\mathit{10\overline{1}0}$ pole) to describe the orientation in three dimensions. From \cite{Randle2000}.}
   \label{fig:spherical_orientation}
 \end{figure}
 
@@ -175,7 +179,7 @@ In order to represent this three dimensional orientation in two dimensions, thes
 \begin{figure}[h]
   \centering
     \includegraphics[width=0.85\textwidth,trim={3.2cm 10cm 0 0},clip]{poles_olivine_example}
-  \caption{Example of pole figures for a modelled olivine sample. The Miller indices are displayed above the the lower hemisphere projections.}
+  \caption[Pole figure olivine example]{Example of pole figures for a modelled olivine sample. The Miller indices are displayed above the the lower hemisphere projections.}
   \label{fig:pole_olivine_example}
 \end{figure}
 
@@ -292,17 +296,27 @@ M \equiv \sum_{i=1}^n | f_i^M - f_i^R | \cdot \frac{\theta_{max}}{2n}\ ,
 \end{equation} 
 where the calculation is now for $n$ bins and $\theta_{max}$ is the maximum theoretical misorientation angle for the specific crystal symmetry. The factor of a half is for convenience to give the range $0 \leq M \leq 1$. 
 
+\textbf{GO OVER THIS SECTION AND ADD DETAIL/CRITICISM FROM THE LITERATURE}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Method}
+\chapter{Methods}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %---------------------------------------------------------------------------
 \section{Data collection}
 %---------------------------------------------------------------------------
+The data in this project come from two sources; 1) numerical models of deformed polycrystalline aggregates and 2) direct texture measurements from physical specimens using electron backscatter diffraction. 
 
 \subsection{VPSC modelling}
+Viscoplastic self-consistent (VPSC) numerical modelling of LPO \citep{Molinari1987,Lebensohn1993} provides a very versatile dataset of textures to analyse. Using this technique, orientation data can be generated for a polycrystalline material with an entirely random texture, composed of crystals of a specified symmetry. This random texture can then be deformed in a number of ways (simple shear, axial compression etc.), the output of which is the set of Euler angles that describes the orientation of individual grains at time-steps throughout this designated deformation sequence (MAYBE FIG HERE?). Although a number of approaches exist to model polycrystalline deformation such as equilibrium based, purely kinematic or isotropic methods, VPSC is often used because of its robust physical assumptions and relatively quick computation \citep[][and references therein]{Tommasi2000}. 
+
+Some key aspects that differentiate VPSC from other modelling regimes is that it accounts for plastic anisotropy (of both grain and matrix) as well as grain shape effects \citep[as introduced by][]{Lebensohn1993}. It differs from equilibrium based methods as microscopic stress and strain (i.e. for each grain) can vary, provided equilibrium is maintained at macroscopic scale \citep{Tommasi2000}. Effects of nearest neighbour interaction are not taken into account \citep[see][for details]{Castelnau1996}.
+
+VPSC models were run by Dr Andrew Walker (University of Leeds) to provide a range of datasets as outlined in table REF
+
+MAYBE HAVE TABLE HERE OF ALL VPSC DATASETS USED
 
 \subsection{Electron backscatter diffraction}
 
