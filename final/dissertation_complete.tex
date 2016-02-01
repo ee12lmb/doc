@@ -1,0 +1,353 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage[left=1.7cm,right=1.7cm,bottom=2cm,top=2cm]{geometry}
+
+% Page and title setup
+\usepackage{setspace}
+\setstretch{1.5}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[CO,CE]{\leftmark}
+\fancyhead[LO,LE]{SOEE3058}
+\fancyhead[RE,RO]{200695089}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries\vspace{-2cm}}{}{0pt}{\Huge}
+\setcounter{secnumdepth}{1}
+
+% font
+\usepackage{charter}    
+
+% references
+\usepackage{natbib} 
+\bibliographystyle{leedsHarvard}  
+  
+% graphics and figures
+\usepackage[font=it]{caption}
+\usepackage{chngcntr}
+\counterwithin{figure}{chapter}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\graphicspath{{/nfs/see-fs-01_teaching/ee12lmb/project/doc/figures/}}
+
+% equations
+\usepackage{mathtools}  
+\numberwithin{equation}{chapter}
+
+% title etc
+\title{The M-index: A useful metric for rock deformation?}
+\author{Lewis Bailey}
+\date{}
+
+
+\begin{document}
+% -----------    D o c u m e n t     ------------
+\maketitle
+
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Introduction} \label{chap:intro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%---------------------------------------------------------------------------
+\section{Executive Summary} \label{sec:summary}
+%---------------------------------------------------------------------------
+
+%---------------------------------------------------------------------------
+\section{Motivation} \label{sec:motivation}
+%---------------------------------------------------------------------------
+
+%---------------------------------------------------------------------------
+\section{Aims and objectives} \label{sec:aims+objs}
+%---------------------------------------------------------------------------
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Theory} \label{chap:theory}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%---------------------------------------------------------------------------
+\section{Textures in rocks} 
+%---------------------------------------------------------------------------
+
+%---------------------------------------------------------------------------
+\section{Describing orientations} \label{sec:orientations}
+%---------------------------------------------------------------------------
+\emph{NB: The material in this section is covered by a number of textbooks on texture analysis, namely \cite{bunge1982texture} and \cite{Randle2000}}.
+
+
+
+
+\subsection{Coordinate systems \& orientations} \label{subsec:coordinates}
+The key principal behind describing the texture of a polycrystalline material is to be able to describe the orientations of the individual grains within it. In order to accomplish this two coordinates systems must be defined---one for the sample as a whole $(C_S)$ and one for any individual crystal within the sample $(C_C)$. Both systems should be Cartesian, with the directions of the axes usually chosen to best represent the important surfaces or directions within the sample to be studied. Once these two coordinate systems have been established, an orientation $(g)$ can then be defined to be a rotation that maps one coordinate system on to the other such that;
+
+
+
+\begin{equation}
+C_C\ =\ g \cdot C_S\ ,
+\end{equation}  
+\\
+where in this case, the sample coordinate system is rotated to that of the crystal.
+
+
+
+
+The orientation $g$ can be described in a number of ways. The principal method I will use is through \emph{Euler angles}. A set of Euler angles defines three rotations that transform the sample coordinate system onto the crystal coordinate system and so therefore specify an orientation. I will be using the conventions of \cite{bunge1982texture} such that the three rotation that make up the orientation are defined as $g = \{\varphi_1,\Phi,\varphi_2\}$. The angle $\varphi_1$ is the first rotation about the $Z$ axis, followed by a rotation $\Phi$ about the $X'$ axis in its new orientation, and finally $\varphi_2$ about the $Z''$ axis, in its final orientation (figure \ref{fig:euler_angles}). The order of these rotations is not interchangeable.
+
+
+
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.6\textwidth]{euler_angles}
+  \caption{Example of how the coordinate system of a sheet sample (here the $Z$ axis is in the normal direction ND and the $X$ axis is in the rolling direction RD) can be translated to that of the crystal coordinate system through three rotations $\varphi_1,\Phi,\varphi_2$. From \cite{Randle2000}.}
+  \label{fig:euler_angles}
+\end{figure}
+
+Having established a method to describe an orientation (i.e. the rotation that maps sample to crystal coordinate systems or vice versa), so too can it describe a misorientation. A misorientation is defined as the rotation that maps one crystal's coordinate system onto another crystal's, rather than to the sample coordinate system (REF). This can be described for two orientations, $g_1$ and $g_2$ such that the misorientation between them $\tilde{g}$ is;
+
+\begin{equation}
+\tilde{g} = g_1^{-1}g_2\ .
+\end{equation} 
+
+This notation for the misorientation becomes clearer with the introduction of an \emph{orientation matrix}. This is a nine element square rotation matrix constructed in the following way. Consider a crystal coordinate system $C_c = \{X_c,Y_c,Z_c\}$ and a sample coordinate system $C_s = \{X_s,Y_s,Z_s\}$. Then define angles between axes as follows;
+
+\begin{table}[h!]
+    \centering
+	\begin{tabular}{c | c c c}
+
+	  & $X_s$      & $Y_s$      & $Z_s$ \\
+\hline
+$X_c$ & $\alpha_1$ & $\beta_1$ & $\gamma_1$ \\
+$Y_c$ & $\alpha_2$ & $\beta_2$ & $\gamma_2$ \\
+$Z_c$ & $\alpha_3$ & $\beta_3$ & $\gamma_3$ \\
+
+	\end{tabular}
+\end{table}
+\noindent
+and so construct the matrix;
+
+\begin{equation}
+g = 
+\begin{pmatrix}
+g_{11} & g_{12} & g_{13} \\
+g_{21} & g_{22} & g_{23} \\
+g_{31} & g_{32} & g_{33} \\
+\end{pmatrix}
+= 
+\begin{pmatrix}
+cos \alpha_1 & cos \beta_1 & cos \gamma_1 \\
+cos \alpha_2 & cos \beta_2 & cos \gamma_2 \\
+cos \alpha_3 & cos \beta_3 & cos \gamma_3 \\
+\end{pmatrix}\ .
+\end{equation}
+\\
+This matrix is a useful tool in describing rotation and symmetry operations. Due to orthogonality $g^{-1} = g^T$. 
+
+
+
+In addition to Euler angles and rotation matrices, another method for describing the orientation of a crystal, or indeed any number of crystals, in a sample is through the use of \emph{pole figures}. An orientation of an arbitrary crystal face (chosen to best represent the crystal structure) can be described by a vector normal to its surface. This vector, or pole, then corresponds to a point on a unit reference sphere with radius of 1 centred on the crystal (figure \ref{fig:spherical_orientation}). The reference sphere is attached to the sample coordinate system, allowing two angles (the azimuth $\alpha$ and the rotation around the pole axis $\beta$) to represent the orientation of the crystal with respect to that frame.  
+
+
+
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=0.6\textwidth]{pole_figure}
+  \caption{Orientation of the basal (0001) plane in a hexagonal crystal. Projecting the orientation on the reference sphere requires two angles, $\alpha$ and $\beta$. In this example, the crystal still has freedom to rotate about the 0001 axis, so more information is required (the $\mathit{10\overline{1}0}$ pole) to describe the orientation in three dimensions. From \cite{Randle2000}.}
+  \label{fig:spherical_orientation}
+\end{figure}
+
+
+
+
+In order to represent this three dimensional orientation in two dimensions, these poles must be projected onto a two-dimensional plane --- this is done using either stereographic or equal-area projection (the latter most common in geology). By choosing an axis of the sample coordinate system to be the north pole (typically $Z$) so that $\alpha = 0^\circ$ requires the normal of the plane in question to be parallel to that axis. The poles can then be projected as in figure \ref{fig:pole_olivine_example}, which shows an example of pole figures for a simulated olivine sample. Here the density of poles is plotted as a colour intensity. The Miller indicies above the figures show which crystal axes are being considered for each relevant pole figure. In the case of olivine and its cubic crystal shape, the poles of three crystal faces are needed to unambiguously describe its orientation. Any less than this and the crystal has a degree of freedom to rotate about the relevant axes, as in Figure \ref{fig:spherical_orientation}. 
+
+
+
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.85\textwidth,trim={3.2cm 10cm 0 0},clip]{poles_olivine_example}
+  \caption{Example of pole figures for a modelled olivine sample. The Miller indices are displayed above the the lower hemisphere projections.}
+  \label{fig:pole_olivine_example}
+\end{figure}
+
+
+
+
+A pole figure represents the orientation of the crystal coordinate system in the sample coordinate system, but the opposite can also be useful, this is known as the inverse pole figure. In addition to pole figures, other methods of describing orientations exist such as rotation matrices \citep{bunge1982texture,Randle2000} and quaternions \citep{Quaternions}. However these are beyond the scope of this project. 
+
+
+
+
+\subsection{Orientation distribution functions} \label{subsec:ODFs}
+In order to perform quantitative analysis of a three dimensional texture in a sample, a two-dimensional pole figure does not contain enough information---a three-dimensional \emph{orientation distribution function} (ODF) is required. Unlike pole figures, ODFs cannot be measured experimentally, they must be calculated from pole figure data. Recalling that a pole direction can be defined by two angles $\alpha$ and $\beta$ in a pole figure $P_h(y)$, this then corresponds to a region in the ODF which contains all the rotations $\gamma$ about this direction $y$. This results in the following equation; 
+
+
+
+
+\begin{equation} \label{eq:pole_figures}
+P_h(y) = \frac{1}{2\pi} \cdot \int_{0}^{2\pi}f(g)\ \mathrm{d}\gamma;\ ,
+\end{equation}
+\\
+where $f(g)$ is the ODF, with $g = \{\varphi_1,\Phi,\varphi_2\}$. In a similar way an inverse pole figure equation can also be derived. As pole figures are two-dimensional projections, multiple pole figures are needed in order to unambiguously describe the three-dimensional ODF.
+
+
+
+Solving this equation is known as pole figure inversion, for which no analytic solution exists. One method for approximating the ODF is through spherical harmonic series expansion, such that;
+
+
+
+
+\begin{equation} \label{eq:series_exp}
+f(g) = \sum_{l=0}^{l_{max}} \sum_{m=-l}^l \sum_{n=-l}^l C_l^{mn} T_l^{mn} (g) \ ,
+\end{equation}
+\\
+where $T_l^{mn}$ are spherical harmonic functions and $C_l^{mn}$ are expansion coefficients to be determined. Full description of this method \citep[][for detailed description]{bunge1982texture} and other, more direct methods \citep{Randle2000} is beyond the scope of this project.
+
+
+
+Pole figure inversion deals with the practicality of obtaining an ODF from experimental pole figure data. However, \cite{bunge1982texture} offers a more intuitive description. Consider $\mathrm{d}V$ to be the volume of all crystals with orientation $g = \{\varphi_1,\Phi,\varphi_2\}$ within the infinitesimal volume element $\mathrm{d}g$ (in Euler space). It follows that;
+
+
+
+
+\begin{equation}
+\frac{\mathrm{d}V(g)}{V} = f(g)\ \mathrm{d}g\ ,
+\end{equation}
+\\
+where $f(g)$ is the ODF, and $V$ is the total sample volume. \cite{Mainprice} state that a \emph{Mis}orientation Distribution Function (MDF) can be defined for a misorientation $\tilde{g}$ in a similar way;
+
+
+
+
+\begin{equation}
+\frac{\mathrm{d}V(\tilde{g})}{V} = f_{MDF}(\tilde{g})\ \mathrm{d}\tilde{g}\ ,
+\end{equation}
+\\
+where $\mathrm{d}V(\tilde{g})/V$ is now the fraction of misorientations in the sample.
+
+
+%---------------------------------------------------------------------------
+\section{Texture indices} \label{sec:indicies}
+%---------------------------------------------------------------------------
+
+\subsection{J-index} \label{subsec:j-index}
+Having established a mathematical way of describing the orientations of grains within a sample (the ODF/MDF, herein referred to indiscriminately as the texture function), the next step is to find a method of quantising the \lq{}sharpness\rq{} or strength of a texture. One of the longest standing indicies is the $J$ index, as described by \cite{bunge1982texture}, to be the integral of the square of the texture function,
+
+
+
+
+\begin{equation}
+J = \int [ f(g) ]^2\ \mathrm{d}g \ ,
+\end{equation} 
+\\
+where the infinitesimal volume element in Euler angle space $\mathrm{d}g$ is given by,
+
+
+
+
+\begin{equation}
+\mathrm{d}g = \frac{1}{8\pi^2} \sin\Phi\ \mathrm{d}\Phi\ \mathrm{d}\varphi_1\ \mathrm{d}\varphi_2\ .
+\end{equation} 
+\\
+This definition is true for both $f_{ODF}$ and $f_{MDF}$, the difference only being the definition of $g$ (section \ref{subsec:coordinates}). By substituting the series expansion for the ODF (eq. \ref{eq:series_exp})  and normalising, \cite{bunge1982texture} was able to determine that for a random texture $J_r = 1$. In addition, if the sample is a perfect single crystal, then the texture changes at only one point $g = g_0$, which results in $J_{ideal} \to \infty$, leading to,
+
+
+
+
+\begin{equation}
+1 \leq J_{ODF} \leq \infty\ .
+\end{equation}
+\\
+$J_{MDF}$ will not tend to $\infty$ but rather a maximum value. Due to this index involving the square of $f(g)$, \cite{Mainprice} point out that this type of functional is called the $\mathrm{L^2}$-norm. 
+
+In a nearly identical way, and by recalling the definition of pole figures (eq. \ref{eq:pole_figures}) the $J$ index can be defined as,
+ 
+\begin{equation}
+J_{P_h(y)} = \frac{1}{4\pi} \int [ P_{h}(y) ]^2\ dy\ ,
+\end{equation}
+\\
+with the same holding true for inverse pole figures. By substituting in the series expansion for pole figures and through an integral calculus theorem \citep[p.90]{bunge1982texture} it can be shown that $J_{P_h(y)} \leq J$. This inequality makes sense physically in that the strength of texture in a pole figure cannot be greater than the strength of a texture as a whole, and can take a maximum value when the pole is aligned with the direction of the maximum texture. 
+
+
+\subsection{M-index} \label{subsec:Mindex}
+A more empirical method to quantify texture strength is the M-index. Defined by \cite{Skemer}, the method is based on the difference between a measured misorientation angle distribution $(f^M)$ and a random theoretic distribution $(f^R)$ (based on the sample crystal symmetry). In terms of continuous distribution functions, the index is;
+
+\begin{equation} \label{eq:Mindex_cont}
+M \equiv \frac{1}{2} \int | f^M(\theta) - f^R(\theta) |\ \mathrm{d}\theta \ .
+\end{equation}  
+\\   
+However, for practical calculation it is easier to define it as;
+
+\begin{equation}
+M \equiv \sum_{i=1}^n | f_i^M - f_i^R | \cdot \frac{\theta_{max}}{2n}\ ,
+\end{equation} 
+where the calculation is now for $n$ bins and $\theta_{max}$ is the maximum theoretical misorientation angle for the specific crystal symmetry. The factor of a half is for convenience to give the range $0 \leq M \leq 1$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Method}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%---------------------------------------------------------------------------
+\section{Data collection}
+%---------------------------------------------------------------------------
+
+\subsection{VPSC modelling}
+
+\subsection{Electron backscatter diffraction}
+
+
+%---------------------------------------------------------------------------
+\section{Implementation}
+%---------------------------------------------------------------------------
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Analysis}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%---------------------------------------------------------------------------
+\section{Index robustness}
+%---------------------------------------------------------------------------
+
+%---------------------------------------------------------------------------
+\section{Proxy for strain}
+%---------------------------------------------------------------------------
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Discussion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Conclusion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Appendix}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliographystyle{leedsHarvard}
+\bibliography{../dissertation}
+\end{document}
