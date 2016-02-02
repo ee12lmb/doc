@@ -13,7 +13,7 @@
 \renewcommand{\footrulewidth}{0.4pt}
 \usepackage{titlesec}
 \titleformat{\chapter}[display]
-  {\normalfont\bfseries\vspace{-2cm}}{}{0pt}{\Huge}
+  {\normalfont\bfseries\vspace{-4cm}}{}{0pt}{\Huge}
 \setcounter{secnumdepth}{2}
 
 % font
@@ -22,6 +22,7 @@
 % references
 \usepackage{natbib} 
 \bibliographystyle{leedsHarvard}  
+\renewcommand\bibname{References}
   
 % graphics and figures
 \usepackage[font=it]{caption}
@@ -314,12 +315,14 @@ Viscoplastic self-consistent (VPSC) numerical modelling of LPO \citep{Molinari19
 
 Some key aspects that differentiate VPSC from other modelling regimes is that it accounts for plastic anisotropy (of both grain and matrix) as well as grain shape effects \citep[as introduced by][]{Lebensohn1993}. It differs from equilibrium based methods as microscopic stress and strain (i.e. for each grain) can vary, provided equilibrium is maintained at macroscopic scale \citep{Tommasi2000}. Effects of nearest neighbour interaction are not taken into account \citep[see][for details]{Castelnau1996}.
 
-VPSC models were run by Dr Andrew Walker (University of Leeds) to provide a range of datasets as outlined in table REF
+VPSC models were run by Dr Andrew Walker (University of Leeds) to provide a range of datasets as outlined in table \textbf{REF}. The output data file contains information such as the number of grains in the simulation and Euler angles for each grain, as well as the strain at each time step. This is the most useful aspect of VPSC modelling, as strain is always known accurately, which is often not the case for physical samples.
 
 MAYBE HAVE TABLE HERE OF ALL VPSC DATASETS USED
 
 \subsection{Electron backscatter diffraction}
+X-ray techniques have long been used to study various properties of crystals and polycrystalline materials. A number of methods have arisen to determine crystal orientation data using a scanning electron microscope (SEM), including electron channeling patterns and X-ray Kossel-line techniques. However, these have been generally surpassed by electron backscatter diffraction \citep[EBSD, EBS patterns or backscatter Kikuchi diffraction,][]{Harland1973}.  In essence, an electron beam is fired at a steeply tilted crystalline sample (to decrease path length for backscattered electrons), which produces distinctive backscatter Kikuchi patterns. These patterns are captured by a phosphor screen and digitised by a camera, and can then be analysed by software to determine orientation information from their geometry  \citep{Zaefferer2007}. By moving the stationary beam over the sample, the orientation information of all grains can be determined. \cite{Prior1999} offer a thorough description of the EBSD technique, specifically it use for rock texture, e.g. sample preparation. Further discussion of the technique is beyond the scope of this project \citep[see][]{Schwarzer1997,Randle2000}.    
 
+Orientation data for a number of datasets was measured using EBSD... \textbf{discuss the actual sample sets used here - need to talk to Andrew.}    
 
 %---------------------------------------------------------------------------
 \section{Implementation}
@@ -362,6 +365,8 @@ MAYBE HAVE TABLE HERE OF ALL VPSC DATASETS USED
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{leedsHarvard}
 \bibliography{../dissertation}
 \end{document}
