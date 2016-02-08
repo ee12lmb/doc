@@ -1,5 +1,5 @@
 \documentclass[a4paper,12pt]{report}
-\usepackage[left=1.7cm,right=1.7cm,bottom=2cm,top=2cm]{geometry}
+\usepackage[left=2.5cm,right=1.7cm,bottom=2cm,top=2cm]{geometry}
 
 % Page and title setup
 \usepackage{setspace}
@@ -13,7 +13,7 @@
 \renewcommand{\footrulewidth}{0.4pt}
 \usepackage{titlesec}
 \titleformat{\chapter}[display]
-  {\normalfont\bfseries\vspace{-4cm}}{}{0pt}{\Huge}
+  {\normalfont\bfseries\vspace{-4.0cm}}{}{0pt}{\Huge}
 \setcounter{secnumdepth}{2}
 
 % font
@@ -32,6 +32,7 @@
 \usepackage{wrapfig}
 \usepackage{graphicx}
 \graphicspath{{/nfs/see-fs-01_teaching/ee12lmb/project/doc/figures/}}
+\usepackage{tabularx}
 
 % equations
 \usepackage{mathtools}  
@@ -54,6 +55,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Introduction} \label{chap:intro}
+\vspace{-1cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -64,7 +66,16 @@
 %---------------------------------------------------------------------------
 \section{Motivation} \label{sec:motivation}
 %---------------------------------------------------------------------------
-\cite{Tommasi2000} mentions difficulty of measuring strain - make sure to read to end as there is a section on mantle anisotropy.
+The study of textures and their strength has a number of applications in both industry and academia. Textures, or lattice preferred orientations (LPO) arise in rocks that have undergone ductile deformation. The properties of this LPO are dependant on the strain history, and in general increased strain leads to a \lq{}stronger\rq{} LPO \textbf{REF?}. If LPO strength can be quantified by a texture index, and this index can be reliably related to strain, then it could prove a useful tool in determining strain in situations where it is impossible to measure though conventional means.
+
+This is especially applicable to mantle studies. Relating the formation and strength of textures in peridotites to shear strain is important, as this gives insight into how deformation mechanisms lead to seismic anisotropy \citep{Warren2008}. Understanding these processes is key in determining upper mantle convection through seismic anisotropy studies \citep[e.g.][]{Blackman2002}. A metric that can act as a proxy for texture strength would be beneficial to mantle studies, as most peridotites lack strain markers \citep{Tommasi2000}.
+
+In addition to estimating strain from samples, texture indices could also offer a method of indirectly determining strain and other properties of textures via seismology. \cite{Tommasi1999} study ... other regions e.g. \cite{Wenk1999}   
+
+Aside from these general applications, a more direct motivation arises from \cite{Skemer}. After introducing their metric (the M-index) and applying it to olivine, they state that \lq\lq{}further research is necessary to confirm the M-index's validity or practicality for other materials\rq\rq{}, which gives clear scope for a project to investigate this. In order to confirm its validity, it is also necessary to compare the M-index with a number of other metrics in a similar fashion to \cite{Mainprice}, but with greater detail and for a number of crystal structures. This leads to the main aims and objectives of this study.   
+
+
+
 
 
 %---------------------------------------------------------------------------
@@ -74,8 +85,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Theory} \label{chap:theory}
+\vspace{-1cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The following sections aim to give enough theoretical knowledge of textures and the methods of compute texture strength, to allow understanding of the implementation and analysis that follows.
+
 
 %---------------------------------------------------------------------------
 \section{Textures in rocks} 
@@ -243,9 +257,10 @@ where $\mathrm{d}V(\tilde{g})/V$ is now the fraction of misorientations in the s
 %---------------------------------------------------------------------------
 \section{Texture indices} \label{sec:indicies}
 %---------------------------------------------------------------------------
+Having established a mathematical way of describing the orientations of grains within a sample (the ODF/MDF, herein referred to indiscriminately as the texture function), the next step is to find a method of quantising the \lq{}sharpness\rq{} or strength of a texture.
 
 \subsection{J-index} \label{subsec:j-index}
-Having established a mathematical way of describing the orientations of grains within a sample (the ODF/MDF, herein referred to indiscriminately as the texture function), the next step is to find a method of quantising the \lq{}sharpness\rq{} or strength of a texture. One of the longest standing indicies is the $J$ index, as described by \cite{bunge1982texture}, to be the integral of the square of the texture function,
+ One of the longest standing indicies is the $J$ index, as described by \cite{bunge1982texture}, to be the integral of the square of the texture function,
 
 
 
@@ -302,8 +317,11 @@ where the calculation is now for $n$ bins and $\theta_{max}$ is the maximum theo
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Methods}
+\vspace{-1cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Now that the necessary theory has been established, the following sections provide a description of how the indices have been implemented. However, to understand the implementation it is important to first introduce the datasets from which the indices will be calculated.  
 
 %---------------------------------------------------------------------------
 \section{Data collection}
@@ -315,12 +333,26 @@ Viscoplastic self-consistent (VPSC) numerical modelling of LPO \citep{Molinari19
 
 Some key aspects that differentiate VPSC from other modelling regimes is that it accounts for plastic anisotropy (of both grain and matrix) as well as grain shape effects \citep[as introduced by][]{Lebensohn1993}. It differs from equilibrium based methods as microscopic stress and strain (i.e. for each grain) can vary, provided equilibrium is maintained at macroscopic scale \citep{Tommasi2000}. Effects of nearest neighbour interaction are not taken into account \citep[see][for details]{Castelnau1996}.
 
-VPSC models were run by Dr Andrew Walker (University of Leeds) to provide a range of datasets as outlined in table \textbf{REF}. The output data file contains information such as the number of grains in the simulation and Euler angles for each grain, as well as the strain at each time step. This is the most useful aspect of VPSC modelling, as strain is always known accurately, which is often not the case for physical samples.
+VPSC models were run by Dr Andrew Walker (University of Leeds) to provide a range of datasets as outlined in table \textbf{REF}. The output data file contains information such as the number of grains in the simulation and Euler angles for each grain, as well as the strain at each time step. This is the most useful aspect of VPSC modelling, as strain is always known accurately, which is often not the case for physical samples. However, one drawback is that as with any model, there will be elements of reality that are not accounted for and as such physical datasets are required for this project.
 
-MAYBE HAVE TABLE HERE OF ALL VPSC DATASETS USED
+\begin{table}
+	\centering
+	\caption[VPSC datasets]{Details of all datasets created using VPSC modelling. VPSC models ran by Dr Andrew Walker (University of Leeds).\\}
+\begin{tabularx}{\textwidth}{X X X X}
+	\hline
+	\hline
+	Crystal Type    & Deformation Type  & No. Grains & Name on disk \\
+	\hline
+	\hline
+	Olivine         & Axial Compression & 200        & blablabla    \\
+	Olivine         & Simple Shear      & 10,000     & blablabla    \\
+	Post-perovskite & Simple Shear      & 203,102    & blablabla    \\
+	\hline
+	\end{tabularx}
+\end{table}
 
 \subsection{Electron backscatter diffraction}
-X-ray techniques have long been used to study various properties of crystals and polycrystalline materials. A number of methods have arisen to determine crystal orientation data using a scanning electron microscope (SEM), including electron channeling patterns and X-ray Kossel-line techniques. However, these have been generally surpassed by electron backscatter diffraction \citep[EBSD, EBS patterns or backscatter Kikuchi diffraction,][]{Harland1973}.  In essence, an electron beam is fired at a steeply tilted crystalline sample (to decrease path length for backscattered electrons), which produces distinctive backscatter Kikuchi patterns. These patterns are captured by a phosphor screen and digitised by a camera, and can then be analysed by software to determine orientation information from their geometry  \citep{Zaefferer2007}. By moving the stationary beam over the sample, the orientation information of all grains can be determined. \cite{Prior1999} offer a thorough description of the EBSD technique, specifically it use for rock texture, e.g. sample preparation. Further discussion of the technique is beyond the scope of this project \citep[see][]{Schwarzer1997,Randle2000}.    
+X-ray techniques have long been used to study various properties of crystals and polycrystalline materials. A number of methods have arisen to determine crystal orientation data using a scanning electron microscope (SEM), including electron channeling patterns and X-ray Kossel-line techniques. However, these have been generally surpassed by electron backscatter diffraction \citep[EBSD or backscatter Kikuchi diffraction,][]{Harland1973}.  In essence, an electron beam is fired at a steeply tilted crystalline sample (to decrease path length for backscattered electrons), which produces distinctive backscatter Kikuchi patterns. These patterns are captured by a phosphor screen and digitised by a camera, and can then be analysed by software to determine crystal orientation information from their geometry  \citep{Zaefferer2007}. By moving the stationary beam over the sample, the orientation information of all grains can be determined. \cite{Prior1999} offer a thorough description of the EBSD technique, specifically it use for rock texture, e.g. sample preparation. Further discussion of the technique is beyond the scope of this project \citep[see][]{Schwarzer1997,Randle2000}.    
 
 Orientation data for a number of datasets was measured using EBSD... \textbf{discuss the actual sample sets used here - need to talk to Andrew.}    
 
@@ -332,6 +364,7 @@ Orientation data for a number of datasets was measured using EBSD... \textbf{dis
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Analysis}
+\vspace{-1cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -346,6 +379,7 @@ Orientation data for a number of datasets was measured using EBSD... \textbf{dis
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Discussion}
+\vspace{-1cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -354,6 +388,7 @@ Orientation data for a number of datasets was measured using EBSD... \textbf{dis
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Conclusion}
+\vspace{-1cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -362,6 +397,7 @@ Orientation data for a number of datasets was measured using EBSD... \textbf{dis
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Appendix}
+\vspace{-1cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
