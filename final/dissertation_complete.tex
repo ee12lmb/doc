@@ -33,6 +33,29 @@
 \usepackage{graphicx}
 \graphicspath{{/nfs/see-fs-01_teaching/ee12lmb/project/doc/figures/}}
 \usepackage{tabularx}
+\usepackage{tabulary}
+\setlength\extrarowheight{10pt}
+
+% program listings
+\usepackage{float}
+\newfloat{program}{thpb}{lop}
+\floatname{program}{Listing}
+
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\usepackage{listings}
+\lstset{language=Matlab,basicstyle=\small,keywordstyle=\color{black}\bfseri
+es\underbar,
+%identifierstyle=\color{red},
+stringstyle=\ttfamily,
+showstringspaces=false,
+numbers=left, stepnumber=1,numberstyle=\tiny\color{gray},
+keywordstyle=\color{blue},
+commentstyle=\color{dkgreen},
+stringstyle=\color{mauve},
+morekeywords={m_indexDisc,m_indexCont,j_index}}
 
 % equations
 \usepackage{mathtools}  
@@ -88,7 +111,7 @@ Aside from these general applications, a more direct motivation arises from \cit
 \vspace{-1cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The following sections aim to give enough theoretical knowledge of textures and the methods of compute texture strength, to allow understanding of the implementation and analysis that follows.
+The following sections aim to give enough theoretical knowledge of textures and the methods of computing texture strength, to allow understanding of the implementation and analysis that follows.
 
 
 %---------------------------------------------------------------------------
@@ -341,7 +364,7 @@ VPSC models were run by Dr Andrew Walker (University of Leeds) to provide a rang
 \begin{tabularx}{\textwidth}{X X X X}
 	\hline
 	\hline
-	Crystal Type    & Deformation Type  & No. Grains & Name on disk \\
+	Crystal Type    & Deformation Type  & No. Grains & Name on Disk \\
 	\hline
 	\hline
 	Olivine         & Axial Compression & 200        & blablabla    \\
@@ -359,7 +382,87 @@ Orientation data for a number of datasets was measured using EBSD... \textbf{dis
 %---------------------------------------------------------------------------
 \section{Implementation}
 %---------------------------------------------------------------------------
+The following section provides a general overview as to how these data sources are combined with the theory outlined in chapter \ref{chap:theory} to calculate the texture indices. The two forms of data presented the first challenge, as they needed to be read in and converted to a consistent format. A number of functions were written to extract Euler angles (and other metadata) from both VPSC (edited from original code by Dr Andrew Walker - University of Leeds) and EBSD output files (using some code from *REF*) and store them in identical arrays in \texttt{Matlab} for further processing (first part of table \ref{tab:functions}). Having achieved this, relevant functions were then written to calculate the various indices from these lists of Euler angles describing the orientations of each grain in the sample (with other relevant information such as crystal symmetry). All index functions have similar syntax in their use as demonstrated in listing \ref{lst:calcIndices}, which shows function calls to calculate a number of indices for a VPSC input file within the \texttt{Matlab} environment. Although all functions (see table \ref{tab:functions}) can be used in \texttt{Matlab}, in practice most analysis was carried out in shell scripts to allow efficient batch running with many different inputs.   
 
+
+\begin{program}[htbp] 
+   \centering
+   \begin{lstlisting}
+% initialise MTEX and add paths to relevant functions
+setup_env;   
+   
+% store file path to VPSC data
+VPSC = '~/project/data/olivine_axial_compress_VPSC_big/TEX_PH1.OUT';
+
+% call discrete M-index function and output to file
+[ m_disc , strain ] = m_indexDisc(VPSC,1000,1,'crystal','olivine',...
+                                'bin',1,'outfile','~/m_disc.out');
+
+% call continuous M-index function and output to file
+% don't require strain as it was retrieved by previous function
+m_cont = m_indexCont(VPSC,1000,1,'crystal','olivine',...
+                                        'outfile','~/m_cont.out');
+
+% call J-index function and output to file
+j = j_index(VPSC,1000,1,'crystal','olivine','outfile','~/j_ind.out');
+
+
+ \end{lstlisting}
+   \caption{Snippet of code to calculate the discrete M-index, continuous M-index and J-index using a VPSC input data file. All indices are calculated for the same 1000 grains, using olivine symmetry, with the output file names given after the \lq{}outfile\rq{} flag. The discrete M-index is calculated with a bin width of 1$^\circ$.}
+   \label{lst:calcIndices}
+\end{program}
+
+Some elements of the code were optimised when it became apparent that significant computational time was being wasted due to inefficiencies. For example, the time taken to read in a data file using \texttt{read\_{}VPSC} would increase exponentially as more strain steps were added to the VPSC file. Due to the exceptionally large data files (e.g. 10,000 grains per strain increment, with 26 increments gives 260,000 grains total), it was necessary to modify the code so that the read time increased linearly (see ** APPENDIX REF **). 
+
+While developing the software for this project,a number of scientific programming practices were followed --- namely those outlined by \cite{Wilson2014}. For example, extensive documentation is included within the functions themselves, including their usage but also references for relevant theory. In addition, version control software \texttt{Github} was used to track the development and also allow distribution of the code (full \texttt{Matlab} source code available from https://github.com/ee12lmb/matlabSource).
+
+\begin{table}[p!] \label{tab:functions}
+	\centering
+	\caption[VPSC datasets]{List of functions main functions with general descriptions. For more exhaustive documentation see in-function comments/appendices.}
+	\noindent
+\begin{tabularx}{\textwidth}{CX}
+\hline
+\hline
+Function    & Description   \\ 
+\hline
+\hline
+
+\texttt{setup\_{}env} & Function initialises the \texttt{MTEX} package and adds paths to all other functions. Stores a global variable to indicate this has been completed (to prevent this occurring at each separate function call). \\  
+
+\texttt{read\_{}VPSC} & Will extract Euler angles and strain information from VPSC files, if output in Bunge convention. If multiple strain steps are present their information will be stored in a cell array (edited from original code by Dr Andrew Walker). \\ 
+
+\texttt{sample\_{}VPSC} & Loads data using \texttt{read\_{}VPSC} and then returns $n$ randomly sampled grains (without replacement). \\  
+
+\texttt{read\_{}EBSD} & Similar to \texttt{read\_{}VPSC}, but reads in EBSD files (*.ctf format). \\
+
+\texttt{sample\_{}EBSD} & Similal to \texttt{sample\_{}VPSC} but for EBSD files (*.ctf format). \\ 
+\\
+\hline
+\hline
+
+\texttt{j\_{}index}$^{\dagger}$ & Calculates the J-index using elements of the \texttt{MTEX} package. \\ 
+
+\texttt{m\_{}indexCont}$^{\dagger}$ & Calculates the continuous version of the M-index using elements of \texttt{MTEX} package. \\
+
+\texttt{m\_{}indexDisc}$^{\dagger}$ & Calculates the discrete version of the M-index. \\
+
+\texttt{discreteMDF} & Finds the misorientation angle distribution for a given dataset and crystal symmetry. For use in \texttt{m\_{}indexDisc}. \\
+
+\texttt{calDisorientation} & Finds the minimum angle needed to rotate one crystal onto the other, given a crystal symmetry (for use in \texttt{discreteMDF}). \\
+\\
+\hline
+\hline
+
+\texttt{index\_{}repeat}$^{\dagger}$ & Will calculate any of the above indices a number of times (for a specific strain step), using a different seed to resample the data each time (\emph{with} replacement). \\
+
+\texttt{read\_{}texout} & Will read data files output by all \texttt{index} functions. \\
+\hline
+& \footnotesize{$^\dagger$ \textit{Functions can take EBSD or VPSC files as input, and sample $n$ grains randomly without replacement for index calculation.}} \\
+
+\end{tabularx}
+\end{table}
+
+%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -367,6 +470,7 @@ Orientation data for a number of datasets was measured using EBSD... \textbf{dis
 \vspace{-1cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Before presenting the analysis it is worth briefly noting some important aspects of  
 
 %---------------------------------------------------------------------------
 \section{Index robustness}
