@@ -154,7 +154,7 @@ The orientation $g$ can be described in a number of ways. The principal method I
 
 Having established a method to describe an orientation (i.e. the rotation that maps sample to crystal coordinate systems or vice versa), so too can it describe a misorientation. A misorientation is defined as the rotation that maps one crystal's coordinate system onto another crystal's, rather than to the sample coordinate system (REF). This can be described for two orientations, $g_1$ and $g_2$ such that the misorientation between them $\tilde{g}$ is;
 
-\begin{equation}
+\begin{equation} \label{eq:misor_matrix}
 \tilde{g} = g_1^{-1}g_2\ .
 \end{equation} 
 
@@ -330,7 +330,7 @@ M \equiv \frac{1}{2} \int | f^M(\theta) - f^R(\theta) |\ \mathrm{d}\theta \ .
 \\   
 However, for practical calculation it is easier to define it as;
 
-\begin{equation}
+\begin{equation} \label{eq:Mindex_disc}
 M \equiv \sum_{i=1}^n | f_i^M - f_i^R | \cdot \frac{\theta_{max}}{2n}\ ,
 \end{equation} 
 where the calculation is now for $n$ bins and $\theta_{max}$ is the maximum theoretical misorientation angle for the specific crystal symmetry. The factor of a half is for convenience to give the range $0 \leq M \leq 1$. 
@@ -367,9 +367,9 @@ VPSC models were run by Dr Andrew Walker (University of Leeds) to provide a rang
 	Crystal Type    & Deformation Type  & No. Grains & Name on Disk \\
 	\hline
 	\hline
-	Olivine         & Axial Compression & 200        & blablabla    \\
-	Olivine         & Simple Shear      & 10,000     & blablabla    \\
-	Post-perovskite & Simple Shear      & 203,102    & blablabla    \\
+	Olivine         & Axial Compression & 200        & *Needs completing *    \\
+	Olivine         & Simple Shear      & 10,000     & *Needs completing*    \\
+	Post-perovskite & Simple Shear      & 203,102    & *Needs completing*    \\
 	\hline
 	\end{tabularx}
 \end{table}
@@ -415,6 +415,14 @@ j = j_index(VPSC,1000,1,'crystal','olivine','outfile','~/j_ind.out');
 Some elements of the code were optimised when it became apparent that significant computational time was being wasted due to inefficiencies. For example, the time taken to read in a data file using \texttt{read\_{}VPSC} would increase exponentially as more strain steps were added to the VPSC file. Due to the exceptionally large data files (e.g. 10,000 grains per strain increment, with 26 increments gives 260,000 grains total), it was necessary to modify the code so that the read time increased linearly (see ** APPENDIX REF **). 
 
 While developing the software for this project,a number of scientific programming practices were followed --- namely those outlined by \cite{Wilson2014}. For example, extensive documentation is included within the functions themselves, including their usage but also references for relevant theory. In addition, version control software \texttt{Github} was used to track the development and also allow distribution of the code (full \texttt{Matlab} source code available from https://github.com/ee12lmb/matlabSource).
+
+\subsection{J-index \& continuous M-index}
+The majority of the tools required to calculated the J-index and continuous M-index are provided in the \texttt{MTEX} texture toolkit, built for use in \texttt{Matlab} \citep{Mainprice}. I wrote functions to pull together these tools and apply them to a range of inputs, with the ability to sub-sample input textures and specify parameters such as the number of grains used for the calculation. See APPENDIX REF for full listing of both functions, and details of their calculation.
+
+\subsection{Discrete M-index}
+The calculation of the discrete M-index is more involved than the other indices. Recalling the discrete form of the equation \citep[][equation \ref{eq:Mindex_disc}]{Skemer}, in order to calculate the index it is necessary to know the theoretical misorientation angle distribution for a random fabric (composed of crystals of a given symmetry) and that of the sample. The theoretical distribution can be retrieved passing a crystal symmetry to the \texttt{MTEX} function \texttt{calcAngleDistribution}. What is returned is a set of misorientation angles and the corresponding frequency density for each angle (FIG REF - olivine angle distribution). In order to calculate the distribution for the input sample texture, I wrote a function to find the misorientation matrix (equation \ref{eq:misor_matrix}) between every combination of grains in the sample. Each matrix then needs to be multiplied by all the symmetry operators for the given crystal structure in order to find the minimum misorientation angle \citep[sometimes called the disorientation, for details see *APPENDIX REF* and][]{Grimmer1979}. These misorientation angles and frequencies for the theoretical distribution and for that of the sample are then placed into bins of a fixed number of degrees in order to be subtracted. For details of this method and full listings of the relevant functions see (APPENDIX REF).     
+
+
 
 \begin{table}[p!] \label{tab:functions}
 	\centering
@@ -470,12 +478,32 @@ Function    & Description   \\
 \vspace{-1cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Before presenting the analysis it is worth briefly noting some important aspects of  
+
+
 
 %---------------------------------------------------------------------------
 \section{Index robustness}
 %---------------------------------------------------------------------------
+Aside from the strength of the texture in question, there are a number parameters that can affect the calculation of all of the indices presented in this project. The following section aims to analyse exactly how these input parameters can effect the resultant index values, and therefore determine what is necessary to find the \lq{}true\rq{}, or most accurate, index value of a sample. 
 
+One of the first aspects to consider when calculating any texture index is the number of grains that will be used. An index might be considered robust if its value is independent of the number of grains used in the calculation (i.e. an index value calculated using 1,000 grains from a texture would be similar to the same index calculated using 100 grains from the same texture). However, an index will never be completely independent of the number of grains, but would be expected to converge to a certain value past a threshold. Figure \ref{fig:OLV_AXC_n_conv} demonstrates this for a VPSC model of olivine undergoing axial compression. 
+
+    
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=\textwidth]{figs/OLV_AXC_Conv}
+  \caption[Convergence with no. grains (olivine)]{Convergence plots for J-index, continuous M-index and discrete M-index calculated for an olivine VPSC model. The panels show increasing strain steps with (a) 2\%, (b) 16\%,(c) 30\% and (d) 42\% strain. Each data point is the average of 50 calculations, with $n$ randomly sampled grains from a total of 10,000 (sampled with replacement). Error bars are from the standard deviation of these 50 measurements. All indices show convergence to constant values for calculations that use approximately 1000 grains and above, with standard deviation decreasing rapidly as the number of grains is increased.}
+  \label{fig:OLV_AXC_n_conv}
+\end{figure}
+
+As expected, all indices show convergence as the number of grains used in their calculation increases. Both the J-index and the continuous M-index converge smoothly at similar rates, as they are both calculated statistically. At very low numbers of grains ($<$50) the discrete M-index value is many times greater than the converged value. This is inherent in the calculation of this index as it requires enough data to construct a histogram to represent the misorientation angle distribution of the texture, which will not be possible with low numbers of grains. Although the value is initially far from the converged value, the discrete M-index has a much higher rate of convergence that the other indices. This effect is more pronounced at higher strain rates, which can be seen when comparing (a) with (d) in figure \ref{fig:OLV_AXC_n_conv}.     
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=\textwidth]{figs/OLV_AXC_std_conv}
+  \caption[Index error with no. grains (olivine)]{Relationship between index standard deviation and number of grains used for index calculation, for an olivine VPSC model. The data points are the standard deviation of 50 calculations, with $n$ randomly sampled grains for each calculation sampled with replacement from a VPSC model of 10,000 grains total. The panels show increasing strain with (a) 2\%, (b) 16\%, (c) 30\% and (d) 42\%. }
+  \label{fig:OLV_AXC_n_conv}
+\end{figure}
 %---------------------------------------------------------------------------
 \section{Proxy for strain}
 %---------------------------------------------------------------------------
