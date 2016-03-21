@@ -439,7 +439,9 @@ The calculation of the discrete M-index is more involved than the other indices.
 	\centering
 	\caption[VPSC datasets]{List of functions main functions with general descriptions. For more exhaustive documentation see in-function comments/appendices.}
 	\noindent
-\begin{tabularx}{\textwidth}{RX}
+	
+\begin{tabularx}{\textwidth}{lX}
+
 \hline
 \hline
 Function    & Description   \\ 
@@ -455,7 +457,7 @@ Function    & Description   \\
 \texttt{read\_{}EBSD} & Similar to \texttt{read\_{}VPSC}, but reads in EBSD files (*.ctf format). \\
 
 \texttt{sample\_{}EBSD} & Similal to \texttt{sample\_{}VPSC} but for EBSD files (*.ctf format). \\ 
-&\\
+\\
 \hline
 \hline
 
@@ -468,7 +470,7 @@ Function    & Description   \\
 \texttt{discreteMDF} & Finds the misorientation angle distribution for a given dataset and crystal symmetry. For use in \texttt{m\_{}indexDisc}. \\
 
 \texttt{calDisorientation} & Finds the minimum angle needed to rotate one crystal onto the other, given a crystal symmetry (for use in \texttt{discreteMDF}). \\
-&\\
+\\
 \hline
 \hline
 
@@ -490,38 +492,62 @@ Function    & Description   \\
 \vspace{-1cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-[Intro to analysis section...]
+The assessment of the texture indices in this project can be broken down into two broad sections. First it is important to establish how sensitive the indices are to a number of parameters that affect their calculation, aside from the expected relationship with strain \emph{(robustness)}. The aim is to determine what is necessary to find the \lq{}true\rq{}, or most accurate, index value of a given sample. Comparisons are drawn with results from the literature, particularly those of \cite{Skemer} as their motivation for creating the M-index was to provide a more robust measure of texture strength. After determining what criteria need to be met to produce an accurate index value, analysis of the relationship between strain and the indices can be conducted with confidence that the values presented are accurate and representative of the given sample/model.      
 
 
 %---------------------------------------------------------------------------
 \section{Index robustness}
 %---------------------------------------------------------------------------
-Aside from the strength of the texture in question, there are a number parameters that can affect the calculation of all of the indices presented in this project. The following section aims to analyse exactly how these input parameters can effect the resultant index values, and therefore determine what is necessary to find the \lq{}true\rq{}, or most accurate, index value of a sample. 
-
 One of the first aspects to consider when calculating any texture index is the number of grains that will be used. An index might be considered robust if its value is independent of the number of grains used in the calculation (i.e. an index value calculated using 1,000 grains from a texture would be similar to the same index calculated using 100 grains from the same texture). However, an index will never be completely independent of the number of grains, but would be expected to converge to a certain value past a threshold. This is clear as a larger number of grains will be more representative of the texture as a whole, allowing for a more accurate index calculation. Figure \ref{fig:OLV_AXC_n_conv} demonstrates this for a VPSC model of olivine undergoing axial compression. 
 
-    
+%---------------------------FIG---------------------------------------------   
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=\textwidth]{figs/OLV_AXC_Conv}
+    \includegraphics[width=\textwidth]{figs/OLV_AXC_Conv_INTERP}
   \caption[Convergence with no. grains (olivine)]{Convergence plots for J-index, continuous M-index and discrete M-index calculated for an olivine VPSC model undergoing axial compression. The panels show increasing strain steps with (a) 2\%, (b) 16\%,(c) 30\% and (d) 42\% strain. Each data point is the average of 50 calculations, with $n$ randomly sampled grains from a total of 10,000 (sampled with replacement). Calculations were ran for $n$ = 5, 10, 50, 100, 200, 500, 1,000, 2,000, 5,000 and 10,000. Error bars are from the standard deviation of these 50 measurements. All indices show convergence to constant values for calculations that use approximately 1000 grains and above, with standard deviation decreasing rapidly as the number of grains is increased.}
   \label{fig:OLV_AXC_n_conv}
 \end{figure}
+%---------------------------FIG---------------------------------------------   
 
-As expected, all indices show convergence as the number of grains used in their calculation increases. Both the J-index and the continuous M-index converge smoothly at similar rates, as they are both calculated statistically. At very low numbers of grains ($<$50) the discrete M-index value is many times greater than the converged value. This is inherent in the calculation of this index as it requires enough data to construct a histogram to represent the misorientation angle distribution of the texture, which will not be possible with low numbers of grains. Although the value is initially far from the converged value, the discrete M-index has a much higher rate of convergence that the other indices. This effect is more pronounced at higher strain rates, which can be seen when comparing (a) with (d) in figure \ref{fig:OLV_AXC_n_conv}.     
 
+As expected, all indices show convergence as the number of grains used in their calculation increases. Both the J-index and the continuous M-index converge smoothly at similar rates, as they are both calculated statistically. At very low numbers of grains ($<$50) the discrete M-index value is many times greater than the converged value. This is inherent in the calculation of this index as it requires enough data to construct a histogram to represent the misorientation angle distribution of the texture, which will not be possible with low numbers of grains. Although the value is initially far from the converged value, the discrete M-index has a much higher rate of convergence that the other indices. This is similar to findings of \cite{Skemer} in that convergence is rapid, although they find this occurs at smaller numbers of grains. In contrast to \cite{Skemer}, this effect is more pronounced at higher strain rates, which can be seen when comparing (a) with (d) in figure \ref{fig:OLV_AXC_n_conv}, although these date are calculated from a VPSC modell and not EBSD data.     
+
+%---------------------------FIG---------------------------------------------   
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=\textwidth]{figs/OLV_AXC_std_conv}
+    \includegraphics[width=\textwidth]{figs/OLV_AXC_std_conv_INTERP}
   \caption[Index error with no. grains (olivine)]{Relationship between index standard deviation and number of grains used for index calculation, for an olivine VPSC model undergoing axial compression. The data points are the standard deviation of 50 calculations, with $n$ randomly sampled grains for each calculation sampled with replacement from a VPSC model of 10,000 grains total. Calculations were ran for $n$ = 5, 10, 50, 100, 200, 500, 1,000, 2,000, 5,000 and 10,000. The panels show increasing strain with (a) 2\%, (b) 16\%, (c) 30\% and (d) 42\%. }
   \label{fig:OLV_AXC_n_conv_err}
 \end{figure}
+%---------------------------FIG---------------------------------------------   
 
-In order to gain an understanding of how the error associated with each index is related to the number of grains $(n)$ used, each index was calculated 50 times for each value of $n$. For example, the data point for the continuous M-index at $n = 100$ grains was calculated 50 times, sub-sampling from a total of 10,000 grains (with replacement). The error bars on figure \ref{fig:OLV_AXC_n_conv} are from the standard deviation $(\sigma)$ of these 50 calculations. To further analyse this, $\sigma$ as a function of $n$ can be seen in figure \ref{fig:OLV_AXC_n_conv_err}. There is a clear trend of decreasing $\sigma$ as the number of grains is increased, although the benefit of increasing $n$ is reduced past approximately 1,000 grains as $\sigma$ converges to a constant value (for all indices).   
+
+In order to gain an understanding of how the error associated with each index is related to the number of grains $(n)$ used, each index was calculated 50 times for each value of $n$. For example, the data point for the continuous M-index at $n = 100$ grains was calculated 50 times, sub-sampling from a total of 10,000 grains (with replacement). The error bars on figure \ref{fig:OLV_AXC_n_conv} are from the standard deviation $(\sigma)$ of these 50 calculations. To further analyse this, $\sigma$ as a function of $n$ can be seen in figure \ref{fig:OLV_AXC_n_conv_err}. There is a clear trend of decreasing $\sigma$ as the number of grains is increased, although the benefit of increasing $n$ is reduced past approximately 1,000 grains, as $\sigma$ converges to a constant value (for all indices). The discrete M-index shows an anomalous drop in $\sigma$ at $n = 5$. This is again due to the need for enough grains to form a representative histogram of the misorientation distribution, and therefore when this distribution is so poorly defined the index will tend to produce similarly \lq{}wrong\rq{} values and so a smaller standard deviation will result.
+
+%---------------------------FIG---------------------------------------------   
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=\textwidth]{figs/OLV_AXC_bin_conv.pdf}
+  \caption[Convergence with bin size (olivine)]{M-index convergence as bin size is decreased. The data are from analysis of an olivine VPSC model which has undergone axial compression. Each data point was calculated using the same 2,0000 grains, to ensure the indices calculated have converged (in terms of number of grains, see Fig. \ref{fig:OLV_AXC_n_conv}). Panels show increasing strain, with (a) 2\%, (b) 16\%, (c) 30\% and (d) 42\%. The grey line is the continuous M-index calculated for the same 2,000 grains for reference.}
+  \label{fig:OLV_AXC_b_conv}
+\end{figure}  
+%---------------------------FIG---------------------------------------------   
+
+
 %---------------------------------------------------------------------------
 \section{Proxy for strain}
 %---------------------------------------------------------------------------
 
+%---------------------------FIG---------------------------------------------   
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=\textwidth]{figs/ALL_6panel_plot.pdf}
+  \caption[Relation of indices to strain]{}
+  \label{fig:Indices_vs_strain}
+\end{figure} 
+%---------------------------FIG---------------------------------------------   
+
+ 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Discussion}
