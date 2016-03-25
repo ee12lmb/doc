@@ -1,9 +1,9 @@
 \documentclass[a4paper,12pt]{report}
-\usepackage[left=2.5cm,right=1.7cm,bottom=2cm,top=2cm]{geometry}
+\usepackage[left=2.5cm,right=1.7cm,bottom=2cm,top=2.2cm]{geometry}
 
 % Page and title setup
 \usepackage{setspace}
-\setstretch{1.5}
+\setstretch{2}
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhead[CO,CE]{\leftmark}
@@ -545,7 +545,26 @@ In order to gain an understanding of how the error associated with each index is
   \caption[Relation of indices to strain]{Relationship between the J-index, continuous M-index and discrete M-index to sample strain. Data are from VPSC models, with the indices calculated using the same 5,000 grains at each strain step (this many grains ensures the results are in the convergent regime). Discrete M-index calculated with a bin size of 0.25$^\circ$. \textbf{Top row} shows data for olivine, \textbf{middle row} shows quartz and \textbf{bottom row} shows post-perovskite (P-PS). \textbf{Left column} shows data from an axial compression VPSC model, the \textbf{right column} shows data from a simple shear VPSC model. Note the change of scale on both y-axes in \textbf{f}. Applying these scales to other plots reduces clarity --- consistent scales on all other plots (within each column) allows for useful comparison (see text).}
   \label{fig:indices_vs_strain}
 \end{figure*} 
+%---------------------------FIG---------------------------------------------  
+
+
 %---------------------------FIG---------------------------------------------   
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=\textwidth]{figs/QTZ_Strain_Zoom.pdf}
+  \caption[Relation of indices to strain (quartz)]{Relationship between the indices and strain for quartz VPSC, calculated using the same 5,000 grains, with a bin size of 0.25$^\circ$ used for the discrete M-index calculation. Panels \textbf{(a)} and \textbf{(b)} use the same data as panels (c) and (d) in figure \ref{fig:indices_vs_strain}, with different scales to allow clearer analysis. In particular the strain axes for the simple shear VPSC has been restricted to 50\% (denser data points were used to ensure the curves are smooth and well defined). It is clear the discrete M-index does not follow the continuous M-index at low strains, and in fact increases as strain decreases below approximately 20\%.}
+  \label{fig:indices_vs_strain_qtz}
+\end{figure} 
+%---------------------------FIG---------------------------------------------  
+
+%---------------------------FIG---------------------------------------------   
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=\textwidth]{figs/QTZ_AXC_n500_misor_dist.pdf}
+  \caption[Misorientation angle distribution (quartz)]{Misorientation angle distributions for a quartz VPSC model undergoing axial compression, calculated using the same 500 grains with a bin width of 0.25$^{\circ}$ ** maybe need more grains and smaller bin **. The panels show increasing strain with \textbf{(a)} XX, \textbf{(b)} XX, \textbf{(c)} XX and \textbf{(d)} XX. The solid line shows the theoretical misorientation distribution for a random fabric of quartz grains.} 
+  \label{fig:qtz_misorientation_dist}
+\end{figure} 
+%---------------------------FIG---------------------------------------------  
 
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
