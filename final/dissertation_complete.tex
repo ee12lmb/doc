@@ -357,7 +357,7 @@ where the calculation is now for $n$ bins and $\theta_{max}$ is the maximum theo
 Now that the necessary theory has been established, the following sections provide a description of how the indices have been implemented. However, to understand the implementation it is important to first introduce the datasets from which the indices will be calculated.  
 
 %---------------------------------------------------------------------------
-\section{Data collection}
+\section{Data collection} \label{sec:data}
 %---------------------------------------------------------------------------
 The data in this project come from two sources; 1) numerical models of deformed polycrystalline aggregates and 2) direct texture measurements from physical specimens using electron backscatter diffraction. 
 
@@ -386,9 +386,19 @@ VPSC models were run by Dr Andrew Walker (University of Leeds) to provide a rang
 \end{table}
 
 \subsection{Electron backscatter diffraction}
-X-ray techniques have long been used to study various properties of crystals and polycrystalline materials. A number of methods have arisen to determine crystal orientation data using a scanning electron microscope (SEM), including electron channeling patterns and X-ray Kossel-line techniques. However, these have been generally surpassed by electron backscatter diffraction \citep[EBSD or backscatter Kikuchi diffraction,][]{Harland1973}.  In essence, an electron beam is fired at a steeply tilted crystalline sample (to decrease path length for backscattered electrons), which produces distinctive backscatter Kikuchi patterns. These patterns are captured by a phosphor screen and digitised by a camera, and can then be analysed by software to determine crystal orientation information from their geometry  \citep{Zaefferer2007}. By moving the stationary beam over the sample, the orientation information of all grains can be determined. \cite{Prior1999} offer a thorough description of the EBSD technique, specifically it use for rock texture, e.g. sample preparation. Further discussion of the technique is beyond the scope of this project \citep[see][]{Schwarzer1997,Randle2000}.    
+X-ray techniques have long been used to study various properties of crystals and polycrystalline materials. A number of methods have arisen to determine crystal orientation data using a scanning electron microscope (SEM), including electron channeling patterns and X-ray Kossel-line techniques. However, these have been generally surpassed by electron backscatter diffraction \citep[EBSD or backscatter Kikuchi diffraction,][]{Harland1973}.  In essence, an electron beam is fired at a steeply tilted crystalline sample (to decrease path length for backscattered electrons), which produces distinctive backscatter Kikuchi patterns. These patterns are captured by a phosphor screen and digitised by a camera, and can then be analysed by software to determine crystal orientation information from their geometry  \citep{Zaefferer2007}. By moving the beam over the sample, the orientation information of all grains can be determined. \cite{Prior1999} offer a thorough description of the EBSD technique, specifically it use for rock texture, e.g. sample preparation. Further discussion of the technique is beyond the scope of this project \citep[see][]{Schwarzer1997,Randle2000}.    
 
-Orientation data for a number of datasets was measured using EBSD... \textbf{discuss the actual sample sets used here - need to talk to Andrew.}    
+Orientation data for a number of datasets was measured using EBSD... \textbf{discuss the actual sample sets used here - need to talk to Andrew.}
+
+%---------------------------FIG---------------------------------------------   
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=\textwidth]{figs/EBSD_Pole_Figs.pdf}
+  \caption[EBSD data (pole figures)]{A range of quartz c-axis CPO fabrics from the Annapurna-Dhaulagiri Himalaya. Contours shows multiples of uniform distribution. Maximum and minimum values of multiples of uniform distribution are next to each pole figure, with the sample number displayed beneath. The samples have been ordered qualitatively from the lowest strain (1) to the highest (10) by comparing pole figures with those in the literature. These pole figures and sample numbers represent the EBSD data that was used in this project \citep[made available from][]{ParsonsThesis}.}
+  \label{fig:EBSD_data}
+\end{figure}  
+%---------------------------FIG---------------------------------------------   
+    
 
 %---------------------------------------------------------------------------
 \section{Implementation}
@@ -492,25 +502,39 @@ Function    & Description   \\
 \vspace{-1cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The assessment of the texture indices in this project can be broken down into two broad sections. First it is important to establish how sensitive the indices are to a number of parameters that affect their calculation, aside from the expected relationship with strain \emph{(robustness)}. The aim is to determine what is necessary to find the \lq{}true\rq{}, or most accurate, index value of a given sample. Comparisons are drawn with results from the literature, particularly those of \cite{Skemer} as their motivation for creating the M-index was to provide a more robust measure of texture strength. After determining what criteria need to be met to produce an accurate index value, analysis of the relationship between strain and the indices can be conducted with confidence that the values presented are accurate and representative of the given sample/model.      
+The assessment of the texture indices in this project can be broken down into two broad sections. First it is important to establish how sensitive the indices are to a number of parameters that affect their calculation, and are independent from the expected relationship with strain \emph{(robustness)}. The aim is to determine what is necessary to find the \lq{}true\rq{}, or most accurate, index value of a given sample. Comparisons are drawn with results from the literature, particularly those of \cite{Skemer} as their motivation for creating the M-index was to provide a more robust measure of texture strength. After determining what criteria need to be met to produce an accurate index value, analysis of the relationship between strain and the indices \emph{proxy for strain} can be conducted with confidence that the values presented are accurate and representative of the given sample/model. Both the robustness of the indices and their use as a proxy for strain were studied using VPSC models and EBSD data from field samples (see section \ref{sec:data}). The results presented here are chosen to best represent the numerous analyses conducted, and appendix references are provided when necessary.       
 
 
 %---------------------------------------------------------------------------
 \section{Index robustness}
 %---------------------------------------------------------------------------
-One of the first aspects to consider when calculating any texture index is the number of grains that will be used. An index might be considered robust if its value is independent of the number of grains used in the calculation (i.e. an index value calculated using 1,000 grains from a texture would be similar to the same index calculated using 100 grains from the same texture). However, an index will never be completely independent of the number of grains, but would be expected to converge to a certain value past a threshold. This is clear as a larger number of grains will be more representative of the texture as a whole, allowing for a more accurate index calculation. Figure \ref{fig:OLV_AXC_n_conv} demonstrates this for a VPSC model of olivine undergoing axial compression. 
+One of the first aspects to consider when calculating any texture index is the number of grains that will be used. An index might be considered robust if its value is independent of the number of grains input in the calculation (i.e. an index value calculated using 1,000 grains from a texture would be similar to the same index calculated using 100 grains from the same texture). However, an index will never be completely independent of the number of grains, but would be expected to converge to a certain value past a threshold. This is clear as a larger number of grains will be more representative of the texture as a whole, allowing for a more accurate index calculation. Figure \ref{fig:OLV_AXC_n_conv} demonstrates this for a VPSC model of olivine undergoing axial compression. 
 
 %---------------------------FIG---------------------------------------------   
-\begin{figure}[h!]
+\begin{figure}[t!]
   \centering
     \includegraphics[width=\textwidth]{figs/OLV_AXC_Conv_INTERP}
-  \caption[Convergence with no. grains (olivine)]{Convergence plots for J-index, continuous M-index and discrete M-index calculated for an olivine VPSC model undergoing axial compression. The panels show increasing strain steps with (a) 2\%, (b) 16\%,(c) 30\% and (d) 42\% strain. Each data point is the average of 50 calculations, with $n$ randomly sampled grains from a total of 10,000 (sampled with replacement). Calculations were ran for $n$ = 5, 10, 50, 100, 200, 500, 1,000, 2,000, 5,000 and 10,000. Error bars are from the standard deviation of these 50 measurements. All indices show convergence to constant values for calculations that use approximately 1000 grains and above, with standard deviation decreasing rapidly as the number of grains is increased.}
+  \caption[Convergence with no. grains (olivine VPSC)]{Convergence plots for J-index, continuous M-index and discrete M-index calculated for an olivine VPSC model undergoing axial compression. The panels show increasing strain steps with (a) 2\%, (b) 16\%,(c) 30\% and (d) 42\% strain. Each data point is the avaerage of 50 calculations, with $n$ randomly sampled grains from a total of 10,000 (sampled with replacement). Calculations were ran for $n$ = 5, 10, 50, 100, 200, 500, 1,000, 2,000, 5,000 and 10,000. Error bars are from the standard deviation of these 50 measurements. All indices show convergence to constant values for calculations that use approximately 1000 grains and above, with standard deviation decreasing rapidly as the number of grains is increased.}
   \label{fig:OLV_AXC_n_conv}
 \end{figure}
 %---------------------------FIG---------------------------------------------   
 
 
-As expected, all indices show convergence as the number of grains used in their calculation increases. Both the J-index and the continuous M-index converge smoothly at similar rates, as they are both calculated statistically. At very low numbers of grains ($<$50) the discrete M-index value is many times greater than the converged value. This is inherent in the calculation of this index as it requires enough data to construct a histogram to represent the misorientation angle distribution of the texture, which will not be possible with low numbers of grains. Although the value is initially far from the converged value, the discrete M-index has a much higher rate of convergence that the other indices. This is similar to findings of \cite{Skemer} in that convergence is rapid, although they find this occurs at smaller numbers of grains. In contrast to \cite{Skemer}, this effect is more pronounced at higher strain rates, which can be seen when comparing (a) with (d) in figure \ref{fig:OLV_AXC_n_conv}, although these date are calculated from a VPSC modell and not EBSD data.     
+As expected, all indices show convergence as the number of grains used in their calculation increases. Both the J-index and the continuous M-index converge smoothly at similar rates, as they are both calculated statistically. At very low numbers of grains ($<$50) the discrete M-index value is many times greater than the converged value. This is inherent in the calculation of this index as it requires enough data to construct a histogram to represent the misorientation angle distribution of the texture, which will not be possible with low numbers of grains. Although the value is initially far from the converged value, the discrete M-index has a much higher rate of convergence that the other indices. This is similar to findings of \cite{Skemer} in that convergence is rapid, although they find this occurs at smaller numbers of grains. In contrast to \cite{Skemer}, this effect is more pronounced at higher strain rates, which can be seen when comparing (a) with (d) in figure \ref{fig:OLV_AXC_n_conv}, although these date are calculated from a VPSC model and not EBSD data as in \cite{Skemer}.
+
+%---------------------------FIG---------------------------------------------   
+\begin{figure}[t!]
+  \centering
+    \includegraphics[width=\textwidth]{figs/EBSD_QTZ_n_Conv.pdf}
+  \caption[Convergence with no. of grains (quartz EBSD)]{}
+  \label{fig:EBSD_QTZ_n_conv}
+\end{figure}
+%---------------------------FIG---------------------------------------------   
+
+
+Having established an initial threshold for convergence (in terms of the number of grains) using VPSC models as input data, it is important to confirm that this result is consistent for an EBSD input. Not only will this support the conclusion from an separate data source, but also determine whether a higher or lower threshold is required for convergence when using EBSD data --- and enabling direct comparison to \cite{Skemer}. Figure \ref{fig:EBSD_QTZ_n_conv} shows a similar plot to figure \ref{fig:OLV_AXC_n_conv}       
+
+
 
 %---------------------------FIG---------------------------------------------   
 \begin{figure}[h!]
