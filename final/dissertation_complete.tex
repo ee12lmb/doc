@@ -222,7 +222,6 @@ In addition to Euler angles and rotation matrices, another method for describing
 
 
 
-
 In order to represent this three dimensional orientation in two dimensions, these poles must be projected onto a two-dimensional plane --- this is done using either stereographic or equal-area projection (the latter most common in geology). By choosing an axis of the sample coordinate system to be the north pole (typically $Z$) so that $\alpha = 0^\circ$ requires the normal of the plane in question to be parallel to that axis. The poles can then be projected as in figure \ref{fig:pole_olivine_example}, which shows an example of pole figures for a simulated olivine sample. Here the density of poles is plotted as a colour intensity. The Miller indicies above the figures show which crystal axes are being considered for each relevant pole figure. In the case of olivine and its cubic crystal shape, the poles of three crystal faces are needed to unambiguously describe its orientation. Any less than this and the crystal has a degree of freedom to rotate about the relevant axes, as in Figure \ref{fig:spherical_orientation}. 
 
 
@@ -412,7 +411,7 @@ The following section provides a general overview as to how the data described i
 
 \subsection{Data input and sampling}
 
-This group of functions (directory \lq{}readfiles\rq{} on disc) deals with the input of orientation data from both VPSC models and EBSD data (in .ctf format). The functions \texttt{read\_{}VPSC} and \texttt{read\_{}EBSD} (derived from original code MVT\_{}read\_{}VPSC\_{}file.m by Andrew Walker https://github.com/andreww/microtecm and REF FOR EBSD respectively) will extract an array of Euler angles defining the orientation of the individual grains within the sample, as well as other metadata such as the number of grains, crystal symmetry (EBSD only) and number of strain steps (VPSC only).                                                
+This group of functions (directory \lq{}readfiles\rq{} on disc) deals with the input of orientation data from both VPSC models and EBSD data (in .ctf format). The functions \texttt{read\_{}VPSC} and \texttt{read\_{}EBSD} (derived from original code MVT\_{}read\_{}VPSC\_{}file.m by Andrew Walker\footnote{https://github.com/andreww/microtecm} and REF FOR EBSD respectively) will extract an array of Euler angles defining the orientation of the individual grains within the sample, as well as other metadata such as the number of grains, crystal symmetry (EBSD only) and number of strain steps (VPSC only).                                                
 
 Building on this basic functionality, a useful tool is the ability to subsample from a larger dataset (i.e. extract $n$ random grains from a total of $N$ in the sample). In the context of this project this allows for analysis of the robustness of the indices (see section REF), but also statistical analysis and efficient index calculations. The functions \texttt{sample\_{}VPSC} and \texttt{sample\_{}EBSD} will sample directly from a file, while the function \texttt{sample\_{}texture} will do the same for an array of Euler angles already loaded into the \texttt{Matlab} environment. These functions take an input seed so that the same \lq{}random\rq{} samples can be generated to allow repeatability. Also included in this group are some internal functions such as \texttt{lookupSym} which returns an \texttt{MTEX} crystal symmetry object (REF) for a given crystal name (e.g. \lq{}olivine\rq{}) and \texttt{get\_{}inputInfo} which combines all of the functionality in this section into a compact form.                                                                                                                            
 
@@ -605,7 +604,17 @@ When observing the convergence of the continuous and discrete M-index curves for
 \end{figure}  
 %---------------------------FIG---------------------------------------------   
 
-Figure \ref{fig:OLV_AXC_b_conv} shows the effect of decreasing bin size from 3$^\circ$ to 0.25$^\circ$ in 0.25$^\circ$ increments for olivine VPSC model undergoing axial compression, using $n$ = 2,000 grains (continuous M-index shown for reference). It is evident that bin size has a significant effect on the value of the discrete M-index, as at all strain steps the value is much greater at a bin size of 3$^\circ$ than at 0.25$^\circ$ (in some cases approximately double), and decreasing bin size results in convergence towards the continuous value. If increasing the number of grains gives more information about the texture, then decreasing the bin size offers better resolution of this information (in terms of the misorientation angle distribution), and so this relationship is expected. Essentially a larger bin size results in a coarser representation of the misorientation angle distribution. This of course makes a smaller bin size preferable, and in the discrete M-index method (see full listing in appendix \ref{App:M-index_calc}) there is no real penalty in terms of calculation time as misorentation angles for \emph{all} pairs are grains are calculated regardless of bin size, the only difference is the histograms that are subtracted (both the theoretical random distribution, and the calculated distribution as the bin widths must be equal to allow subtraction).
+Figure \ref{fig:OLV_AXC_b_conv} shows the effect of decreasing bin size from 3$^\circ$ to 0.25$^\circ$ in 0.25$^\circ$ increments for olivine VPSC model undergoing axial compression, using $n$ = 2,000 grains (continuous M-index shown for reference). It is evident that bin size has a significant effect on the value of the discrete M-index, as at all strain steps the value is much greater at a bin size of 3$^\circ$ than at 0.25$^\circ$ (in some cases approximately double), and decreasing bin size results in convergence towards the continuous value. If increasing the number of grains gives more information about the texture, then decreasing the bin size offers better resolution of this information (in terms of the misorientation angle distribution), and so this relationship is expected. Essentially a larger bin size results in a coarser representation of the misorientation angle distribution (figure \ref{fig:OLV_bin_size_example}). This of course makes a smaller bin size preferable, and in the discrete M-index method there is no real penalty in terms of calculation time as misorentation angles for \emph{all} pairs are grains are calculated regardless of bin size. The only difference is the histograms that are subtracted (both the theoretical random distribution, and the calculated distribution as the bin widths must be equal to allow subtraction, see full listing in appendix \ref{App:M-index_calc} for more detail).
+
+%---------------------------FIG---------------------------------------------   
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=\textwidth]{figs/OLV_Bin_Size_Example.pdf}
+  \caption[Bin size example (olivine VPSC)]{Misorientation angle distribution for olivine VPSC model undergoing axial compression, $n$ = 2,000, strain = 40\%. Panel \textbf{(a)} shows the distribution with a bin size of 3$^\circ$ and panel \textbf{(b)} shows the same distribution with a 0.5$^\circ$ bin size. The density of bins in panel (b) makes visualisation difficult. However, it is clear that the larger bin size in (a) is a much coarser representation of the distribution.}
+  \label{fig:OLV_bin_size_example}
+\end{figure}  
+%---------------------------FIG---------------------------------------------   
+
 
 Although smaller bin sizes are preferable, there is a functional limit as to how small bin sizes can be. An example would be that if a bin size of $\theta_{bin}$ = 0.5$^\circ$ is used to calculate the M-index for an olivine VPSC model, the number of bins $b_n$ would be:
 
@@ -619,9 +628,20 @@ As each grain is compared to all others around it, the number of pairs of grains
 p_n\ =\ \sum^{n-1}_{i=1}(n - i)\ =\ \frac{n}{2}(n-1)\ ,
 \end{equation} 
 \noindent
-giving the absolute minimum value of $n$ to allow at least one misorientation angle to lie in each bin to be $n$ = 23 (see APPENDIX). In reality this is an extreme lower bound as having a single angle in each bin will never represent the misorientation angle of the distribution of a sample with enough accuracy to produce a meaningful index value. However this demonstrates that, especially when small numbers of grains are available, care must be taken when choosing a bin width. 
+giving the absolute minimum value of $n$ to allow at least one misorientation angle to lie in each bin to be $n$ = 23 (see APPENDIX). In reality this is an extreme lower bound as having a single angle in each bin will never represent the misorientation angle of the distribution of a sample with enough accuracy to produce a meaningful index value. However this demonstrates that, especially when small numbers of grains are available, care must be taken when choosing bin width. 
 
-Returning to figure \ref{fig:OLV_AXC_b_conv}, even at at bin size of 0.25$^\circ$ the discrete M-index does not fully converge to the continuous value (panel (a) shows some evidence of convergence \emph{above} the continuous value). The likely explanation for this is inherent in the differences in their calculation.   
+Returning to figure \ref{fig:OLV_AXC_b_conv}, even at at bin size of 0.25$^\circ$ the discrete M-index does not fully converge to the continuous value (panel (a) shows some evidence of convergence \emph{above} the continuous value). One explanation for this is the inherent differences in their calculation. The continuous M-index is calculated from a \emph{misorientation} distribution function that is in turn calculated statistically from an \emph{orientation} distribution function. This ODF inherently undergoes some level of smoothing in its calculation (KERNEL MTEX REF/MORE DETAIL?) from the orientation data. Any smoothing will reduce the \lq{}sharpness\rq{} of this function and so the continuous M-index will tend to be lower than the discrete M-index (which has no smoothing factors in its calculation). This is because the ODF, and hence the MDF, describe the texture as a whole (section \ref{subsec:ODFs}). Essentially a smoother ODF will give the impression of a \lq{}weaker\rq{} texture and hence a lower index value. 
+
+%---------------------------FIG---------------------------------------------   
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.7\textwidth]{figs/OLV_SPS_cont_disc_diff.pdf}
+  \caption[Discrete and continuous M-index difference (olivine VPSC)]{The difference between the continuous and discrete M-index calculated for an olivine VPSC model undergoing axial compression. Values are the average of 50 calculations (grey points show individual differences for all 50 calculations) using $n$ = 2,000 grains sampled with replacement from a total of 10,000. Error bars are the standard deviation of the indices.}
+  \label{fig:OLV_SPS_cont_disc_diff}
+\end{figure}  
+%---------------------------FIG---------------------------------------------   
+
+A stronger texture would require a sharper ODF, and in this case any smoothing applied will have a greater effect. If the smoothing of the ODF is the factor causing the observed discrepancy, the difference between the M-indices would be expected to be larger for stronger textures. Figure \ref{fig:OLV_SPS_cont_disc_diff} shows curves for the discrete and continuous M-index as a function of strain, calculated for an olivine VPSC model undergoing axial compression.  
 
 \subsection{Index variability and distribution}
 
