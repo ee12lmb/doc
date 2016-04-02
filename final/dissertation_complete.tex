@@ -24,6 +24,7 @@
 \usepackage{natbib} 
 \bibliographystyle{leedsHarvard}  
 \renewcommand\bibname{References}
+\usepackage[nottoc,numbib]{tocbibind}
   
 % graphics and figures
 \usepackage[font=it]{caption}
@@ -389,9 +390,9 @@ VPSC models were run by Dr Andrew Walker (University of Leeds) to provide a rang
 \end{table}
 
 \subsection{Electron backscatter diffraction}
-X-ray techniques have long been used to study various properties of crystals and polycrystalline materials. A number of methods have arisen to determine crystal orientation data using a scanning electron microscope (SEM), including electron channeling patterns and X-ray Kossel-line techniques. However, these have been generally surpassed by electron backscatter diffraction \citep[EBSD or backscatter Kikuchi diffraction,][]{Harland1973}.  In essence, an electron beam is fired at a steeply tilted crystalline sample (to decrease path length for backscattered electrons), which produces distinctive backscatter Kikuchi patterns. These patterns are captured by a phosphor screen and digitised by a camera, and can then be analysed by software to determine crystal orientation information from their geometry  \citep{Zaefferer2007}. By moving the beam over the sample, the orientation information of all grains can be determined. \cite{Prior1999} offer a thorough description of the EBSD technique, specifically it use for rock texture, e.g. sample preparation. Further discussion of the technique is beyond the scope of this project \citep[see][]{Schwarzer1997,Randle2000}.    
+Electron backscatter techniques have long been used to study various properties of crystals and polycrystalline materials. A number of methods have arisen to determine crystal orientation data using a scanning electron microscope (SEM), including electron channeling patterns and X-ray Kossel-line techniques. However, these have been generally surpassed by electron backscatter diffraction \citep[EBSD or backscatter Kikuchi diffraction,][]{Harland1973}.  In essence, an electron beam is fired at a steeply tilted crystalline sample (to decrease path length for backscattered electrons), which produces distinctive backscatter Kikuchi patterns. These patterns are captured by a phosphor screen and digitised by a camera, and can then be analysed by software to determine crystal orientation information from their geometry  \citep{Zaefferer2007}. By moving the beam over the sample, the orientation information of all grains can be determined. \cite{Prior1999} offer a thorough description of the EBSD technique, specifically it use for rock texture, e.g. sample preparation. Further discussion of the technique is beyond the scope of this project \citep[see][for more info]{Schwarzer1997,Randle2000}.    
 
-Orientation data for a number of datasets was measured using EBSD... \textbf{discuss the actual sample sets used here - need to talk to Andrew.}
+Orientation data for a number of samples measured using EBSD were made available by \cite{ParsonsThesis}. The data are from the Annapurna-Dhaulagiri Himalaya, and provide samples with a range of strains that are qualitatively arranged in order from pole figure 1 (least strain) to pole figure 10 (most strain), composed predominately of quartz crystals (figure \ref{fig:EBSD_data}).. 
 
 %---------------------------FIG---------------------------------------------   
 \begin{figure}[h!]
@@ -406,8 +407,39 @@ Orientation data for a number of datasets was measured using EBSD... \textbf{dis
 %---------------------------------------------------------------------------
 \section{Implementation}
 %---------------------------------------------------------------------------
-The following section provides a general overview as to how these data sources are combined with the theory outlined in chapter \ref{chap:theory} to calculate the texture indices. The two forms of data presented the first challenge, as they needed to be read in and converted to a consistent format. A number of functions were written to extract Euler angles (and other metadata) from both VPSC (edited from original code by Dr Andrew Walker - University of Leeds) and EBSD output files (using some code from *REF*) and store them in identical arrays in \texttt{Matlab} for further processing (first part of table \ref{tab:functions}). Having achieved this, relevant functions were then written to calculate the various indices from these lists of Euler angles describing the orientations of each grain in the sample (with other relevant information such as crystal symmetry). All index functions have similar syntax in their use as demonstrated in listing \ref{lst:calcIndices}, which shows function calls to calculate a number of indices for a VPSC input file within the \texttt{Matlab} environment. Although all functions (see table \ref{tab:functions}) can be used in \texttt{Matlab}, in practice most analysis was carried out in shell scripts to allow efficient batch running with many different inputs.   
 
+The following section provides a general overview as to how the data described in section \ref{sec:data} are combined with the theory outlined in chapter \ref{chap:theory} in order to calculate the texture indices and gain other useful information. One of the objectives of this study was to create a coherent and versatile suite of \texttt{Matlab} functions to study texture strength (a \emph{toolbox}), as opposed to writing \lq{}static\rq{} scripts that would function solely as part of this project. As a result, the functions are organised into three groups, which will be described over the following sections. Due to the considerable effort undertaken to create this toolbox, the final section describes the general coding practices and principles used, as well as outlining some important aspects of the development and use of the software. In some sense the toolkit is as much of a \lq{}result\rq{} of this project as the analysis of the texture indices that it enables. All source code is available from https://github.com/ee12lmb/matlabSource.                                                                                                     
+
+\subsection{Data input and sampling}
+
+This group of functions (directory \lq{}readfiles\rq{} on disc) deals with the input of orientation data from both VPSC models and EBSD data (in .ctf format). The functions \texttt{read\_{}VPSC} and \texttt{read\_{}EBSD} (derived from original code MVT\_{}read\_{}VPSC\_{}file.m by Andrew Walker https://github.com/andreww/microtecm and REF FOR EBSD respectively) will extract an array of Euler angles defining the orientation of the individual grains within the sample, as well as other metadata such as the number of grains, crystal symmetry (EBSD only) and number of strain steps (VPSC only).                                                
+
+Building on this basic functionality, a useful tool is the ability to subsample from a larger dataset (i.e. extract $n$ random grains from a total of $N$ in the sample). In the context of this project this allows for analysis of the robustness of the indices (see section REF), but also statistical analysis and efficient index calculations. The functions \texttt{sample\_{}VPSC} and \texttt{sample\_{}EBSD} will sample directly from a file, while the function \texttt{sample\_{}texture} will do the same for an array of Euler angles already loaded into the \texttt{Matlab} environment. These functions take an input seed so that the same \lq{}random\rq{} samples can be generated to allow repeatability. Also included in this group are some internal functions such as \texttt{lookupSym} which returns an \texttt{MTEX} crystal symmetry object (REF) for a given crystal name (e.g. \lq{}olivine\rq{}) and \texttt{get\_{}inputInfo} which combines all of the functionality in this section into a compact form.                                                                                                                            
+
+\subsection{Index calculation} \label{sec:index_calc}
+
+There are three index calculations available in this toolbox (each with their own directory on disk). The function \texttt{j\_{}index} uses a number of tools provided in \texttt{MTEX} (REF),  such as \texttt{calcODF} which statistically calculates the orientation distribution function (ODF, see SEC REF) from the input Euler angles, and \texttt{textureindex} which calculates the J-index from this ODF. Similarly, \texttt{m\_{}indexCont} uses this ODF to calculate a \emph{statistical} misorientation distribution function (MDF) for the input Euler angles.  This MDF is then subtracted from the theoretical random MDF to give what I call the \emph{continuous M-index} (equation REF) due to its statistical nature.  Although much of the essential tools are derived from \texttt{MTEX}, both \texttt{j\_{}index} and \texttt{m\_{}indexCont} utilise the functionality described in the previous section in combination with consistent syntax in their use to streamline index calculation using a number of inputs and calculation parameters (e.g. the number of grains $n$ to use, see listing REF in section REF).         
+
+The function \texttt{m\_{}indexDisc} is more involved in its calculation and only relies on \texttt{MTEX} to produce the theoretical misorientation angle distribution for a given symmetry (using \texttt{calcAngleDistribution}). As with the other index functions, \texttt{m\_{}indexDisc} takes either EBSD, VPSC or a list of Euler angles as input, as well as a number of input calculation parameters, using a consistent syntax (see listing REF). To find the misorientation angle distribution, I wrote the function \texttt{discreteMDF}, which finds the misorientation matrix ($\tilde{g}$, equation REF) between all combination of grains within the sample \citep[uncorrelated misorientation angle distribution,][]{Mainprice}. Each $\tilde{g}$ is passed to \texttt{calDisorientation}, a function I wrote that finds the disorientation \citep{Grimmer1979} by applying symmetry operators for the chosen crystal structure and choosing the smallest misorientation angle. Once these are found, \texttt{discreteMDF} returns a list of misorientation angles to \texttt{m\_{}indexDisc} which counts them in bins (the width of which is specified by the user, in degrees) and finds the difference between this calculated misorientation angle distribution and the theoretical random distribution. For detail on the theory see section \ref{sec:indicies} and \cite{Skemer}, for a detailed breakdown of the \texttt{m\_{}indexDisc} code see appendix APPENDIX.                                            
+
+All three index functions are designed consistently, e.g. if given a VPSC input file they will return the strain of each step as well as the index calculated (to allow easy plotting of the index-strain relationship). At the request of the user, output can be dumped to a text file with headers describing metadata (e.g. input file, index calculated etc.).                                                                                                                    
+
+\subsection{Analysis functions}
+
+I wrote a number of functions to aid further analysis of the texture indices and add functionality to the toolkit (directory \lq{}analysis\rq{} on disc). The function \texttt{index\_{}repeat} will calculate any of the indices described in the previous section a specified number of times, sampling with replacement. For example, if the input was a VPSC file with 10,000 grains in each strain step, the J-index could be calculated 50 times, subsampling a different $n$ grains each time (sampling with replacement). This is useful in analysing the variability of each index and how this changes as calculation parameters are varied (see SEC REF).  As with the other \texttt{index} functions, \texttt{index\_{}repeat} can output to file.
+
+The function \texttt{read\_{}texout} reads in the output files from the \texttt{index} functions. This is useful as the output of data to disk allows separation of generating the data (which can take many hours for large index calculations), and creating figures from the data.
+
+One of the objectives of this study was to determine whether the indices are a good proxy for strain. Assuming there is a relationship between the two, it is possible to convert an index value to a strain value. I wrote \texttt{get\_{}strain} to take an index as input, usually calculated from EBSD data (where strain is not known), and find a value for strain by comparing this value to an appropriate index reference curve calculated for VPSC data (where strain is known, or can be interpolated, for any index value). This is essentially a way of estimating strain for an EBSD input data set.
+
+Need section about calculating anisotropy
+
+\subsection{Software development and use}
+
+While developing the software for this project, a number of scientific programming practices were followed --- namely those outlined by REF. For example, each function contains documentation on its usage that can be accessed through the \texttt{Matlab} function \texttt{help}. In addition there are appropriate references to the literature, detailed comments and clear variable names to make it easy as possible to follow the code and reasoning behind the algorithms. In addition, version control software \texttt{Github} was used to track the development of the code. This allows for future users to see the development through time, as well as giving a platform for distribution (https://github.com/ee12lmb/matlabSource).
+
+
+As stated previously, all functions have been developed with consistent syntax in their use. Listing \ref{lst:calcIndices} demonstrates the simplicity with which the three \texttt{index} functions can be used to calculate the indices using a VPSC input data file in the \texttt{Matlab} environment.
 
 \begin{program}[htbp] 
    \centering
@@ -436,15 +468,18 @@ j = j_index(VPSC,1000,1,'crystal','olivine','outfile','~/j_ind.out');
    \label{lst:calcIndices}
 \end{program}
 
+Although built for use in the \texttt{Matlab} environment, most analysis was run in batches from the command line, with the data output to file which would then be read in via \texttt{read\_{}texout} in a post-processing script and figures generated. Figure REF shows the general data processing structure, from input data file through to figure output, that is used to form most of the various analysis in the next section.
+
 Some elements of the code were optimised when it became apparent that significant computational time was being wasted due to inefficiencies. For example, the time taken to read in a data file using \texttt{read\_{}VPSC} would increase exponentially as more strain steps were added to the VPSC file. Due to the exceptionally large data files (e.g. 10,000 grains per strain increment, with 26 increments gives 260,000 grains total), it was necessary to modify the code so that the read time increased linearly (see ** APPENDIX REF **). 
 
-While developing the software for this project,a number of scientific programming practices were followed --- namely those outlined by \cite{Wilson2014}. For example, extensive documentation is included within the functions themselves, including their usage but also references for relevant theory. In addition, version control software \texttt{Github} was used to track the development and also allow distribution of the code (full \texttt{Matlab} source code available from https://github.com/ee12lmb/matlabSource).
-
-\subsection{J-index \& continuous M-index}
-The majority of the tools required to calculated the J-index and continuous M-index are provided in the \texttt{MTEX} texture toolkit, built for use in \texttt{Matlab} \citep{Mainprice}. I wrote functions to pull together these tools and apply them to a range of inputs, with the ability to sub-sample input textures and specify parameters such as the number of grains used for the calculation. See APPENDIX REF for full listing of both functions, and details of their calculation.
-
-\subsection{Discrete M-index}
-The calculation of the discrete M-index is more involved than the other indices. Recalling the discrete form of the equation \citep[][equation \ref{eq:Mindex_disc}]{Skemer}, it is necessary to know the theoretical misorientation angle distribution for a random fabric (composed of crystals of a given symmetry) and that of the sample in order to calculate the index . The theoretical distribution can be retrieved passing a crystal symmetry to the \texttt{MTEX} function \texttt{calcAngleDistribution}. What is returned is a set of misorientation angles and the corresponding frequency density for each angle (FIG REF - olivine angle distribution). In order to calculate the distribution for the input sample texture, I wrote a function to find the misorientation matrix (equation \ref{eq:misor_matrix}) between every combination of grains in the sample. Each matrix then needs to be multiplied by all the symmetry operators for the given crystal structure in order to find the minimum misorientation angle \citep[sometimes called the disorientation, for details see *APPENDIX REF* and][]{Grimmer1979}. These misorientation angles and frequencies for the theoretical distribution and for that of the sample are then placed into bins of a fixed number of degrees in order to be subtracted. For details of this method and full listings of the relevant functions see (APPENDIX REF).     
+%---------------------------FIG---------------------------------------------   
+\begin{figure}[th]
+  \centering
+    \includegraphics[width=0.9\textwidth]{analysis_workflow}
+  \caption[Typical analysis workflow]{Typical analysis workflow. Dark grey boxes indicate general steps and light grey gives examples. The general calculations were always run via shell scripts for two reasons 1) it is easier to check over the inputs to ensure they are correct/re-run the analysis if necessary and 2) the calculations could be run across the university servers rather than one-by-one on an individual instance of \texttt{Matlab}, greatly increasing efficiency.}
+  \label{fig:analysis_workflow}
+\end{figure}
+%---------------------------FIG---------------------------------------------   
 
 
 
@@ -505,16 +540,20 @@ Function    & Description   \\
 \vspace{-1cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The assessment of the texture indices in this project can be broken down into two broad sections. By their definition it is expected the indices will be sensitive to strain, however it is first important to establish whether other parameters inherent in their calculation, such as the number of grains used, will affect their ouput \emph{(robustness)}. The aim is to determine what is necessary to find the \lq{}true\rq{}, or most accurate, index value of a given sample. Comparisons are drawn with results from the literature, particularly those of \cite{Skemer} as their motivation for creating the M-index was to provide a more robust measure of texture strength. After determining what criteria need to be met to produce an accurate index value, analysis of the relationship between strain and the indices \emph{(proxy for strain)} can be conducted with confidence that the values presented are accurate and representative of the given sample/model. Both the robustness of the indices and their use as a proxy for strain were studied using VPSC models and EBSD data from field samples (see section \ref{sec:data}) and as such, results for both are included in each section to support any conclusions from two independant data sources. The results presented here are chosen to best represent the numerous analyses conducted, and appendix references to additional results are provided when necessary.       
+The assessment of the texture indices in this project can be broken down into two broad sections. By their definition it is expected the indices will be sensitive to strain, however it is first important to establish whether other parameters inherent in their calculation, such as the number of grains used, will affect their ouput \emph{(robustness)}. The aim is to determine what is necessary to find the \lq{}true\rq{}, or most accurate, index value of a given sample. Comparisons are drawn with results from the literature, particularly those of \cite{Skemer} as their motivation for creating the M-index was to provide a more robust measure of texture strength. After determining what criteria need to be met to produce an accurate index value, analysis of the relationship between strain and the indices \emph{(proxy for strain)} can be conducted with confidence that the values presented are accurate and representative of the given sample/model. Both the robustness of the indices and their use as a proxy for strain were studied using VPSC models and EBSD data from field samples (see section \ref{sec:data}) and as such, results for both are included in each section to support any conclusions from two independent data sources and to validate conclusions for field data. The results presented here are chosen to best represent the numerous analyses conducted, and appendix references to additional results are provided when necessary.       
 
 
 %---------------------------------------------------------------------------
 \section{Index robustness}
 %---------------------------------------------------------------------------
+The following sections aims to thoroughly analyse all aspects of index calculation. This includes the number of grains required, the effect of bin size on the discrete M-index, and the general variability and distribution of the indices for subsamples of the same texture. 
+
+\subsection{Number of grains}
+
 One of the first aspects to consider when calculating any texture index is the number of grains that will be used. An index might be considered robust if its value is independent of the number of grains input in the calculation (i.e. an index value calculated using 1,000 grains from a texture would be similar to the same index calculated using 100 grains from the same texture). However, an index will never be completely independent of the number of grains, but would be expected to converge to a certain value past a threshold. This is clear as a larger number of grains will be more representative of the texture as a whole, allowing for a more accurate index calculation. Figure \ref{fig:OLV_AXC_n_conv} demonstrates this for a VPSC model of olivine undergoing axial compression. 
 
 %---------------------------FIG---------------------------------------------   
-\begin{figure}[t!]
+\begin{figure}[bht]
   \centering
     \includegraphics[width=\textwidth]{figs/OLV_AXC_Conv_INTERP}
   \caption[Convergence with no. grains (olivine VPSC)]{Convergence plots for J-index, continuous M-index and discrete M-index calculated for an olivine VPSC model undergoing axial compression. The panels show increasing strain steps with (a) 2\%, (b) 16\%,(c) 30\% and (d) 42\% strain. Each data point is the avaerage of 50 calculations, with $n$ randomly sampled grains from a total of 10,000 (sampled with replacement). Calculations were ran for $n$ = 5, 10, 50, 100, 200, 500, 1,000, 2,000, 5,000 and 10,000. Error bars are from the standard deviation of these 50 measurements. All indices show convergence to constant values for calculations that use approximately 1000 grains and above, with standard deviation decreasing rapidly as the number of grains is increased.}
@@ -523,7 +562,7 @@ One of the first aspects to consider when calculating any texture index is the n
 %---------------------------FIG---------------------------------------------   
 
 
-As expected, all indices show convergence as the number of grains used in their calculation increases. Both the J-index and the continuous M-index converge smoothly at similar rates, as they are both calculated statistically (**SECTION REF?**). At very low numbers of grains ($<$50) the discrete M-index value is many times greater than the converged value. This is inherent in the calculation of this index as it requires enough data to construct a histogram to represent the misorientation angle distribution of the texture, which will not be possible with low numbers of grains. Although the value is initially far from the converged value, the discrete M-index has a much higher rate of convergence that the other indices. This is similar to findings of \cite{Skemer} in that convergence is rapid, although they find this occurs at smaller numbers of grains. In contrast to \cite{Skemer}, this effect is more pronounced at higher strain rates, which can be seen when comparing (a) with (d) in figure \ref{fig:OLV_AXC_n_conv} (the discrete M-index curve has levelled at lower $n$ in (d)), although these data are calculated from a VPSC model and not EBSD data as in \cite{Skemer}.
+As expected, all indices show convergence as the number of grains used in their calculation increases. Both the J-index and the continuous M-index converge smoothly at similar rates, as they are both calculated statistically (section \ref{sec:index_calc}). At very low numbers of grains ($<$50) the discrete M-index value is many times greater than the converged value. This is inherent in the calculation of this index as it requires enough data to construct a histogram to represent the misorientation angle distribution of the texture, which will not be possible with low numbers of grains. Although the value is initially far from the converged value, the discrete M-index has a much higher rate of convergence that the other indices. This is similar to findings of \cite{Skemer} in that convergence is rapid, although they find this occurs at smaller numbers of grains. In contrast to \cite{Skemer}, this effect is more pronounced at higher strain rates, which can be seen when comparing (a) with (d) in figure \ref{fig:OLV_AXC_n_conv} (the discrete M-index curve has levelled at lower $n$ in (d)), although these data are calculated from a VPSC model and not EBSD data as in \cite{Skemer}.
 
 %---------------------------FIG---------------------------------------------   
 \begin{figure}[t!]
@@ -551,8 +590,14 @@ Having established how the indices converge it is also useful to know how the va
 
 To further analyse this, $\sigma$ as a function of $n$ can be seen in figure \ref{fig:OLV_AXC_n_conv_err}. There is a clear trend of decreasing $\sigma$ as the number of grains is increased, although the benefit of increasing $n$ is reduced past approximately 1,000 grains, as $\sigma$ converges to a constant value (for all indices). This compliments the convergence threshold in that at $n >$ 1,000 all indices have converged to a \lq{}true\rq{} value, with the addition of the error being within acceptable bounds. The discrete M-index shows an anomalous drop in $\sigma$ at $n = 5$. This is again due to the need for enough grains to form a representative histogram of the misorientation distribution, and therefore when this distribution is so poorly defined the index will tend to produce similarly \lq{}wrong\rq{} values and so a smaller standard deviation will result.
 
+\subsection{Bin size (discrete M-index)}
+
+Having established the number of grains $n$ that is necessary for index convergence as approximately $n \geq O(10^{3})$, other calculation parameters can be investigated independently of any effect of $n$ by ensuring all calculations are within this convergent regime. 
+
+When observing the convergence of the continuous and discrete M-index curves for olivine (axial compression) in figure \ref{fig:OLV_AXC_n_conv} it is clear that the discrete M-index consistently converges to a value greater than that of the continuous M-index. Similar behaviour is seen in the quartz EBSD data for pole figures 1, 4 and 9, although not for 7 (figure \ref{fig:EBSD_QTZ_n_conv}). A calculation parameter that can potentially alter the converged (with respect to $n$) value of the M-index is the bin width of the histogram that makes up the misorientation angle distribution.   
+
 %---------------------------FIG---------------------------------------------   
-\begin{figure}[h!]
+\begin{figure}[b!]
   \centering
     \includegraphics[width=\textwidth]{figs/OLV_AXC_bin_conv.pdf}
   \caption[Convergence with bin size (olivine)]{M-index convergence as bin size is decreased. The data are from analysis of an olivine VPSC model which has undergone axial compression. Each data point was calculated using the same 2,0000 grains, to ensure the indices calculated have converged (in terms of number of grains, see Fig. \ref{fig:OLV_AXC_n_conv}). Panels show increasing strain, with (a) 2\%, (b) 16\%, (c) 30\% and (d) 42\%. The grey line is the continuous M-index calculated for the same 2,000 grains for reference.}
@@ -560,12 +605,32 @@ To further analyse this, $\sigma$ as a function of $n$ can be seen in figure \re
 \end{figure}  
 %---------------------------FIG---------------------------------------------   
 
+Figure \ref{fig:OLV_AXC_b_conv} shows the effect of decreasing bin size from 3$^\circ$ to 0.25$^\circ$ in 0.25$^\circ$ increments for olivine VPSC model undergoing axial compression, using $n$ = 2,000 grains (continuous M-index shown for reference). It is evident that bin size has a significant effect on the value of the discrete M-index, as at all strain steps the value is much greater at a bin size of 3$^\circ$ than at 0.25$^\circ$ (in some cases approximately double), and decreasing bin size results in convergence towards the continuous value. If increasing the number of grains gives more information about the texture, then decreasing the bin size offers better resolution of this information (in terms of the misorientation angle distribution), and so this relationship is expected. Essentially a larger bin size results in a coarser representation of the misorientation angle distribution. This of course makes a smaller bin size preferable, and in the discrete M-index method (see full listing in appendix \ref{App:M-index_calc}) there is no real penalty in terms of calculation time as misorentation angles for \emph{all} pairs are grains are calculated regardless of bin size, the only difference is the histograms that are subtracted (both the theoretical random distribution, and the calculated distribution as the bin widths must be equal to allow subtraction).
+
+Although smaller bin sizes are preferable, there is a functional limit as to how small bin sizes can be. An example would be that if a bin size of $\theta_{bin}$ = 0.5$^\circ$ is used to calculate the M-index for an olivine VPSC model, the number of bins $b_n$ would be:
+
+\begin{equation}
+b_n\ =\ \frac{\theta_{max}}{\theta_{bin}}\ =\ \frac{120^\circ}{0.5^\circ}\ =\ 240\ . 
+\end{equation}     
+\noindent
+As each grain is compared to all others around it, the number of pairs of grains $p_n$ (and therefore the number of misorientation angles) is given by:
+
+\begin{equation}
+p_n\ =\ \sum^{n-1}_{i=1}(n - i)\ =\ \frac{n}{2}(n-1)\ ,
+\end{equation} 
+\noindent
+giving the absolute minimum value of $n$ to allow at least one misorientation angle to lie in each bin to be $n$ = 23 (see APPENDIX). In reality this is an extreme lower bound as having a single angle in each bin will never represent the misorientation angle of the distribution of a sample with enough accuracy to produce a meaningful index value. However this demonstrates that, especially when small numbers of grains are available, care must be taken when choosing a bin width. 
+
+Returning to figure \ref{fig:OLV_AXC_b_conv}, even at at bin size of 0.25$^\circ$ the discrete M-index does not fully converge to the continuous value (panel (a) shows some evidence of convergence \emph{above} the continuous value). The likely explanation for this is inherent in the differences in their calculation.   
+
+\subsection{Index variability and distribution}
 
 
 %---------------------------------------------------------------------------
 \section{Proxy for strain}
 %---------------------------------------------------------------------------
 
+\subsection{Index-strain relationship}
 %---------------------------FIG---------------------------------------------   
 \begin{figure*}[p]
   \centering
@@ -594,6 +659,8 @@ To further analyse this, $\sigma$ as a function of $n$ can be seen in figure \re
 \end{figure} 
 %---------------------------FIG---------------------------------------------  
 
+\subsection{Estimating strain}
+
 %---------------------------FIG---------------------------------------------   
 \begin{figure}[h]
   \centering
@@ -611,6 +678,9 @@ To further analyse this, $\sigma$ as a function of $n$ can be seen in figure \re
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Comparison of results}
+
+\section{Future work}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -620,6 +690,10 @@ To further analyse this, $\sigma$ as a function of $n$ can be seen in figure \re
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{leedsHarvard}
+\bibliography{../dissertation}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -632,7 +706,7 @@ To further analyse this, $\sigma$ as a function of $n$ can be seen in figure \re
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Calculating the discrete M-index}
+\section{Calculating the discrete M-index} \label{App:M-index_calc}
 The contents...
 
 \section{Listings of significant functions}
@@ -650,8 +724,4 @@ This appendix contains figures that support much of the analysis and discussion 
 \end{figure} 
 %---------------------------FIG--
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\bibliographystyle{leedsHarvard}
-\bibliography{../dissertation}
 \end{document}
