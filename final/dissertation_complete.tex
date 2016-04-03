@@ -65,14 +65,17 @@ morekeywords={m_indexDisc,m_indexCont,j_index}}
 
 % title etc
 \title{\textbf{The M-index: A useful metric for rock deformation?}}
+
 \author{Student: Lewis Bailey\\Student number: 200695089\\Supervisor: Dr Andrew Walker}
 \date{}
 
 
 \begin{document}
 % -----------    D o c u m e n t     ------------
+
 \maketitle
 
+\pagenumbering{roman}
 \tableofcontents
 
 \listoffigures
@@ -81,6 +84,7 @@ morekeywords={m_indexDisc,m_indexCont,j_index}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Introduction} \label{chap:intro}
 \vspace{-1cm}
+\pagenumbering{arabic}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -91,7 +95,7 @@ morekeywords={m_indexDisc,m_indexCont,j_index}}
 %---------------------------------------------------------------------------
 \section{Background and motivation} \label{sec:background}
 %---------------------------------------------------------------------------
-In a number geological settings on Earth, processes occur that cause rocks to deform deform in a ductile manner. The polycrystalline nature of rocks allows this deformation to take place through processes at the grain, or crystal, scale such as dislocation glide/creep. This results in a reordering of the grains to accommodate the strain that is imposed  from the stresses driving the deformation. \textbf{*NEEDS COMPLETING AND REFERENCES ADDING*}   
+In a number geological settings on Earth, processes occur that cause rocks to deform in a ductile manner in reaction to external forces (stress). Ductile deformation of rocks on short time-scales generally requires stresses greatly exceeding those on Earth. However due to the crystalline nature of rocks, slow, permanent deformation is possible when stresses are maintained on geological time scales \citep{Weiss1985}. It is processes occurring at the crystal/grain scale, such as dislocation glide and dislocation creep that allow this deformation to take place, and the strain imposed to be accommodated \citep{Ashby1972}. These internal deformation mechanisms often result in the formation of crystallographic (or lattice) preferred orientations \citep{Price1985}. 
 
 The study of textures and their strength has a number of applications in both industry and academia. Textures, or lattice preferred orientations (LPO) arise in rocks that have undergone ductile deformation. The properties of this LPO are dependant on the strain history, and in general increased strain leads to a \lq{}stronger\rq{} LPO \textbf{REF?}. If LPO strength can be quantified by a texture index, and this index can be reliably related to strain, then it could prove a useful tool in determining strain in situations where it is impossible to measure though conventional means.
 
@@ -117,6 +121,11 @@ Aside from these general applications, a more direct motivation arises from \cit
 		\item Attempt to replicate some of \cite{Skemer} and \cite{Mainprice} for non-olivine samples to confirm or deny their observations are consistent across sample types.
 		\item Calculate texture indexes for a range of samples and models and draw comparisons between the results. Determine the most robust and reliable method. Use texture strength as a proxy for shear strain and investigate correlations between this and the indexes calculated.
 	\end{itemize}
+	
+	
+The overarching aim of this study is to investigate a number of methods for quantifying the strength of textures in rocks, and if this quantisation 
+
+The following chapter covers the necessary theory of textures in general such as descriptors of orientation, leading to the theory behind the indices themselves. Chapter \ref{chap:methods} begins by describing the available data sources and the methods of modelling/collecting this data. The rest of the chapter focuses on how the theory is implemented, using this data, via a suite of \texttt{Matlab} functions. As the software is an integral part of this project, details are given on a number of key functions, the use of the software, and important aspects of its development. Once the data and methodology are in place, chapter \ref{chap:analysis} contains the subsequent analysis of the indices. This analysis focuses on parameters affecting index calculation \emph{(index robustness)} and their relationship with strain \emph{(proxy for strain)}. Chapter \ref{chap:discussion} offers a discussion of the results presented in chapter \ref{chap:analysis} as well as suggestions for future work. Finally the findings of this study are summarised in chapter \ref{chap:conclusion}, followed by the reference list and appendices.   
 %---------------------------------------------------------------------------
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -135,7 +144,7 @@ The following sections aim to give enough theoretical knowledge of textures and 
 %---------------------------------------------------------------------------
 \section{Describing orientations} \label{sec:orientations}
 %---------------------------------------------------------------------------
-\emph{NB: The material in this section is covered by a number of textbooks on texture analysis, namely \cite{bunge1982texture} and \cite{Randle2000}}.
+\emph{NB: The material in this section is covered by a number of textbooks on texture analysis, namely \cite{bunge1982texture}, \cite{Bunge1985} and \cite{Randle2000}}.
 
 
 
@@ -352,7 +361,7 @@ where the calculation is now for $n$ bins and $\theta_{max}$ is the maximum theo
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Methods}
+\chapter{Data and Methods} \label{chap:methods}
 \vspace{-1cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -535,7 +544,7 @@ Function    & Description   \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Analysis}
+\chapter{Analysis} \label{chap:analysis}
 \vspace{-1cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -635,13 +644,13 @@ Returning to figure \ref{fig:OLV_AXC_b_conv}, even at at bin size of 0.25$^\circ
 %---------------------------FIG---------------------------------------------   
 \begin{figure}[h]
   \centering
-    \includegraphics[width=0.7\textwidth]{figs/OLV_SPS_cont_disc_diff.pdf}
-  \caption[Discrete and continuous M-index difference (olivine VPSC)]{The difference between the continuous and discrete M-index calculated for an olivine VPSC model undergoing axial compression. Values are the average of 50 calculations (grey points show individual differences for all 50 calculations) using $n$ = 2,000 grains sampled with replacement from a total of 10,000. Error bars are the standard deviation of the indices.}
+    \includegraphics[width=0.8\textwidth]{figs/OLV_SPS_cont_disc_diff.pdf}
+  \caption[Discrete and continuous M-index difference (olivine VPSC)]{The difference between the continuous and discrete M-index calculated for an olivine VPSC model undergoing simple shear. Values are the average of 50 calculations using $n$ = 2,000 grains sampled with replacement from a total of 10,000. Error bars are the standard deviation of the indices. \textbf{Inset} shows a clearer picture of the average difference between the 50 calculations of both indices, with the same axes as the main plot. The difference is on a similar order to the actual values showing that, although the change is small, the increase in difference with strain is not negligible.}
   \label{fig:OLV_SPS_cont_disc_diff}
 \end{figure}  
 %---------------------------FIG---------------------------------------------   
 
-A stronger texture would require a sharper ODF, and in this case any smoothing applied will have a greater effect. If the smoothing of the ODF is the factor causing the observed discrepancy, the difference between the M-indices would be expected to be larger for stronger textures. Figure \ref{fig:OLV_SPS_cont_disc_diff} shows curves for the discrete and continuous M-index as a function of strain, calculated for an olivine VPSC model undergoing axial compression.  
+A stronger texture would require a sharper ODF, and in this case any smoothing applied will have a greater effect. If the smoothing of the ODF is the factor causing the observed discrepancy, the difference between the M-indices would be expected to be larger for stronger textures. Figure \ref{fig:OLV_SPS_cont_disc_diff} shows curves for the discrete and continuous M-index as a function of strain, calculated for an olivine VPSC model undergoing simple shear. Before considering the difference between the curves, it is clear visually that they diverge as strain is increased, with the discrete M-index giving increasingly larger index values compared to the continuous. The difference curve on the main plot shows that this change is small in comparison to the index values, although not negligible, with the inset giving a clearer picture of this relationship. This divergence, although small, supports that the smoothing of the continuous M-index is the source of the discrepancy between the two methods of calculation. Figure \ref{fig:OLV_SPS_cont_disc_diff} shows a small increase in error (standard deviation) as strain is increased. This leads to the next analysis section, which focuses on the variability of the indices,     
 
 \subsection{Index variability and distribution}
 
@@ -649,6 +658,8 @@ A stronger texture would require a sharper ODF, and in this case any smoothing a
 %---------------------------------------------------------------------------
 \section{Proxy for strain}
 %---------------------------------------------------------------------------
+
+Include bit about dynamic recrystallisation
 
 \subsection{Index-strain relationship}
 %---------------------------FIG---------------------------------------------   
@@ -677,7 +688,17 @@ A stronger texture would require a sharper ODF, and in this case any smoothing a
   \caption[Misorientation angle distribution (quartz VPSC)]{Misorientation angle distributions for a quartz VPSC model undergoing axial compression, calculated using the same 500 grains with a bin width of 0.25$^{\circ}$ ** maybe need more grains and smaller bin **. The panels show increasing strain with \textbf{(a)} XX, \textbf{(b)} XX, \textbf{(c)} XX and \textbf{(d)} XX. The solid line shows the theoretical misorientation distribution for a random fabric of quartz grains.} 
   \label{fig:qtz_misorientation_dist}
 \end{figure} 
+%---------------------------FIG---------------------------------------------
+
+%---------------------------FIG---------------------------------------------   
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=\textwidth]{figs/m_vs_j.pdf}
+  \caption[Relationship of M- and J-indices]{} 
+  \label{fig:m_vs_j}
+\end{figure} 
 %---------------------------FIG---------------------------------------------  
+  
 
 \subsection{Estimating strain}
 
@@ -690,10 +711,11 @@ A stronger texture would require a sharper ODF, and in this case any smoothing a
 \end{figure} 
 %---------------------------FIG---------------------------------------------  
 
+\subsection{Relation to seismic anisotropy}
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Discussion}
+\chapter{Discussion} \label{chap:discussion}
 \vspace{-1cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -705,7 +727,7 @@ A stronger texture would require a sharper ODF, and in this case any smoothing a
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Conclusion}
+\chapter{Conclusion} \label{chap:conclusion}
 \vspace{-1cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
