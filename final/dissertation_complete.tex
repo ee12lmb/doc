@@ -79,6 +79,7 @@ morekeywords={m_indexDisc,m_indexCont,j_index}}
 \tableofcontents
 
 \listoffigures
+\listoftables
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -424,6 +425,36 @@ This group of functions (directory \lq{}readfiles\rq{} on disc) deals with the i
 
 Building on this basic functionality, a useful tool is the ability to subsample from a larger dataset (i.e. extract $n$ random grains from a total of $N$ in the sample). In the context of this project this allows for analysis of the robustness of the indices (see section REF), but also statistical analysis and efficient index calculations. The functions \texttt{sample\_{}VPSC} and \texttt{sample\_{}EBSD} will sample directly from a file, while the function \texttt{sample\_{}texture} will do the same for an array of Euler angles already loaded into the \texttt{Matlab} environment. These functions take an input seed so that the same \lq{}random\rq{} samples can be generated to allow repeatability. Also included in this group are some internal functions such as \texttt{lookupSym} which returns an \texttt{MTEX} crystal symmetry object (REF) for a given crystal name (e.g. \lq{}olivine\rq{}) and \texttt{get\_{}inputInfo} which combines all of the functionality in this section into a compact form.                                                                                                                            
 
+\begin{table}[h!] 
+	\centering
+	\caption[Functions: reading \& sampling]{Functions used for reading in and sampling either VPSC or EBSD data, finding crystal symmetries and other data related tasks.}
+	\noindent
+	
+\begin{tabularx}{\textwidth}{lX}
+
+\hline
+\hline
+Function    & Description   \\ 
+\hline
+\hline
+
+\texttt{setup\_{}env} & Function initialises the \texttt{MTEX} package and adds paths to all other functions. Stores a global variable to indicate this has been completed (to prevent this occurring at each separate function call). \\  
+
+\texttt{read\_{}VPSC} & Will extract Euler angles and strain information from VPSC files, if output in Bunge convention. If multiple strain steps are present their information will be stored in a cell array (edited from original code by Dr Andrew Walker). \\ 
+
+\texttt{sample\_{}VPSC} & Loads data using \texttt{read\_{}VPSC} and then returns $n$ randomly sampled grains (without replacement). \\  
+
+\texttt{read\_{}EBSD} & Similar to \texttt{read\_{}VPSC}, but reads in EBSD files (*.ctf format). \\
+
+\texttt{sample\_{}EBSD} & Similal to \texttt{sample\_{}VPSC} but for EBSD files (*.ctf format). \\ 
+\\
+\hline
+\hline
+
+\end{tabularx}
+\label{tab:read_functions}
+\end{table}
+
 \subsection{Index calculation} \label{sec:index_calc}
 
 There are three index calculations available in this toolbox (each with their own directory on disk). The function \texttt{j\_{}index} uses a number of tools provided in \texttt{MTEX} (REF),  such as \texttt{calcODF} which statistically calculates the orientation distribution function (ODF, see SEC REF) from the input Euler angles, and \texttt{textureindex} which calculates the J-index from this ODF. Similarly, \texttt{m\_{}indexCont} uses this ODF to calculate a \emph{statistical} misorientation distribution function (MDF) for the input Euler angles.  This MDF is then subtracted from the theoretical random MDF to give what I call the \emph{continuous M-index} (equation REF) due to its statistical nature.  Although much of the essential tools are derived from \texttt{MTEX}, both \texttt{j\_{}index} and \texttt{m\_{}indexCont} utilise the functionality described in the previous section in combination with consistent syntax in their use to streamline index calculation using a number of inputs and calculation parameters (e.g. the number of grains $n$ to use, see listing REF in section REF).         
@@ -431,6 +462,35 @@ There are three index calculations available in this toolbox (each with their ow
 The function \texttt{m\_{}indexDisc} is more involved in its calculation and only relies on \texttt{MTEX} to produce the theoretical misorientation angle distribution for a given symmetry (using \texttt{calcAngleDistribution}). As with the other index functions, \texttt{m\_{}indexDisc} takes either EBSD, VPSC or a list of Euler angles as input, as well as a number of input calculation parameters, using a consistent syntax (see listing REF). To find the misorientation angle distribution, I wrote the function \texttt{discreteMDF}, which finds the misorientation matrix ($\tilde{g}$, equation REF) between all combination of grains within the sample \citep[uncorrelated misorientation angle distribution,][]{Mainprice}. Each $\tilde{g}$ is passed to \texttt{calDisorientation}, a function I wrote that finds the disorientation \citep{Grimmer1979} by applying symmetry operators for the chosen crystal structure and choosing the smallest misorientation angle. Once these are found, \texttt{discreteMDF} returns a list of misorientation angles to \texttt{m\_{}indexDisc} which counts them in bins (the width of which is specified by the user, in degrees) and finds the difference between this calculated misorientation angle distribution and the theoretical random distribution. For detail on the theory see section \ref{sec:indicies} and \cite{Skemer}, for a detailed breakdown of the \texttt{m\_{}indexDisc} code see appendix APPENDIX.                                            
 
 All three index functions are designed consistently, e.g. if given a VPSC input file they will return the strain of each step as well as the index calculated (to allow easy plotting of the index-strain relationship). At the request of the user, output can be dumped to a text file with headers describing metadata (e.g. input file, index calculated etc.).                                                                                                                    
+
+\begin{table}[h!] 
+	\centering
+	\caption[Functions: index calculation]{Functions to calculate the various indices, and internal functions within them (that still have use as standalone tools).}
+	\noindent
+	
+\begin{tabularx}{\textwidth}{lX}
+
+\hline
+\hline
+Function    & Description   \\ 
+\hline
+\hline
+\texttt{j\_{}index}$^{\dagger}$ & Calculates the J-index using elements of the \texttt{MTEX} package. \\ 
+
+\texttt{m\_{}indexCont}$^{\dagger}$ & Calculates the continuous version of the M-index using elements of \texttt{MTEX} package. \\
+
+\texttt{m\_{}indexDisc}$^{\dagger}$ & Calculates the discrete version of the M-index. \\
+
+\texttt{discreteMDF} & Finds the misorientation angle distribution for a given dataset and crystal symmetry. For use in \texttt{m\_{}indexDisc}. \\
+
+\texttt{calDisorientation} & Finds the minimum angle needed to rotate one crystal onto the other, given a crystal symmetry (for use in \texttt{discreteMDF}). \\
+\\
+\hline
+\hline
+
+\end{tabularx}
+\label{tab:index_functions}
+\end{table}
 
 \subsection{Analysis functions}
 
@@ -441,6 +501,27 @@ The function \texttt{read\_{}texout} reads in the output files from the \texttt{
 One of the objectives of this study was to determine whether the indices are a good proxy for strain. Assuming there is a relationship between the two, it is possible to convert an index value to a strain value. I wrote \texttt{get\_{}strain} to take an index as input, usually calculated from EBSD data (where strain is not known), and find a value for strain by comparing this value to an appropriate index reference curve calculated for VPSC data (where strain is known, or can be interpolated, for any index value). This is essentially a way of estimating strain for an EBSD input data set.
 
 Need section about calculating anisotropy
+
+\begin{table}[h!] 
+	\centering
+	\caption[Functions: analysis]{List of functions used to analyse the index calculations, either by reading in output files for further calculations, or aiding statistical analysis.}
+	\noindent
+	
+\begin{tabularx}{\textwidth}{lX}
+
+\hline
+\hline
+Function    & Description   \\ 
+\hline
+\hline
+\texttt{index\_{}repeat}$^{\dagger}$ & Will calculate any of the above indices a number of times (for a specific strain step), using a different seed to resample the data each time (\emph{with} replacement). \\
+
+\texttt{read\_{}texout} & Will read data files output by all \texttt{index} functions. \\
+\hline
+
+\end{tabularx}
+\label{tab:index_functions}
+\end{table}
 
 \subsection{Software development and use}
 
@@ -491,56 +572,56 @@ Some elements of the code were optimised when it became apparent that significan
 
 
 
-\begin{table}[p!] 
-	\centering
-	\caption[VPSC datasets]{List of functions main functions with general descriptions. For more exhaustive documentation see in-function comments/appendices.}
-	\noindent
-	
-\begin{tabularx}{\textwidth}{lX}
-
-\hline
-\hline
-Function    & Description   \\ 
-\hline
-\hline
-
-\texttt{setup\_{}env} & Function initialises the \texttt{MTEX} package and adds paths to all other functions. Stores a global variable to indicate this has been completed (to prevent this occurring at each separate function call). \\  
-
-\texttt{read\_{}VPSC} & Will extract Euler angles and strain information from VPSC files, if output in Bunge convention. If multiple strain steps are present their information will be stored in a cell array (edited from original code by Dr Andrew Walker). \\ 
-
-\texttt{sample\_{}VPSC} & Loads data using \texttt{read\_{}VPSC} and then returns $n$ randomly sampled grains (without replacement). \\  
-
-\texttt{read\_{}EBSD} & Similar to \texttt{read\_{}VPSC}, but reads in EBSD files (*.ctf format). \\
-
-\texttt{sample\_{}EBSD} & Similal to \texttt{sample\_{}VPSC} but for EBSD files (*.ctf format). \\ 
-\\
-\hline
-\hline
-
-\texttt{j\_{}index}$^{\dagger}$ & Calculates the J-index using elements of the \texttt{MTEX} package. \\ 
-
-\texttt{m\_{}indexCont}$^{\dagger}$ & Calculates the continuous version of the M-index using elements of \texttt{MTEX} package. \\
-
-\texttt{m\_{}indexDisc}$^{\dagger}$ & Calculates the discrete version of the M-index. \\
-
-\texttt{discreteMDF} & Finds the misorientation angle distribution for a given dataset and crystal symmetry. For use in \texttt{m\_{}indexDisc}. \\
-
-\texttt{calDisorientation} & Finds the minimum angle needed to rotate one crystal onto the other, given a crystal symmetry (for use in \texttt{discreteMDF}). \\
-\\
-\hline
-\hline
-
-\texttt{index\_{}repeat}$^{\dagger}$ & Will calculate any of the above indices a number of times (for a specific strain step), using a different seed to resample the data each time (\emph{with} replacement). \\
-
-\texttt{read\_{}texout} & Will read data files output by all \texttt{index} functions. \\
-\hline
-& \footnotesize{$^\dagger$ \textit{Functions can take EBSD or VPSC files as input, and sample $n$ grains randomly without replacement for index calculation.}} \\
-
-\end{tabularx}
-\label{tab:functions}
-\end{table}
-
+%\begin{table}[p!] 
+%	\centering
+%	\caption[VPSC datasets]{List of functions main functions with general descriptions. For more exhaustive documentation see in-function comments/appendices.}
+%	\noindent
+%	
+%\begin{tabularx}{\textwidth}{lX}
 %
+%\hline
+%\hline
+%Function    & Description   \\ 
+%\hline
+%\hline
+%
+%\texttt{setup\_{}env} & Function initialises the \texttt{MTEX} package and adds paths to all other functions. Stores a global variable to indicate this has been completed (to prevent this occurring at each separate function call). \\  
+%
+%\texttt{read\_{}VPSC} & Will extract Euler angles and strain information from VPSC files, if output in Bunge convention. If multiple strain steps are present their information will be stored in a cell array (edited from original code by Dr Andrew Walker). \\ 
+%
+%\texttt{sample\_{}VPSC} & Loads data using \texttt{read\_{}VPSC} and then returns $n$ randomly sampled grains (without replacement). \\  
+%
+%\texttt{read\_{}EBSD} & Similar to \texttt{read\_{}VPSC}, but reads in EBSD files (*.ctf format). \\
+%
+%\texttt{sample\_{}EBSD} & Similal to \texttt{sample\_{}VPSC} but for EBSD files (*.ctf format). \\ 
+%\\
+%\hline
+%\hline
+%
+%\texttt{j\_{}index}$^{\dagger}$ & Calculates the J-index using elements of the \texttt{MTEX} package. \\ 
+%
+%\texttt{m\_{}indexCont}$^{\dagger}$ & Calculates the continuous version of the M-index using elements of \texttt{MTEX} package. \\
+%
+%\texttt{m\_{}indexDisc}$^{\dagger}$ & Calculates the discrete version of the M-index. \\
+%
+%\texttt{discreteMDF} & Finds the misorientation angle distribution for a given dataset and crystal symmetry. For use in \texttt{m\_{}indexDisc}. \\
+%
+%\texttt{calDisorientation} & Finds the minimum angle needed to rotate one crystal onto the other, given a crystal symmetry (for use in \texttt{discreteMDF}). \\
+%\\
+%\hline
+%\hline
+%
+%\texttt{index\_{}repeat}$^{\dagger}$ & Will calculate any of the above indices a number of times (for a specific strain step), using a different seed to resample the data each time (\emph{with} replacement). \\
+%
+%\texttt{read\_{}texout} & Will read data files output by all \texttt{index} functions. \\
+%\hline
+%& \footnotesize{$^\dagger$ \textit{Functions can take EBSD or VPSC files as input, and sample $n$ grains randomly without replacement for index calculation.}} \\
+%
+%\end{tabularx}
+%\label{tab:functions}
+%\end{table}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
