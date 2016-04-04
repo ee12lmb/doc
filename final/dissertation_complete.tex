@@ -96,7 +96,7 @@ morekeywords={m_indexDisc,m_indexCont,j_index}}
 %---------------------------------------------------------------------------
 \section{Background and motivation} \label{sec:background}
 %---------------------------------------------------------------------------
-In a number geological settings on Earth, processes occur that cause rocks to deform in a ductile manner in reaction to external forces (stress). Ductile deformation of rocks on short time-scales generally requires stresses greatly exceeding those on Earth. However due to the crystalline nature of rocks, slow, permanent deformation is possible when stresses are maintained on geological time scales \citep{Weiss1985}. It is processes occurring at the crystal/grain scale, such as dislocation glide and dislocation creep that allow this deformation to take place, and the strain imposed to be accommodated \citep{Ashby1972}. These internal deformation mechanisms often result in the formation of crystallographic (or lattice) preferred orientations \citep{Price1985}. 
+In a number geological settings on Earth, processes occur that cause rocks to deform in a ductile manner in reaction to external forces (stress). Ductile deformation of rocks on short time-scales generally requires stresses greatly exceeding those on Earth. However due to the polycrystalline nature of rocks, slow, permanent deformation is possible when stresses are maintained on geological time scales \citep{Weiss1985}. It is processes occurring at the crystal/grain scale, such as dislocation glide and dislocation creep that allow this deformation to take place, and the strain imposed to be accommodated \citep{Ashby1972}. These internal deformation mechanisms often result in the formation of crystallographic (or lattice) preferred orientations \citep{Price1985}. 
 
 The study of textures and their strength has a number of applications in both industry and academia. Textures, or lattice preferred orientations (LPO) arise in rocks that have undergone ductile deformation. The properties of this LPO are dependant on the strain history, and in general increased strain leads to a \lq{}stronger\rq{} LPO \textbf{REF?}. If LPO strength can be quantified by a texture index, and this index can be reliably related to strain, then it could prove a useful tool in determining strain in situations where it is impossible to measure though conventional means.
 
@@ -162,7 +162,7 @@ C_C\ =\ g \cdot C_S\ ,
 where in this case, the sample coordinate system is rotated to that of the crystal. The orientation $g$ can be described in a number of ways. The principal methods I will use are \emph{Euler angles} and \emph{rotation matrices}.
 
 
-A set of Euler angles defines three rotations that transform the sample coordinate system onto the crystal coordinate system and so therefore specify an orientation. I will be using the conventions of \cite{bunge1982texture} such that the three rotation that make up the orientation are defined as $g = \{\varphi_1,\Phi,\varphi_2\}$. The angle $\varphi_1$ is the first rotation about the $Z$ axis, followed by a rotation $\Phi$ about the $X'$ axis in its new orientation, and finally $\varphi_2$ about the $Z''$ axis, in its final orientation (figure \ref{fig:euler_angles}). The order of these rotations is not interchangeable.
+A set of Euler angles defines three rotations that transform the sample coordinate system onto the crystal coordinate system and so therefore specify an orientation. I will be using the conventions of \cite{bunge1982texture} such that the three rotations that make up the orientation are defined as $g = \{\varphi_1,\Phi,\varphi_2\}$. The angle $\varphi_1$ is the first rotation about the $Z$ axis, followed by a rotation $\Phi$ about the $X'$ axis in its new orientation, and finally $\varphi_2$ about the $Z''$ axis, in its final orientation (figure \ref{fig:euler_angles}). The order of these rotations is not interchangeable.
 
 
 
@@ -337,16 +337,24 @@ with the same holding true for inverse pole figures. By substituting in the seri
 
 
 \subsection{M-index} \label{subsec:Mindex}
-A more empirical method to quantify texture strength is the M-index. Defined by \cite{Skemer}, the method is based on the difference between a measured misorientation angle distribution $f^M(\theta)$ and a random theoretic distribution $f^R(\theta)$ (based on the sample crystal symmetry). To understand the physical significance of this metric, it is first important to clearly define the misorientation angle between two crystals. Recalling the definition of a misorientation matrix $\tilde{g}$ (a 3 x 3 rotation matrix that rotates one crystal coordinate system onto another), a misorientation angle $\theta$ can be extracted from this matrix by:
+A more empirical method to quantify texture strength is the M-index. Defined by \cite{Skemer}, the method is based on the difference between a measured misorientation angle distribution $f^M(\theta)$ and a random theoretic distribution $f^R(\theta)$ (based on the sample crystal symmetry). To understand the physical significance of this metric, it is first important to clearly define the misorientation angle between two crystals. Recalling the definition of a misorientation matrix $\tilde{g}$ (a 3 x 3 rotation matrix that rotates one crystal coordinate system onto another), a misorientation angle $\theta$ can be extracted from this matrix using the relation:
 
 \begin{equation}
 \cos{\theta}\ =\ \frac{(\tilde{g}_{11} + \tilde{g}_{22} + \tilde{g}_{33} - 1)}{2}\ .
 \end{equation} 
 \\
-\citep{Randle2000}. This is the angle needed to rotate one coordinate system about some common axis of rotation in order for the two coordinate systems (and hence the two crystals) to be aligned. Figure (GRAB FROM ENGLER) shows an example of how an angle/axis of rotation can describe a misorientation. A misorientation angle distribution is simply a histogram detailing the frequency density of misorientation angles within the sample (the rotation vector is unimportant, we require only the angle $\theta$). There are two types of misorientation angle distributions. A correlated MAD is where only the angles between neighbouring grains are considered, whereas in an uncorrelated MAD, angles between all pairs of crystals are considered.
+\citep{Randle2000}. This is the angle needed to rotate one coordinate system about some common axis of rotation in order for the two coordinate systems (and hence the two crystals) to be aligned. Figure \ref{fig:angle-axis_example} shows an example of how an angle/axis of rotation can describe a misorientation. A misorientation angle distribution is simply a histogram detailing the frequency density of misorientation angles within the sample (the rotation vector is unimportant, we require only the angle $\theta$). There are two types of misorientation angle distributions. A correlated MAD is where only the angles between neighbouring grains are considered, whereas in an uncorrelated MAD, angles between all pairs of crystals are considered.
 
+%---------------------------FIG---------------------------------------------   
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.6\textwidth]{axes_angle_rot_PPT.pdf}
+  \caption[Angle/axis of rotation example]{Example of how an angle of rotation $\theta$ about a common axis \textbf{r} can translate one crystal onto another. For two cubes orientated such as this, the location and direction of the axis is obvious, but the vector \textbf{r} need not folow a crystal edge as in this example (and often will not). After \cite{Randle2000}.}
+  \label{fig:angle-axis_example}
+\end{figure}
+%---------------------------FIG---------------------------------------------   
 
-\cite{Skemer} define the M-index, in terms of continuous misorientation angle distributions as:
+\cite{Skemer} define the M-index, in terms of \emph{continuous} misorientation angle distributions (i.e. derived statistically from a MDF) as:
 
 \begin{equation} \label{eq:Mindex_cont}
 M \equiv \frac{1}{2} \int | f^M(\theta) - f^R(\theta) |\ \mathrm{d}\theta \ .
@@ -354,24 +362,26 @@ M \equiv \frac{1}{2} \int | f^M(\theta) - f^R(\theta) |\ \mathrm{d}\theta \ .
 \\   
 The physical significance of this index is related to the change in individual misorientation angles within the sample as strain is increased. As strain increases in a sample and grains begin to align (i.e. texture strength increases), misorientation angles between any arbitrary pair of grains will become smaller, due to their coordinate systems being more closely aligned. This makes the M-index definition clearer: at low strains a sample texture will be close to that of the theoretical random texture and so the difference between their misorientation angle distributions (MAD) will be small. As strain increases, the sample MAD will favour lower angles, and the difference between them will become greater (and therefore the index value will be larger). This is demonstrated in figure \ref{fig:misorientation_example} showing distributions for an olivine VPSC model (see section \ref{sec:data}) undergoing simple shear at increasing strain steps.
 
-In practice it is easier to define the M-index as:
+
+%---------------------------FIG---------------------------------------------   
+\begin{figure}[t]
+  \centering
+    \includegraphics[width=\textwidth]{figs/OLV_SPS_misor_example.pdf}
+  \caption[Misorientation angle distribution example (olivine VPSC)]{Misorientation angle distribution for an olivine VPSC model undergoing simple shear. The solid black line represents the expected distribution for a random texture for reference. It is clear that as stain increases from panels \textbf{(a)} to \textbf{(d)} that there is a higher frequency of lower misorientation angles (due to the grains aligning) resulting in a greater difference between the sample distribution and the random distribution.}
+  \label{fig:misorientation_example}
+\end{figure}
+%---------------------------FIG--------------------------------------------- 
+
+In practice it is easier to calculate the M-index using the \emph{discrete} definition whereby the difference between the theoretic and random distribution is simply the difference between the histograms:
 
 \begin{equation} \label{eq:Mindex_disc}
 M \equiv \sum_{i=1}^n | f_i^M - f_i^R | \cdot \frac{\theta_{max}}{2n}\ ,
 \end{equation} 
-where the calculation is now for $n$ histogram bins and $\theta_{max}$ is the maximum theoretical misorientation angle for the specific crystal symmetry. The factor of a half is for convenience to give the range $0 \leq M \leq 1$. 
+where the calculation is now for $n$ histogram bins and $\theta_{max}$ is the maximum theoretical misorientation angle for the specific crystal symmetry \citep[for discussion on misorientation angle distirbutions for various crystal symmetries see][and references therein]{Grimmer1979,Wheeler2001}. The factor of a half is for convenience to give the range $0 \leq M \leq 1$. 
 
-%---------------------------FIG---------------------------------------------   
-\begin{figure}[th]
-  \centering
-    \includegraphics[width=\textwidth]{figs/OLV_SPS_misor_example.pdf}
-  \caption[Misorientation angle distribution example (olivine VPSC)]{}
-  \label{fig:misorientation_example}
-\end{figure}
-%---------------------------FIG---------------------------------------------   
+  
 
-
-\textbf{GO OVER THIS SECTION AND ADD DETAIL/CRITICISM FROM THE LITERATURE}
+\cite{Schaeben2007} offers some criticism of the theoretical validity and usefulness of the M-index. In particular he does not agree with the claim of \cite{Skemer} that the M-index provides a more robust and objective than the J-index. He argues that calculating index values by considering each orientation measurement as independent is statistically incorrect as the orientation measurements are spatially correlated. \cite{Skemer2007reply} have responded stating that the M-index is an alternative to the J-index and does not aim to replace it. Emphasis is placed on its use in Earth-sciences due to its apparent robustness at low numbers of measurements. Analysis of these claims by \cite{Skemer} and \cite{Skemer2007reply} forms part of the motivation for this work.  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
