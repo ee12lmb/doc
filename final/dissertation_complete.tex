@@ -663,7 +663,7 @@ Some elements of the code were optimised when it became apparent that significan
 \vspace{-1cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-I have broken down the assessment of the texture indices in this project into two broad sections. By their definition it is expected the indices will be sensitive to strain, however it is first important to establish whether other parameters inherent in their calculation, such as the number of grains used, will affect their ouput \emph{(robustness)}. The aim is to determine what is necessary to find the \lq{}true\rq{}, or most accurate, index value of a given sample. I compare my results with those from the literature, particularly of \cite{Skemer} as their motivation for creating the M-index was to provide a more robust measure of texture strength. After determining what criteria need to be met to produce an accurate index value, analysis of the relationship between strain and the indices \emph{(proxy for strain)} can be conducted with confidence that the values presented are accurate and representative of the given sample/model. I studied the robustness of the indices and their use as a proxy for strain using VPSC models and EBSD data from field samples (see section \ref{sec:data}). As such, results for both are included in each section to support any conclusions from two independent data sources and to validate conclusions for field data. I chose the results presented here to best represent the numerous analyses conducted, but provide appendix references to additional results when necessary.       
+I have broken down the assessment of the texture indices in this project into two broad sections. By their definition it is expected the indices will be sensitive to strain, however it is first important to establish whether other parameters inherent in their calculation, such as the number of grains used, will affect their ouput \emph{(robustness)}. The aim is to determine what is necessary to find the \lq{}true\rq{}, or most accurate, index value of a given sample. I compare my results with those from the literature, particularly of \cite{Skemer} as their motivation for creating the M-index was to provide a more robust measure of texture strength. After determining what criteria need to be met to produce an accurate index value, I present analysis of the relationship between strain and the indices \emph{(proxy for strain)} with confidence that the values presented are accurate and representative of the given sample/model. I studied the robustness of the indices and their use as a proxy for strain using VPSC models and EBSD data from field samples (see section \ref{sec:data}). As such, results for both are included in each section to support any conclusions from two independent data sources and to validate conclusions for field data. I chose the results presented here to best represent the numerous analyses conducted, but provide appendix references to additional results when necessary.       
 
 
 %---------------------------------------------------------------------------
@@ -673,7 +673,7 @@ In the following section I aim to thoroughly analyse all aspects of index calcul
 
 \subsection{Number of grains}
 
-One of the first aspects to consider when calculating any texture index is the number of grains that will be used. An index might be considered robust if its value is independent of the number of grains input in the calculation (i.e. an index value calculated using 1,000 grains from a texture would be similar to the same index calculated using 100 grains from the same texture). However, an index will never be completely independent of the number of grains, but would be expected to converge to a certain value past a threshold. This is clear as a larger number of grains will be more representative of the texture as a whole, allowing for a more accurate index calculation. To analyse this, I calculated each index using a range of $n$ for a number of strain steps in an olivine VPSC model undergoing axial compression (Figure \ref{fig:OLV_AXC_n_conv}. 
+One of the first aspects to consider when calculating any texture index is the number of grains that will be used. An index might be considered robust if its value is independent of the number of grains input in the calculation (i.e. an index value calculated using 1,000 grains from a texture would be similar to the same index calculated using 100 grains from the same texture). However, an index will never be completely independent of the number of grains, but would be expected to converge to a certain value past a threshold. This is clear as a larger number of grains will be more representative of the texture as a whole, allowing for a more accurate index calculation. To analyse this, I calculated each index using a range of $n$ for a number of strain steps in an olivine VPSC model undergoing axial compression (Figure \ref{fig:OLV_AXC_n_conv}). 
 
 %---------------------------FIG---------------------------------------------   
 \begin{figure}[bht]
@@ -715,7 +715,7 @@ To further analyse this, $\sigma$ as a function of $n$ can be seen in figure \re
 
 \subsection{Bin size (discrete M-index)}
 
-Having established the number of grains $n$ that is necessary for index convergence as approximately $n \geq O(10^{3})$, other calculation parameters can be investigated independently of any effect of $n$ by ensuring all calculations are within this convergent regime. 
+Having established the number of grains $n$ that is necessary for index convergence as approximately $n \geq O(10^{3})$, I can investigate other calculation parameters independently of any effect of $n$, by ensuring all calculations are within this convergent regime. 
 
 When observing the convergence of the continuous and discrete M-index curves for olivine (axial compression) in figure \ref{fig:OLV_AXC_n_conv} it is clear that the discrete M-index consistently converges to a value greater than that of the continuous M-index. Similar behaviour is seen in the quartz EBSD data for pole figures 1, 4 and 9, although not for 7 (figure \ref{fig:EBSD_QTZ_n_conv}). A calculation parameter that can potentially alter the converged (with respect to $n$) value of the M-index is the bin width of the histogram that makes up the misorientation angle distribution.   
 
@@ -787,12 +787,15 @@ One explanation arises when considering the the movement of individual grains wi
 \section{Proxy for strain}
 %---------------------------------------------------------------------------
 
-Now that I have determined the robustness and variability of the indices, I move on in the following section to analyse their relationship with strain and whether they are an appropriate proxy. Once this relationship is established, I use it to estimate the strain of EBSD data. I also include analysis of the seismic anisotropy measured introduced in section REF   
+Now that I have determined the robustness and variability of the indices, I move on in the following section to analyse their relationship with strain and whether they are an appropriate proxy. Once this relationship is established, I use it to estimate the strain of EBSD data. I analyse the seismic anisotropy measures introduced in section REF, and determine the relationship, if any, between these and the indices.   
 
 
 Include bit about dynamic recrystallisation
 
 \subsection{Index-strain relationship}
+
+To gain an understanding of the indices relationship with strain, I calculated each index for VPSC models of olivine, quartz and post-perovskite, undergoing both axial compression (strain range 2 - 50\%) and simple shear (strain range 8.75 - 350\%), using $n$ = 5,000 grains (figure \ref{fig:indices_vs_strain}).     
+
 %---------------------------FIG---------------------------------------------   
 \begin{figure*}[p]
   \centering
@@ -801,6 +804,10 @@ Include bit about dynamic recrystallisation
   \label{fig:indices_vs_strain}
 \end{figure*} 
 %---------------------------FIG---------------------------------------------  
+
+It is clear that for both olivine and post-perovskite, the indices increase monotonically with strain. For both crystals, the indices increase relatively linearly to approximately 100 - 150\% strain, after which the behaviour of the two crystals diverges. The J-index for olivine simple shear (panel (b)) continues to increase linearly to a value of $J_O$ = 24.26 at 350\% strain, whereas the J-index for post-perovskite is less linear, and increases to a much greater value of $J_P$ = 86.49. The gradients of the M-index curves for both olivine and post-perovskite simple shear (panels (b) and (f)) decrease past 150\% strain and they begin to tend towards constant values, although both M-indices are much greater for post-perovskite (approximately double). The behaviour is more linear in the lower strain limit of the axial compression curves (50\%), although the post-perovskite M-index values are again approximately double. The similarity in index behaviour for these two minerals (compared to quartz) is likely due to them having the same crystal symmetry (REF?).
+
+Continue on to talk about pps deformation mechanisms, citing Walker 2012. Following this, talk about the quartz anomaly and the likely explanation.      
 
 
 %---------------------------FIG---------------------------------------------   
