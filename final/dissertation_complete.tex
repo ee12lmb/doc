@@ -107,7 +107,7 @@ In addition to estimating strain from samples, texture indices could also offer 
 Aside from these general applications, a more direct motivation arises from \cite{Skemer}. After introducing their metric (the M-index) and applying it to olivine, they state that \lq\lq{}further research is necessary to confirm the M-index's validity or practicality for other materials\rq\rq{}, which gives clear scope for a project to investigate this. In order to confirm its validity, it is also necessary to compare the M-index with a number of other metrics in a similar fashion to \cite{Mainprice}, but with greater detail and for a number of crystal structures. This leads to the main aims and objectives of this study.   
 
 
-
+Science pPv paper give some good motivation and explanation of crystal anisotropy leading to bulk anisotropy.
 
 
 %---------------------------------------------------------------------------
@@ -346,7 +346,7 @@ with the same holding true for inverse pole figures. By substituting in the seri
 \subsection{M-index} \label{subsec:Mindex}
 A more empirical method to quantify texture strength is the M-index. Defined by \cite{Skemer}, the method is based on the difference between a measured misorientation angle distribution $f^M(\theta)$ and a random theoretic distribution $f^R(\theta)$ (calculated from the sample crystal symmetry). To understand the physical significance of this metric, it is first important to clearly define the misorientation angle between two crystals. Recalling the definition of a misorientation matrix $\tilde{g}$ (a 3 x 3 rotation matrix that rotates one crystal coordinate system onto another), a misorientation angle $\theta$ can be extracted from this matrix using the relation:
 
-\begin{equation}
+\begin{equation} \label{eq:misorientation_angle}
 \cos{\theta}\ =\ \frac{(\tilde{g}_{11} + \tilde{g}_{22} + \tilde{g}_{33} - 1)}{2}\ .
 \end{equation} 
 \\
@@ -780,7 +780,7 @@ In the following section I am to investigate the increase of standard deviation 
 \end{figure} 
 %---------------------------FIG---------------------------------------------  
 
-One explanation arises when considering the the movement of individual grains within the sample. The rotation rate of a grain within a sample at a given time is related to its current orientation. If the imposed stress field is aligned with a weaker slip system within that grain, its rotation rate will be greater than one whose slip systems are out of line. As a result, the alignment of grains on the whole will increase (and therefore the strength of the texture), but some grains will remain in their more \lq{}random\rq{} orientation for longer. Hence taking a random sample of 1,000 grains will sometimes capture those that have, on average, become more aligned (giving a greater index value) and sometimes those that would represent a more random texture (and hence a lower index value), resulting in greater variability. In contrast, if \emph{all} grains are randomly orientated, then taking a sample of 1,000 should consistently return an equally low index.     
+One explanation arises when considering the the movement of individual grains within the sample. The rotation rate of a grain within a sample at a given time is related to its current orientation. If the imposed stress field is aligned with a weaker slip system within that grain, its rotation rate will be greater than one whose slip systems are out of line, resulting in crystals aligning with this weak slip system parallel to the extension direction \citep[e.g. post-perovskite,][]{Walker2012}. As a result, the alignment of grains on the whole will increase (and therefore the strength of the texture), but some grains will remain in their more \lq{}random\rq{} orientation for longer. Hence taking a random sample of 1,000 grains will sometimes capture those that have, on average, become more aligned (giving a greater index value) and sometimes those that would represent a more random texture (and hence a lower index value), resulting in greater variability. In contrast, if \emph{all} grains are randomly orientated, then taking a sample of 1,000 should consistently return an equally low index.     
 
 
 %---------------------------------------------------------------------------
@@ -805,40 +805,55 @@ To gain an understanding of the indices relationship with strain, I calculated e
 \end{figure*} 
 %---------------------------FIG---------------------------------------------  
 
-It is clear that for both olivine and post-perovskite, the indices increase monotonically with strain. For both crystals, the indices increase relatively linearly to approximately 100 - 150\% strain, after which the behaviour of the two crystals diverges. The J-index for olivine simple shear (panel (b)) continues to increase linearly to a value of $J_O$ = 24.26 at 350\% strain, whereas the J-index for post-perovskite is less linear, and increases to a much greater value of $J_P$ = 86.49. The gradients of the M-index curves for both olivine and post-perovskite simple shear (panels (b) and (f)) decrease past 150\% strain and they begin to tend towards constant values, although both M-indices are much greater for post-perovskite (approximately double). The behaviour is more linear in the lower strain limit of the axial compression curves (50\%), although the post-perovskite M-index values are again approximately double. The similarity in index behaviour for these two minerals (compared to quartz) is likely due to them having the same crystal symmetry (REF?).
-
-Continue on to talk about pps deformation mechanisms, citing Walker 2012. Following this, talk about the quartz anomaly and the likely explanation.      
-
+It is clear that for both olivine and post-perovskite, the indices increase monotonically with strain. For both crystals, the indices increase relatively linearly to approximately 100 - 150\% strain, after which the behaviour of the two crystals diverges. The J-index for olivine simple shear (panel (b)) continues to increase linearly to a value of $J_O$ = 24.26 at 350\% strain, whereas the J-index for post-perovskite is less linear, and increases to a much greater value of $J_P$ = 86.49. The gradients of the M-index curves for both olivine and post-perovskite simple shear (panels (b) and (f)) decrease past 150\% strain and they begin to tend towards constant values, although both M-indices are much greater for post-perovskite (approximately double). The behaviour is more linear in the lower strain limit of the axial compression curves (50\%), although the post-perovskite M-index values are again approximately double (reasons for this are proposed in section \ref{sec:diss_results_comp}). The similarity in index behaviour for these two minerals (compared to quartz) is likely due to them having similar crystal symmetry (REF?).
 
 %---------------------------FIG---------------------------------------------   
 \begin{figure}[h]
   \centering
     \includegraphics[width=\textwidth]{figs/QTZ_Strain_Zoom.pdf}
-  \caption[Relation of indices to strain (quartz VPSC)]{Relationship between the indices and strain for quartz VPSC, calculated using the same 5,000 grains, with a bin size of 0.25$^\circ$ used for the discrete M-index calculation. Panels \textbf{(a)} and \textbf{(b)} use the same data as panels (c) and (d) in figure \ref{fig:indices_vs_strain}, with different scales to allow clearer analysis. In particular the strain axes for the simple shear VPSC has been restricted to 50\% (denser data points were used to ensure the curves are smooth and well defined). It is clear the discrete M-index does not follow the continuous M-index at low strains, and in fact increases as strain decreases below approximately 20\%.}
+  \caption[Relation of indices to strain (quartz VPSC)]{\textbf{NEED TO INCLUDE BIT ABOUT NUMBER OF DATA POINTS TO CONSTRAIN CURVE} Relationship between the indices and strain for quartz VPSC, calculated using the same 5,000 grains, with a bin size of 0.25$^\circ$ used for the discrete M-index calculation. Panels \textbf{(a)} and \textbf{(b)} use the same data as panels (c) and (d) in figure \ref{fig:indices_vs_strain}, with different scales to allow clearer analysis. In particular the strain axes for the simple shear VPSC has been restricted to 50\% (denser data points were used to ensure the curves are smooth and well defined). It is clear the discrete M-index does not follow the continuous M-index at low strains, and in fact increases as strain decreases below approximately 20\%.}
   \label{fig:indices_vs_strain_qtz}
 \end{figure} 
 %---------------------------FIG---------------------------------------------  
+
+Looking now at the index-strain curves for quartz (panels (c) and (d), figure \ref{fig:indices_vs_strain}) it is clear there are a number of differences when compared to olivine and post-perovskite. Of particular importance is that all indices appear to be multivalued at very high strains in the simple shear deformation regime, and in both the axial compression and simple shear cases, the discrete M-index is multivalued at lower strains. This is clearly detrimental if the indices are to be used as a proxy for strain, as one index value would imply two different values for strain. These instances of multivalued indices require separate explanations.
+
+DYNAMIC RECRYSTALLIZATION 
+
 
 %---------------------------FIG---------------------------------------------   
 \begin{figure}[h]
   \centering
     \includegraphics[width=\textwidth]{figs/QTZ_AXC_n500_misor_dist.pdf}
-  \caption[Misorientation angle distribution (quartz VPSC)]{Misorientation angle distributions for a quartz VPSC model undergoing axial compression, calculated using the same 500 grains with a bin width of 1$^{\circ}$ ** maybe need more grains and smaller bin **. The panels show increasing strain with \textbf{(a)} XX, \textbf{(b)} XX, \textbf{(c)} XX and \textbf{(d)} XX. The solid line shows the theoretical misorientation distribution for a random fabric of quartz grains.} 
+  \caption[Misorientation angle distribution (quartz VPSC)]{\textbf{Need to add square highlighting anomaly} Misorientation angle distributions for a quartz VPSC model undergoing axial compression, calculated using the same 500 grains with a bin width of 1$^{\circ}$ ** maybe need more grains and smaller bin **. The panels show increasing strain with \textbf{(a)} XX, \textbf{(b)} XX, \textbf{(c)} XX and \textbf{(d)} XX. The solid line shows the theoretical misorientation distribution for a random fabric of quartz grains.} 
   \label{fig:qtz_misorientation_dist}
 \end{figure} 
 %---------------------------FIG---------------------------------------------
 
+The discrete M-index is clearly multivalued in the axial compression case, and figure \ref{fig:indices_vs_strain_qtz} shows that this behaviour is almost identical at similar strains in the simple shear case. To determine the reason for this, I plotted the misorientation angle distribution for a number of strain steps in the quartz axial compression VPSC model (figure \ref{fig:qtz_misorientation_dist}), as this is the main factor in determining the value of the M-index. It is apparent that at misorientation angles close to the theoretical maximum, the calculated distribution is greater than the theoretical distribution, even at very low strains (panel (a)). This will give an index value higher than expected for low strains, but this slight deviation will lose significance as strain increases, due to the larger differences elsewhere in the distribution becoming the prominent factor in the calculation (e.g. panel (d)).
+
+I propose the reason for this is purely numerical (REF CONV WITH AW?). The symmetry operators for quartz are different from those of olivine and post-perovskite in that the matrices for quartz often contain decimal values, rather than either 0 or 1 as in olivine and post-perovskite (see appendix \ref{App:symp_ops}). This introduces numerical errors that are worsened when recalling the calculation of the misorientation angle $\theta$ involves an inverse cosine function (from equation \ref{eq:misorientation_angle}):   
+
+\begin{equation}
+\theta\ =\ \cos^{-1}\left( \frac{(\tilde{g}_{11} + \tilde{g}_{22} + \tilde{g}_{33} - 1)}{2} \right)\ .
+\end{equation}
+\\
+Combining this numerical error with the steep cut-off of the theoretical distribution for quartz produces this error observed in figure \ref{fig:qtz_misorientation_dist}. This would explain the lack of error for the symmetries of olivine and post-perovskite as the cut-off for those theoretical distributions is less sharp \citep[see figure \ref{fig:misorientation_example}, or][for more distributions]{Wheeler2001}.
+
 %---------------------------FIG---------------------------------------------   
 \begin{figure}[h]
   \centering
-    \includegraphics[width=\textwidth]{figs/m_vs_j.pdf}
-  \caption[Relationship of M- and J-indices]{} 
+    \includegraphics[width=0.9\textwidth]{figs/m_vs_j.pdf}
+  \caption[Relationship of M- and J-indices]{M-index (continuous and discrete) as a function of J-index. \textbf{Top row} shows olivine, \textbf{bottom row} shows quartz, with the \textbf{left column} showing data from axial compression VPSC models and the \textbf{right column} data from simple shear. Calculations used $n$ = 5,000 grains.} 
   \label{fig:m_vs_j}
 \end{figure} 
 %---------------------------FIG---------------------------------------------  
   
+Continuing regardless of the multivalued nature of the quartz curves, it would be useful to know how the M-indices compare directly with the J-index. To determine this relationship, I plotted the two M-indices $M$ as a function of the J-index $J$ (figure \ref{fig:m_vs_j}). Aside from highlighting the multivalued problem, this shows that at low $J$, and hence low strain, the indices have a relatively linear relationship (i.e. $\mathrm{d}J \approx \mathrm{d}M$). However as $J$ is increases this relationship breaks down, particularly for olivine, and the gradient becomes less steep (i.e. a change in $J$ now results in a smaller change in $M$). This essentially implies that the M-index becomes saturated at lower strains in comparison to the J-index, which can also be seen in figure \ref{fig:indices_vs_strain}. This is evidently unfavourable for an index,  
 
 \subsection{Estimating strain}
+
+
 
 %---------------------------FIG---------------------------------------------   
 \begin{figure}[h]
@@ -858,7 +873,12 @@ Continue on to talk about pps deformation mechanisms, citing Walker 2012. Follow
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Comparison of results}
+\section{Comparison of results} \label{sec:diss_results_comp}
+
+ 
+
+Talk about pps deformation mechanisms, citing \cite{Walker2012} and \citep{Miyagi2010}. Following this, talk about the quartz anomaly and the likely explanation.     
+
 
 \section{Future work}
 
@@ -890,7 +910,115 @@ Continue on to talk about pps deformation mechanisms, citing Walker 2012. Follow
 \section{Calculating the discrete M-index} \label{App:M-index_calc}
 The contents...
 
-\section{Listings of significant functions}
+\section{Symmetry operators} \label{App:symp_ops}
+In this appendix I give a brief definition of symmetry operators, and proceed to list those used in this project. Let the orientation of a crystal be defined by a rotation matrix $g$. There exists $n$ symmetry operators $S_i$ (also rotation matrices) that define rotations of the orientation $g$ to positions that are indistinguishable from its original orientation, due to the symmetry of the crystal, such that $g = gS_i$. Recalling a misorientation matrix $\tilde{g}$ between two grains $g_1$ and $g_2$ is defined such that,
+
+\begin{equation}
+g_2\ =\ \tilde{g}g_1\ ,
+\end{equation} 
+\noindent
+and these two crystals described by orientations $g_1$ and $g_2$ have symmetry operators $S_i$ and $S_j$ respectively, we get:
+
+\begin{equation}
+\tilde{g}\ =\ g_2g_1^{-1}\ = \tilde{g}(i,j)\ =\ g_2S_j(g_1S_i)^{-1}\ ,  
+\end{equation}
+\noindent
+with $i,j \in [1...n]$. When calculating the misorientation angle from this matrix, \cite{Wheeler2001} prove that it is only necessary to consider $n$ symmetric variants when calculating a misorientation angle between two crystal, not all $n^2$ combinations --- this greatly increases efficiency.
+
+The symmetry operation matrices for both olivine and post perovskite are (orthorhombic symmetry):
+
+
+\begin{equation}
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+\end{pmatrix}
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & -1 & 0 \\
+0 & 0 & -1 \\
+\end{pmatrix}
+\begin{pmatrix}
+-1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & -1 \\
+\end{pmatrix}
+\begin{pmatrix}
+-1 & 0 & 0 \\
+0 & -1 & 0 \\
+0 & 0 & 1 \\
+\end{pmatrix}
+\end{equation}
+
+and for quartz:
+
+\begin{equation}
+\begin{multlined}
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+\end{pmatrix}
+\begin{pmatrix}
+0.5    & -0.866 & 0 \\
+-0.866 & -0.5   & 0 \\
+0      & 0      & -1 \\
+\end{pmatrix}
+\begin{pmatrix}
+-0.5    & -0.866 & 0 \\
+0.866  & -0.5   & 0 \\
+0      & 0      & 1 \\
+\end{pmatrix}
+\\
+\begin{pmatrix}
+-1 & 0 &  0 \\
+0  & 1 &  0 \\
+0  & 0 & -1 \\
+\end{pmatrix}
+\begin{pmatrix}
+-0.5    & 0.866 & 0 \\
+-0.866  & -0.5   & 0 \\
+0      & 0      & 1 \\
+\end{pmatrix}
+\begin{pmatrix}
+0.5    & 0.866 & 0 \\
+0.866  & 0.5   & 0 \\
+0      & 0      & -1 \\
+\end{pmatrix}
+\end{multlined}
+\end{equation}
+
+taken from the \texttt{MTEX} function \texttt{crystalSymmetry} for quartz and \cite{Randle2000} for olivine.
+
+\section{Interpolating for strain}
+
+\section{Minimum number of grains (based on bin size)}
+The formula for the number of pairs of grains $p_n$ (and therefore the number of misorientation angles) within a sample can be calculated as follows. First, let the number of grains in the sample be $n$. For the first grain there are $n - 1$ new pairs of grains (i.e. it is compared against all others in the sample). Moving to the second grain, there are $n - 2$ new pairs, as this grain has already been paired with the grain before it. The third grain will have $n - 3$ new pairs and so on resulting in:
+
+\begin{equation}
+p_n\ =\ (n-1) + (n-2) ... + (n - (n-1))\ =\ \sum_{i=1}^{n-1} (n - i)\ ,
+\end{equation}   
+\noindent
+and, provided the sum is finite, this can be evaluated as:
+
+\begin{equation}
+p_n\ =\ \sum^{n-1}_{i=1}(n - i)\ =\ \frac{n}{2}(n-1)\ .
+\end{equation}
+\noindent
+The number of bins $b_n$ can be calculated easily, provided the maximum theoretical misorientation angle $\theta_{max}$ and the bin width $\theta_{bin}$ are known:
+
+\begin{equation}
+b_n\ =\ \frac{\theta_{max}}{\theta_{bin}}\ ,
+\end{equation}
+\noindent
+setting this equal with the previous equation and simplifying gives:
+
+\begin{equation}
+n^2\ -\ n\ -\ \frac{2\theta_{max}}{\theta_{bin}}\ =\ 0.
+\end{equation}
+\noindent
+Solving this quadratic will give values for $n$, for which the positive value is taken and rounded up to provide an absolute minimum number of grains to give enough for one angle in each bin (which depends on crystal symmetry and bin size).
 
 %\newpage
 \section{Additional analysis figures}
@@ -904,4 +1032,46 @@ This appendix contains figures that support much of the analysis and discussion 
   \label{fig:APP_misor_dist_qtz_ebsd}
 \end{figure} 
 %---------------------------FIG--
+
+\section{Example function output}
+\begin{texttt}
+MD2\hspace{1cm}     26\\
++Function:\hspace{1cm}      m\_indexDisc\\
++Time/date:\hspace{1cm}     16:57 23/3/2016\\
++Input file:\\    
++Crystal:\hspace{1cm}       post-perovskite\\
++Grains:\hspace{1cm}        5000 (bin size: 0.250000 degrees, binning: interp)\\
++Seed:\hspace{1cm}          1\\
++Time taken(s):\hspace{1cm} 3807.762166\\
++Columns:\hspace{1cm}       Strain,M-index\\
+Data\\
+   0.02000\hspace{1cm}    0.00350 \\
+   0.04000\hspace{1cm}    0.00452 \\
+   0.06000\hspace{1cm}    0.00621 \\
+   0.08000\hspace{1cm}    0.00869 \\
+   0.10000\hspace{1cm}    0.01216 \\
+   0.12000\hspace{1cm}    0.01635 \\
+   0.14000\hspace{1cm}    0.02135 \\
+   0.16000\hspace{1cm}    0.02707 \\
+   0.18000\hspace{1cm}    0.03354 \\
+   0.20000\hspace{1cm}    0.04068 \\
+   0.22000\hspace{1cm}    0.04850 \\
+   0.24000\hspace{1cm}    0.05695 \\
+   0.26000\hspace{1cm}    0.06603 \\
+   0.28000\hspace{1cm}    0.07563 \\
+   0.30000\hspace{1cm}    0.08583 \\
+   0.32000\hspace{1cm}    0.09653 \\
+   0.34000\hspace{1cm}    0.10764 \\
+   0.36000\hspace{1cm}    0.11918 \\
+   0.38000\hspace{1cm}    0.13109 \\
+   0.40000\hspace{1cm}    0.14318 \\
+   0.42000\hspace{1cm}    0.15548 \\
+   0.44000\hspace{1cm}    0.16801 \\
+   0.46000\hspace{1cm}    0.18063 \\
+   0.48000\hspace{1cm}    0.19329 \\
+   0.50000\hspace{1cm}    0.20592 \\
+   0.50000\hspace{1cm}    0.20592 \\
+\end{texttt}
+
 \end{document}
+
