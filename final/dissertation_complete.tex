@@ -61,6 +61,7 @@ morekeywords={m_indexDisc,m_indexCont,j_index}}
 
 % equations
 \usepackage{mathtools}  
+\usepackage{amsmath}
 \numberwithin{equation}{chapter}
 
 % title etc
@@ -77,6 +78,14 @@ morekeywords={m_indexDisc,m_indexCont,j_index}}
 
 \pagenumbering{roman}
 \tableofcontents
+
+\vspace{5cm}
+\begin{center}
+\begin{Large}
+\textbf{Acknowledgements}
+\end{Large}
+\end{center}
+I would like to thank my supervisor Dr Andrew Walker for valuable discussions and meetings that always lasted as long as they needed to. 
 
 \listoffigures
 \listoftables
@@ -713,7 +722,7 @@ Having established how the indices converge it is also useful to know how the va
 
 To further analyse this, $\sigma$ as a function of $n$ can be seen in figure \ref{fig:OLV_AXC_n_conv_err}. There is a clear trend of decreasing $\sigma$ as the number of grains is increased, although the benefit of increasing $n$ is reduced past approximately 1,000 grains, as $\sigma$ converges to zero (for all indices). This compliments the convergence threshold in that at $n >$ 1,000 all indices have converged to a \lq{}true\rq{} value, with the addition of the error being within acceptable bounds. The discrete M-index shows an anomalous drop in $\sigma$ at $n = 5$. This is again due to the need for enough grains to form a representative histogram of the misorientation distribution, and therefore when this distribution is so poorly defined the index will tend to produce similarly \lq{}wrong\rq{} values and so a smaller standard deviation will result.
 
-\subsection{Bin size (discrete M-index)}
+\subsection{Bin size (discrete M-index)} \label{sec:bin_size}
 
 Having established the number of grains $n$ that is necessary for index convergence as approximately $n \geq O(10^{3})$, I can investigate other calculation parameters independently of any effect of $n$, by ensuring all calculations are within this convergent regime. 
 
@@ -789,9 +798,6 @@ One explanation arises when considering the the movement of individual grains wi
 
 Now that I have determined the robustness and variability of the indices, I move on in the following section to analyse their relationship with strain and whether they are an appropriate proxy. Once this relationship is established, I use it to estimate the strain of EBSD data. I analyse the seismic anisotropy measures introduced in section REF, and determine the relationship, if any, between these and the indices.   
 
-
-Include bit about dynamic recrystallisation
-
 \subsection{Index-strain relationship}
 
 To gain an understanding of the indices relationship with strain, I calculated each index for VPSC models of olivine, quartz and post-perovskite, undergoing both axial compression (strain range 2 - 50\%) and simple shear (strain range 8.75 - 350\%), using $n$ = 5,000 grains (figure \ref{fig:indices_vs_strain}).     
@@ -818,7 +824,7 @@ It is clear that for both olivine and post-perovskite, the indices increase mono
 
 Looking now at the index-strain curves for quartz (panels (c) and (d), figure \ref{fig:indices_vs_strain}) it is clear there are a number of differences when compared to olivine and post-perovskite. Of particular importance is that all indices appear to be multivalued at very high strains in the simple shear deformation regime, and in both the axial compression and simple shear cases, the discrete M-index is multivalued at lower strains. This is clearly detrimental if the indices are to be used as a proxy for strain, as one index value would imply two different values for strain. These instances of multivalued indices require separate explanations.
 
-DYNAMIC RECRYSTALLIZATION 
+\textbf{DYNAMIC RECRYSTALLIZATION}
 
 
 %---------------------------FIG---------------------------------------------   
@@ -849,22 +855,27 @@ Combining this numerical error with the steep cut-off of the theoretical distrib
 \end{figure} 
 %---------------------------FIG---------------------------------------------  
   
-Continuing regardless of the multivalued nature of the quartz curves, it would be useful to know how the M-indices compare directly with the J-index. To determine this relationship, I plotted the two M-indices $M$ as a function of the J-index $J$ (figure \ref{fig:m_vs_j}). Aside from highlighting the multivalued problem, this shows that at low $J$, and hence low strain, the indices have a relatively linear relationship (i.e. $\mathrm{d}J \approx \mathrm{d}M$). However as $J$ is increases this relationship breaks down, particularly for olivine, and the gradient becomes less steep (i.e. a change in $J$ now results in a smaller change in $M$). This essentially implies that the M-index becomes saturated at lower strains in comparison to the J-index, which can also be seen in figure \ref{fig:indices_vs_strain}. This is evidently unfavourable for an index,  
+Continuing regardless of the multivalued nature of the quartz curves, it would be useful to know how the M-indices compare directly with the J-index. To determine this relationship, I plotted the two M-indices $M$ as a function of the J-index $J$ (figure \ref{fig:m_vs_j}). Aside from highlighting the multivalued problem, this shows that at low $J$, and hence low strain, the indices have a relatively linear relationship (i.e. $\mathrm{d}J \approx \mathrm{d}M$). However as $J$ is increases this relationship breaks down, particularly for olivine, and the gradient becomes less steep (i.e. a change in $J$ now results in a smaller change in $M$). This essentially implies that the M-index becomes saturated at lower strains in comparison to the J-index, which can also be seen in figure \ref{fig:indices_vs_strain}. This is evidently unfavourable for an index, as ideally a certain increase in $M$ will result in the same increase in strain, which is not the case for high strains in the examples presented here. Physically this makes sense --- as the majority of grains are aligned, their rotation rate will be slower, and hence there will be less difference in M-index as strain is increased.  
 
 \subsection{Estimating strain}
 
+Having established that the indices provide a good proxy for strain, in this section I proceed to use the relationship established by the VPSC models (where strain is known) to predict strain for a given index value. This is useful in cases where an index for a given sample can be calculated relatively easily, but strain is not known, such as the quartz EBSD dataset. I did this by linearly interpolating reference index-strain curves (see appendix \ref{App:strain}).
 
 
 %---------------------------FIG---------------------------------------------   
 \begin{figure}[h]
   \centering
     \includegraphics[width=\textwidth]{figs/EBSD_ind-strain.pdf}
-  \caption[Relationship of indices to strain (quartz EBSD)]{} 
+  \caption[Relationship of indices to strain (quartz EBSD)]{\textbf{Left} shows J-index and both continuous and discrete M-index calculated for the available pole figure data. Values are calculated using $n$ = 5,000 grains and a bin size of 0.25$^\circ$ for the discrete M-index. \textbf{Right} shows the strain calculated from these index values by linearly interpolating index-strain references curves.} 
   \label{fig:indices_vs_strain_qtz_EBSD}
 \end{figure} 
 %---------------------------FIG---------------------------------------------  
 
+I calculated the index values for the pole figures, and from these values estimated the strain by interpolating the simple shear reference curve (figure \ref{fig:indices_vs_strain_qtz_EBSD}). The index values agree with those from \cite{ParsonsThesis}. Interestingly, the J-index gives consistently greater strain values than either of the M-indices. As expected the discrete M-index gives greater strain values than the continuous, for reasons outlined in section \ref{sec:bin_size}.  
+
 \subsection{Relation to seismic anisotropy}
+
+
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -872,12 +883,15 @@ Continuing regardless of the multivalued nature of the quartz curves, it would b
 \vspace{-1cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In the following section I discussion some of the important implications that have arisen from this study. Where relevant I draw comparisons to the literature to put the findings in context, or to provide explanations for the phenomena observed. Following this, I offer suggestions for further work.
 
-\section{Comparison of results} \label{sec:diss_results_comp}
 
- 
+\section{Review and Comparison} \label{sec:diss_results_comp}
 
-Talk about pps deformation mechanisms, citing \cite{Walker2012} and \citep{Miyagi2010}. Following this, talk about the quartz anomaly and the likely explanation.     
+The differences in J- and M-indices in figure \ref{fig:indices_vs_strain} can be explained by considering the slip systems that are input into the VPSC code when generating the datasets. The slip systems used for post-perovskite are the same as P001 model used in \cite{Walker2012}, which attempts to replicate experimental work by \citep{Miyagi2010}. \cite{Miyagi2010} found that initially (001) lattice planes in post-perovskite are at high angles to compression, and when compressed from 148 GPa to 185 GPa, this preferred orientation doubles in strength, implying slip on (001). When undergoing strain, the crystals are quicker to align along this single dominant slip system than if more were available. This results in textures forming at quicker rates, and hence larger index values at lower strains.
+
+This has important implications for determining strain from the VPSC reference curves, particularly for post-perovskite but possibly other minerals as well. As the VPSC code requires input of slip systems, this introduces a limitation in that the accuracy of the returned strain value depends greatly on how well the slip systems of a mineral are known. In the case of post-perovskite (NEED REFS FOR DIFFERENT SLIP SYSTEMS...)      
+  
 
 
 \section{Future work}
@@ -889,6 +903,8 @@ Talk about pps deformation mechanisms, citing \cite{Walker2012} and \citep{Miyag
 \vspace{-1cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+An important result from this work is the production of a functioning \texttt{Matlab} toolbox for use in quantitative texture strength analysis. I developed this toolbox 
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -900,6 +916,7 @@ Talk about pps deformation mechanisms, citing \cite{Walker2012} and \citep{Miyag
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\chapter{Appendix}
 %\vspace{-1cm}
+%TC:ignore
 \newpage
 \appendix
 \renewcommand{\thesection}{\Roman{section}}
@@ -908,10 +925,55 @@ Talk about pps deformation mechanisms, citing \cite{Walker2012} and \citep{Miyag
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Calculating the discrete M-index} \label{App:M-index_calc}
-The contents...
+In this appendix I describe the detailed method for calculating the discrete M-index (function \texttt{m\_indexDisc}). I have refrained from including the entire code as it does not aid in the explanation and theory behind the algorithms, which is what I aim to do here. The code is available on the data disc included with this project, and also online\footnote{https://github.com/ee12lmb/matlabSource}. In addition, there are extensive comments on both the function usage, and inside the code itself to make it easy to follow. The method is as follows. 
+
+%\begin{itemize}
+\subsubsection{Read data}
+The input data is passed to \texttt{get\_inputInfo} which determines the data type (e.g. VPSC/EBSD/Euler angles) and returns $n$ randomly sampled sets Euler angles $\{\phi_1,\Phi,\phi_2\}$, as well as other meta data such as number of strain steps (where $n$ is the number of grains defined by the user).
+
+
+
+\subsubsection{Theoretical misorientation angle distribution}
+The \texttt{MTEX} function \texttt{calcAngleDistribution} provides the theoretical misorientation angle distribution when passed the crystal symmetry (which has been input by the user), which is defined for 300 angles evenly spaced between 0 and the theoretical maximum misorientation angle $\theta_{max}$. This distribution is then linearly interpolated and placed into appropriate bins based on the bin width entered (e.g. equation \ref{App:eq:nbins}). Care is taken here to ensure the \emph{area} of the histogram is correct as we are dealing with frequency densities.
+
+\subsubsection{Sample misorientation angle distribution} 
+The Euler angles extracted from the input texture are then passed to a function I wrote called \texttt{discreteMDF} in order to calculate the sample misorientation angle distribution. Firstly, the Euler angles are converted into an orientation matrix $g$ by:    
+\begin{equation}
+\begin{split}
+g_{11} &= \cos{\phi_1}\cos{\phi_2} - \sin{\phi_1}\sin{\phi_2}\cos{\Phi} \\
+g_{12} &= \sin{\phi_1}\cos{\phi_2} + \cos{\phi_1}\sin{\phi_2}\cos{\Phi} \\
+g_{13} &= \sin{\phi_2}\sin{\Phi} \\
+g_{21} &= -\cos{\phi_1}\sin{\phi_2} - \sin{\phi_1}\cos{\phi_2}\cos{\Phi} \\
+g_{22} &= -\sin{\phi_1}\sin{\phi_2} + \cos{\phi_1}\cos{\phi_2}\cos{\Phi} \\
+g_{23} &= \cos{\phi_2}\sin{\Phi} \\
+g_{31} &= \sin{\phi_1}\sin{\Phi} \\
+g_{32} &= -\cos{\phi_1}\sin{\Phi} \\
+g_{33} &= \cos{\Phi}\ .
+\end{split}
+\end{equation}
+\noindent
+Following this the misorientation matrix $\tilde{g}$ is calculated by equation \ref{App:eq:misorientation} between all combinations of grains (see appendix \ref{App:min_no_grains}).
+
+For each misorietnation matrix $\tilde{g}$, the \emph{minimum} misorientation \citep[disorientation,][]{Grimmer1979} angle must be found. I wrote a function \texttt{calcDisorientation} that applies each of the $N$ symmetry operators for the chosen crystal (see appendix \ref{App:symp_ops}) to each $\tilde{g}$ and calculates the misorientation angle for each $i$th symmetric equivalent by:   
+
+\begin{equation}
+\theta_i\ =\ \cos{}^{-1} \left( \frac{(\tilde{g}_{i,11} + \tilde{g}_{i,22} + \tilde{g}_{i,33} - 1)}{2}\ \right) ,
+\end{equation}
+\noindent
+and takes the minimum $\displaystyle \min_{i...N}\{\theta_i\}$. The function \texttt{discreteMDF} then returns a list of disorientation angles, one for each pair of grains in the sample, to \texttt{m\_indexDisc}. 
+
+\subsubsection{Binning and subtraction}
+The disorientation angles are then placed into the same bins as the theoretical distribution. The relevant bins from each distribution are subtracted and the M-index calculated by:
+
+\begin{equation}
+M\ =\ \frac{\theta_{bin}}{2} \sum_{i=i}^{b_n} | f_i^R - f_i^M |\ ,  
+\end{equation}
+\noindent
+where $\theta_{bin}$ is the bin width in degrees, $b_n$ is the total number of bins and $f^R$ and $f^M$ are the random and measured misorientation angle distributions respectively.
+%\end{itemize}  
 
 \section{Symmetry operators} \label{App:symp_ops}
-In this appendix I give a brief definition of symmetry operators, and proceed to list those used in this project. Let the orientation of a crystal be defined by a rotation matrix $g$. There exists $n$ symmetry operators $S_i$ (also rotation matrices) that define rotations of the orientation $g$ to positions that are indistinguishable from its original orientation, due to the symmetry of the crystal, such that $g = gS_i$. Recalling a misorientation matrix $\tilde{g}$ between two grains $g_1$ and $g_2$ is defined such that,
+In this appendix I give a brief definition of symmetry operators, and proceed to list those used in this project. Let the orientation of a crystal be defined by a rotation matrix $g$. There exists $N$ symmetry operators $S_i$ (also rotation matrices) that define rotations of the orientation $g$ to positions that are indistinguishable from its original orientation, due to the symmetry of the crystal, such that $g = gS_i$. Recalling a misorientation matrix $\tilde{g}$ between two grains $g_1$ and $g_2$ is defined such that,
 
 \begin{equation}
 g_2\ =\ \tilde{g}g_1\ ,
@@ -919,11 +981,11 @@ g_2\ =\ \tilde{g}g_1\ ,
 \noindent
 and these two crystals described by orientations $g_1$ and $g_2$ have symmetry operators $S_i$ and $S_j$ respectively, we get:
 
-\begin{equation}
+\begin{equation} \label{App:eq:misorientation}
 \tilde{g}\ =\ g_2g_1^{-1}\ = \tilde{g}(i,j)\ =\ g_2S_j(g_1S_i)^{-1}\ ,  
 \end{equation}
 \noindent
-with $i,j \in [1...n]$. When calculating the misorientation angle from this matrix, \cite{Wheeler2001} prove that it is only necessary to consider $n$ symmetric variants when calculating a misorientation angle between two crystal, not all $n^2$ combinations --- this greatly increases efficiency.
+with $i,j \in [1...N]$. When calculating the misorientation angle from this matrix, \cite{Wheeler2001} prove that it is only necessary to consider $N$ symmetric variants when calculating a misorientation angle between two crystal, not all $N^2$ combinations --- this greatly increases efficiency.
 
 The symmetry operation matrices for both olivine and post perovskite are (orthorhombic symmetry):
 
@@ -988,12 +1050,13 @@ and for quartz:
 \end{pmatrix}
 \end{multlined}
 \end{equation}
-
+\noindent
 taken from the \texttt{MTEX} function \texttt{crystalSymmetry} for quartz and \cite{Randle2000} for olivine.
 
-\section{Interpolating for strain}
+\section{Interpolating for strain} \label{App:strain}
 
-\section{Minimum number of grains (based on bin size)}
+
+\section{Minimum number of grains (based on bin size)} \label{App:min_no_grains}
 The formula for the number of pairs of grains $p_n$ (and therefore the number of misorientation angles) within a sample can be calculated as follows. First, let the number of grains in the sample be $n$. For the first grain there are $n - 1$ new pairs of grains (i.e. it is compared against all others in the sample). Moving to the second grain, there are $n - 2$ new pairs, as this grain has already been paired with the grain before it. The third grain will have $n - 3$ new pairs and so on resulting in:
 
 \begin{equation}
@@ -1008,7 +1071,7 @@ p_n\ =\ \sum^{n-1}_{i=1}(n - i)\ =\ \frac{n}{2}(n-1)\ .
 \noindent
 The number of bins $b_n$ can be calculated easily, provided the maximum theoretical misorientation angle $\theta_{max}$ and the bin width $\theta_{bin}$ are known:
 
-\begin{equation}
+\begin{equation} \label{App:eq:nbins}
 b_n\ =\ \frac{\theta_{max}}{\theta_{bin}}\ ,
 \end{equation}
 \noindent
@@ -1021,7 +1084,7 @@ n^2\ -\ n\ -\ \frac{2\theta_{max}}{\theta_{bin}}\ =\ 0.
 Solving this quadratic will give values for $n$, for which the positive value is taken and rounded up to provide an absolute minimum number of grains to give enough for one angle in each bin (which depends on crystal symmetry and bin size).
 
 %\newpage
-\section{Additional analysis figures}
+\section{Additional analysis figures} \label{App:analysis_figs}
 %---------------------------FIG---------------------------------------------   
 This appendix contains figures that support much of the analysis and discussion in the main body. These figures have been omitted as similar conclusions can be drawn from figures in the text that were chosen to best illustrate the points made there. 
 
@@ -1032,10 +1095,10 @@ This appendix contains figures that support much of the analysis and discussion 
   \label{fig:APP_misor_dist_qtz_ebsd}
 \end{figure} 
 %---------------------------FIG--
-
-\section{Example function output}
+\newpage
+\section{Example function output} \label{App:example_output}
 \begin{texttt}
-MD2\hspace{1cm}     26\\
+MD2\hspace{1cm}	     26\\
 +Function:\hspace{1cm}      m\_indexDisc\\
 +Time/date:\hspace{1cm}     16:57 23/3/2016\\
 +Input file:\\    
@@ -1073,5 +1136,6 @@ Data\\
    0.50000\hspace{1cm}    0.20592 \\
 \end{texttt}
 
+%TC:endignore
 \end{document}
 
