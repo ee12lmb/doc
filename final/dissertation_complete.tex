@@ -1,6 +1,8 @@
-\documentclass[a4paper,12pt]{report}
+%\documentclass[a4paper,12pt,]{report}
+%\usepackage[left=3cm,right=1.7cm,bottom=2cm,top=2.2cm]{geometry}
+\documentclass[a4paper,12pt,twoside]{report}
+%\usepackage[DIV=20,BCOR=30mm,headinclude=true,footinclude=false]{typearea}
 \usepackage[left=3cm,right=1.7cm,bottom=2cm,top=2.2cm]{geometry}
-
 % Page and title setup
 \usepackage{setspace}
 \setstretch{2}
@@ -75,6 +77,18 @@ morekeywords={m_indexDisc,m_indexCont,j_index}}
 % -----------    D o c u m e n t     ------------
 
 \maketitle
+%\begin{titlepage}
+%\newgeometry{left=2cm,right=2cm}
+%	\centering
+%
+%	\includegraphics[width=0.8\textwidth]{poles_olivine_example}	
+%	
+%	\begin{huge}
+%	\vspace{2cm}
+%The M-index: A useful metric for rock deformation?
+%	\end{huge}
+%	
+%\end{titlepage}
 
 \pagenumbering{roman}
 \tableofcontents
@@ -86,6 +100,7 @@ morekeywords={m_indexDisc,m_indexCont,j_index}}
 \end{Large}
 \end{center}
 I would like to thank my supervisor Dr Andrew Walker for valuable discussions and meetings that always lasted as long as they needed to. 
+
 
 \listoffigures
 \listoftables
@@ -680,7 +695,7 @@ I have broken down the assessment of the texture indices in this project into tw
 %---------------------------------------------------------------------------
 In the following section I aim to thoroughly analyse all aspects of index calculation. This includes the number of grains required, the effect of bin size on the discrete M-index, and the general variability and distribution of the indices for subsamples of the same texture. 
 
-\subsection{Number of grains}
+\subsection{Number of grains} \label{sec:no_grains_analysis}
 
 One of the first aspects to consider when calculating any texture index is the number of grains that will be used. An index might be considered robust if its value is independent of the number of grains input in the calculation (i.e. an index value calculated using 1,000 grains from a texture would be similar to the same index calculated using 100 grains from the same texture). However, an index will never be completely independent of the number of grains, but would be expected to converge to a certain value past a threshold. This is clear as a larger number of grains will be more representative of the texture as a whole, allowing for a more accurate index calculation. To analyse this, I calculated each index using a range of $n$ for a number of strain steps in an olivine VPSC model undergoing axial compression (Figure \ref{fig:OLV_AXC_n_conv}). 
 
@@ -888,9 +903,15 @@ In the following section I discussion some of the important implications that ha
 
 \section{Review and Comparison} \label{sec:diss_results_comp}
 
+In section \ref{sec:no_grains_analysis} I determined that for all indices to converge, the number of grains $n$ must be $\sim$1,000. This is an increase from \cite{Skemer} who cite convergence in the range of 150 - 600 grains for a range of olivine samples. Earlier studies such as \cite{Baudin1993} found that 100 orientation measurements were sufficient to find the principal components of the texture function but upwards of 1,000 to \lq\lq{}evaluate with rather good accuracy the heights of the peaks\rq\rq{}. Particularly in the case of the J-index and continuous M-index, defining the magnitude of these peaks is essentially what controls their values, so to this extent my results agree with \cite{Baudin1993}. 
+
+However, the results of \cite{Baudin1993} are for a single phase sample (a metal sheet). In these pure metal contexts, it is unnecessary to distinguish between crystal phases, whereas in Earth Science applications this is crucial. \cite{Randle2009} reviews the improvements in EBSD practices over the period 2003 - 2008 (the M-index was developed in 2005) and comments that phase identification and discrimination techniques improved. Better phase discrimination and general improvements in EBSD (REF) result in higher resolution and hence a greater number of grains to converge to the \lq{}true\rq{} index value. 
+
+Aside from index convergence, an important result of this work is the issues encountered when extending the M-index for use in quartz, in order to follow from the suggestions of \cite{Skemer} to test the M-index for other materials. Numerical issues encountered
+
 The differences in J- and M-indices in figure \ref{fig:indices_vs_strain} can be explained by considering the slip systems that are input into the VPSC code when generating the datasets. The slip systems used for post-perovskite are the same as P001 model used in \cite{Walker2012}, which attempts to replicate experimental work by \citep{Miyagi2010}. \cite{Miyagi2010} found that initially (001) lattice planes in post-perovskite are at high angles to compression, and when compressed from 148 GPa to 185 GPa, this preferred orientation doubles in strength, implying slip on (001). When undergoing strain, the crystals are quicker to align along this single dominant slip system than if more were available. This results in textures forming at quicker rates, and hence larger index values at lower strains.
 
-This has important implications for determining strain from the VPSC reference curves, particularly for post-perovskite but possibly other minerals as well. As the VPSC code requires input of slip systems, this introduces a limitation in that the accuracy of the returned strain value depends greatly on how well the slip systems of a mineral are known. In the case of post-perovskite (NEED REFS FOR DIFFERENT SLIP SYSTEMS...)      
+This has important implications for determining strain from the VPSC reference curves, particularly for post-perovskite but possibly other minerals as well. As the VPSC code requires input of slip systems, this introduces a limitation in that the accuracy of the returned strain value depends greatly on how well the slip systems of a mineral are known. In the case of post-perovskite, what little experimental evidence there is in the literature is often contradictory. For example \cite{Merkel2007} find dominant slip systems on (100) and (110) --- \cite{Walker2012} demonstrate the significant effect these different slip systems can have on global mantle flow models. Caution must be taken when inferring strain from index values in these cases.  
   
 
 
