@@ -91,17 +91,29 @@ morekeywords={m_indexDisc,m_indexCont,j_index}}
 %\end{titlepage}
 
 \pagenumbering{roman}
-\tableofcontents
+
 
 \vspace{3cm}
 \begin{center}
 \begin{Large}
 \textbf{Acknowledgements}
 \end{Large}
+
+I would like to thank my supervisor Dr Andrew Walker for valuable discussions, and meetings that always lasted as long as they needed to. I would also like to thank my coursemates and lecturers, who have made this course enjoyable and engaging from start to finish.
+  
+\vspace{3cm}
+\noindent
+\begin{Large}
+%\textbf{Statement of academic integrity}
+\end{Large}
+
+This dissertation is submitted in accordance with the requirements of the degree of Bachelor of Geophysical Sciences (Bsc). The candidate confirms that the work is his own, and that credit has been given to the work of others where appropriate.
+
+\vspace{1cm}
+\noindent
+Signed: .............................................. (Lewis Bailey)
 \end{center}
-I would like to thank my supervisor Dr Andrew Walker for valuable discussions and meetings that always lasted as long as they needed to. I would also like to thank my coursemates and lecturers, who have made this course enjoyable and engaging from start to finish.  
-
-
+\tableofcontents
 \listoffigures
 \listoftables
 
@@ -122,13 +134,13 @@ I would like to thank my supervisor Dr Andrew Walker for valuable discussions an
 %---------------------------------------------------------------------------
 In a number geological settings on Earth, processes occur that cause rocks to deform in a ductile manner in reaction to external forces (stress). Ductile deformation of rocks on short time-scales generally requires stresses greatly exceeding those on Earth. However due to the polycrystalline nature of rocks, slow, permanent deformation is possible when stresses are maintained on geological time scales \citep{Weiss1985}. It is processes occurring at the crystal/grain scale, such as dislocation glide and dislocation creep that allow this deformation to take place, and the strain imposed to be accommodated \citep{Ashby1972}. During these processes, dislocations on the atomic scale move through the crystals on planes and directions determined by the crystal structure (slip systems), which constrains movement of crystals to rotate and become aligned as the rock is strained \citep{Goulding2015}. Therefore it is these internal deformation mechanisms that result in what is known as crystallographic, or lattice, preferred orientation (CPO/LPO) whereby the crystal lattices within a rock become aligned \citep{Price1985}.   
 
-The orientation of crystals within a material is often referred to as a texture, and in the field of quantitative texture analysis many methods, both mathematical and pictorial, exist to describe the important features of these textures \citep[for introductory texts see][]{bunge1982texture,Bunge1985,Randle2000,Mainprice}. Quantifying the magnitude or strength of LPO is important in material science as properties of most crystals are anisotropic, and alignment of these crystals can affect bulk properties up to 20\% - 50\% \citep{Randle2000}. In addition, and more specifically to Earth sciences, texture strength gives insights into deformation history and regimes that a rock has been subjected to, as texture strength is often strongly related to the intensity of deformation \citep{Weiss1985}.
+The orientation of crystals within a material is often referred to as a texture, and in the field of quantitative texture analysis many methods, both mathematical and pictorial, exist to describe the important features of these textures \citep[for introductory texts see][]{bunge1982texture,Bunge1985,Randle2000,Mainprice}. Quantifying the magnitude or strength of LPO is important in material science as properties of most crystals are anisotropic, and alignment of these individually anisotropic crystals can average to affect bulk properties up to 20\% - 50\% \citep{Randle2000}. In addition, and more specifically to Earth sciences, texture strength gives insights into deformation history and regimes that a rock has been subjected to, as texture strength is often strongly related to the intensity of deformation \citep{Weiss1985}.
 
-For example, elastic anisotropy of crystals in rocks can lead to bulk seismic anisotropy in the presence of LPO, as the seismic properties of an aggregate can be calculated as the average of its component crystals \citep{Tommasi1999}. LPO of olivine is thought to be integral to the seismic anisotropy exhibited in the upper mantle, which in turn is linked to many aspects of deformation and likely to the dynamics of mantle convection. As such, linking the strength of olivine LPO to strain is vital to understand these mechanisms \citep{Warren2008}. Studies such as \cite{Tommasi2000} use forward numerical models to predict LPO strength, and hence seismic anisotropy, for a range of deformation mechanisms. If these relationships can be established then seismic data could provide information regarding LPO strength and therefore the deformation mechanisms that created this texture \citep[see][for details of a number of other approaches to this problem]{Blackman2002}. Similarly, deep within the Earth the D\rq\rq{} layer \citep{Garnero2008} above the core-mantle boundary is a region known to show high seismic anisotropy, likely caused by the large strain deformation of post-perovskite expected to occur there. Quantifying texture strength as a function of strain would aid understanding of this region, which likely influences mantle convection and thermal structure of the Earth \citep{Miyagi2010}. 
+For example, elastic anisotropy of crystals in rocks can lead to bulk seismic anisotropy in the presence of LPO, as the seismic properties of an aggregate can be calculated as the average of its component crystals \citep{Tommasi1999}. LPO of olivine is thought to be integral to the seismic anisotropy exhibited in the upper mantle, which in turn is linked to many aspects of deformation and likely to the dynamics of mantle convection. As such, linking the strength of olivine LPO to strain is vital to understand these mechanisms \citep[e.g.][]{Warren2008}. Studies such as \cite{Tommasi2000} use forward numerical models to predict LPO strength, and hence seismic anisotropy, for a range of deformation mechanisms. If these relationships can be established then seismic data could provide information regarding LPO strength and therefore the deformation mechanisms that created this texture \citep[see][for details of a number of other approaches to this problem]{Blackman2002}. Similarly, deep within the Earth the D\rq\rq{} layer \citep{Garnero2008} above the core-mantle boundary is a region known to show high seismic anisotropy, likely caused by the large strain deformation of post-perovskite expected to occur there. Quantifying texture strength as a function of strain would aid understanding of this region, which likely influences mantle convection and thermal structure of the Earth \citep{Miyagi2010}. 
 
 Closer to the Earth's surface, studying LPO strength can give insight into processes that have occurred in deformed regions such as shear zones and other tectonic units. \cite{Unzog2000} use LPO to study a number of properties of a transpressional collision zone in Eastern Egypt, such as deformation geometry and finite strain, and \cite{Lloyd2004} analyses LPO to determine microstructural evolution of shear zones. LPO strength is strongly linked to strain history, for quartz and many other minerals, and can therefore be used to interpret aspects of the rocks deformation history \cite{Price1985}.
 
-It is clear from these examples that the strength of LPO, and particularly its relationship with strain, is of vital importance in a number of geological and geophysical settings \citep[and many more, see][]{Wenk1999}. The inherent three-dimensional nature of textures makes their strength difficult to quantify with a single number \citep{Schaeben2007}. However, there exists a number of indices that attempt to do this \citep[e.g. the texture index][]{bunge1982texture}, including a recent proposal by \cite{Skemer} for a misorientation index. Aside from the importance of quantifying texture strength, \cite{Skemer} provide more direct motivation for this study, calling for further research \lq\lq{}to confirm the M-index's validity or practicality for other materials\rq\rq{}. In order to confirm its validity, it is also necessary to compare the M-index with a number of other metrics in a similar fashion to \cite{Mainprice}, but with greater detail and for a number of crystal structures. This leads to the main aims and objectives of this study.   
+It is clear from these examples that the strength of LPO, and particularly its relationship with strain, is of vital importance in a number of geological and geophysical settings \citep[and many more besides, see][for more examples]{Wenk1999}. The inherent three-dimensional nature of textures makes their strength difficult to quantify with a single number \citep{Schaeben2007}. However, there exists a number of indices that attempt to do this \citep[e.g. the texture index][]{bunge1982texture}, including a recent proposal by \cite{Skemer} for a misorientation index. Aside from the importance of quantifying texture strength, \cite{Skemer} provide more direct motivation for this study, calling for further research \lq\lq{}to confirm the M-index's validity or practicality for other materials\rq\rq{}. In order to confirm its validity, it is also necessary to compare the M-index with a number of other metrics in a similar fashion to \cite{Mainprice}, but with greater detail and for a number of crystal structures. This leads to the main aims and objectives of this study.   
    
 
 %The study of textures and their strength has a number of applications in both industry and academia. Textures, or lattice preferred orientations (LPO) arise in rocks that have undergone ductile deformation. The properties of this LPO are dependant on the strain history, and in general increased strain leads to a \lq{}stronger\rq{} LPO \textbf{REF?}. If LPO strength can be quantified by a texture index, and this index can be reliably related to strain, then it could prove a useful tool in determining strain in situations where it is impossible to measure though conventional means.
@@ -147,7 +159,7 @@ It is clear from these examples that the strength of LPO, and particularly its r
 	
 The overarching aim of this study is to investigate a number of methods for quantifying the strength of textures in rocks, and whether this quantification can be reliably linked to the strain of a given sample. In order to achieve this, I will create a \texttt{Matlab}\footnote{MATLAB Release 2015a, The MathWorks, Inc., Natick, Massachusetts, United States} toolbox that will calculate a number of texture indices for a range of input datasets (e.g. VPSC models and EBSD data, see section \ref{sec:data}). This software will be developed as a suite of functions with the aim of creating a fully functioning toolbox that could be used for future texture strength research. As such I will develop the code following a set of scientific coding principals \citep{Wilson2014}, in addition to using version control software Github\footnote{https://github.com} to track its development.   
 
-Using this software, I will replicate and extend the analyses of \cite{Skemer} and \cite{Mainprice} to include additional minerals. I will investigate the effect of a range of input parameters on the index value to determine the robustness of each index. Following this, I will analyse the validity of using these indices as a proxy for strain, using any relationship to estimate strain for a number of field samples. I will compare the texture indices to seismic anisotropy indices and analyse any relationship between the two. This will allow me to draw conclusions as to the effectiveness of the indices, the requirements for accurate index calculation, and their usefulness as a proxy for strain and any further uses that may arise from this.  
+Using this software, I will replicate and extend the analyses of \cite{Skemer} and \cite{Mainprice} to include additional minerals. I will investigate the effect of a range of calculation parameters on the index value to determine the robustness of each index. Following this, I will analyse the validity of using these indices as a proxy for strain, using any relationship discovered to estimate strain for a number of field samples. I will compare the texture indices to seismic anisotropy indices and analyse any relationship between the two. This will allow me to draw conclusions as to the effectiveness of the indices, the requirements for accurate index calculation, and their usefulness as a proxy for strain and any further uses that may arise from this.  
 
 In the following chapter I cover the necessary theory of textures in general such as descriptors of orientation, leading to the theory behind the indices themselves. I begin chapter \ref{chap:methods} by describing the available data sources and the methods of modelling/collecting this data. In the rest of the chapter, I focus on how the theory is implemented, using this data, via a suite of \texttt{Matlab} functions. As the software is an integral part of this project, I provide details on a number of key functions, the use of the software, and important aspects of its development. Once the data and methodology are in place, in chapter \ref{chap:analysis} I present the subsequent analysis of the indices. This analysis focuses on parameters affecting index calculation \emph{(index robustness)} and their relationship with strain \emph{(proxy for strain)}. In chapter \ref{chap:discussion} I offer a discussion of the results presented in chapter \ref{chap:analysis} as well as suggestions for future work. Finally I summarise the findings of this study in chapter \ref{chap:conclusion}, after which I present the reference list and appendices.   
 %---------------------------------------------------------------------------
@@ -160,6 +172,9 @@ In the following chapter I cover the necessary theory of textures in general suc
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 The following sections aim to give enough theoretical knowledge of textures and the methods of computing texture strength, to allow understanding of the implementation and analysis that follows.
 
+\noindent
+\emph{\textbf{NB:} The material in this section is covered by a number of textbooks on texture analysis, namely \cite{bunge1982texture}, \cite{Bunge1985} and \cite{Randle2000}, and review papers e.g. \cite{Mainprice}}.
+
 
 %---------------------------------------------------------------------------
 \section{Textures in rocks} 
@@ -168,7 +183,7 @@ The following sections aim to give enough theoretical knowledge of textures and 
 %---------------------------------------------------------------------------
 \section{Describing orientations} \label{sec:orientations}
 %---------------------------------------------------------------------------
-\emph{NB: The material in this section is covered by a number of textbooks on texture analysis, namely \cite{bunge1982texture}, \cite{Bunge1985} and \cite{Randle2000}}.
+
 
 
 
@@ -197,7 +212,7 @@ A set of Euler angles defines three rotations that transform the sample coordina
   \label{fig:euler_angles}
 \end{figure}
 
-Having established a method to describe an orientation (i.e. the rotation that maps sample to crystal coordinate systems or vice versa), so too can it describe a misorientation. A misorientation is defined as the rotation that maps one crystal's coordinate system onto another crystal's, rather than to the sample coordinate system (REF). This can be described for two orientations, $g_1$ and $g_2$ such that the misorientation between them $\tilde{g}$ is;
+Having established a method to describe an orientation (i.e. the rotation that maps sample to crystal coordinate systems or vice versa), so too can it describe a misorientation. A misorientation is defined as the rotation that maps one crystal's orientation onto another crystal's, rather than to the sample coordinate system. This can be described for two orientations, $g_1$ and $g_2$ such that the misorientation between them $\tilde{g}$ is;
 
 \begin{equation} \label{eq:misor_matrix}
 \tilde{g} = g_1^{-1}g_2\ .
@@ -235,7 +250,7 @@ cos \alpha_3 & cos \beta_3 & cos \gamma_3 \\
 \end{pmatrix}\ .
 \end{equation}
 \\
-This matrix is a useful tool in describing rotation and symmetry operations because the result of two or more rotations can be expressed by matrix multiplication (see APPENDIX DISORIENTATION REF?), adding clarity to the definition of the misorientation matrix defined in equation \ref{eq:misor_matrix}. Due to orthogonality $g^{-1} = g^T$. 
+This matrix is a useful tool in describing rotation and symmetry operations (see appendix \ref{App:symp_ops}) because the result of two or more rotations can be expressed by matrix multiplication, adding clarity to the definition of the misorientation matrix defined in equation \ref{eq:misor_matrix}. In addition, a set of Euler angles can be converted to an orientation matrix (see appendix \ref{App:M-index_calc}). Due to orthogonality $g^{-1} = g^T$. 
 
 
 In addition to Euler angles and rotation matrices, another method for describing the orientation of a crystal, or indeed any number of crystals, in a sample is through the use of \emph{pole figures}. An orientation of an arbitrary crystal face (chosen to best represent the crystal structure) can be described by a vector normal to its surface. This vector, or pole, then corresponds to a point on a unit reference sphere centred on the crystal (figure \ref{fig:spherical_orientation}). The reference sphere is attached to the sample coordinate system, allowing two angles (the azimuth $\alpha$ and the rotation around the pole axis $\beta$) to represent the orientation of the crystal with respect to that frame.  
@@ -264,19 +279,10 @@ In order to represent this three dimensional orientation in two dimensions, thes
   \label{fig:pole_olivine_example}
 \end{figure}
 
-
-
-
 A pole figure represents the orientation of the crystal coordinate system in the sample coordinate system, but the opposite can also be useful, this is known as the inverse pole figure. In addition to pole figures, other methods of describing orientations exist such as quaternions \citep{Quaternions}. However these are beyond the scope of this project. 
 
-
-
-
 \subsection{Orientation distribution functions} \label{subsec:ODFs}
-In order to perform quantitative analysis of a three dimensional texture in a sample, a two-dimensional pole figure does not contain enough information---a three-dimensional \emph{orientation distribution function} (ODF) is required. Unlike pole figures, ODFs cannot be measured experimentally, they must be calculated from pole figure data. Recalling that a pole direction can be defined by two angles $\alpha$ and $\beta$ in a pole figure $P_h(y)$, this then corresponds to a region in the ODF which contains all the rotations $\gamma$ about this direction $y$. This results in the following equation; 
-
-
-
+In order to perform quantitative analysis of a three dimensional texture in a sample, a two-dimensional pole figure does not contain enough information---a three-dimensional \emph{orientation distribution function} (ODF) is required. Unlike pole figures, ODFs cannot be measured experimentally, they must be calculated from pole figure data. Recalling that a pole direction can be defined by two angles $\alpha$ and $\beta$ in a pole figure $P_h(y)$, this then corresponds to a region in the ODF which contains all the rotations $\gamma$ about this direction $y$. This results in the following equation;
 
 \begin{equation} \label{eq:pole_figures}
 P_h(y) = \frac{1}{2\pi} \cdot \int_{0}^{2\pi}f(g)\ \mathrm{d}\gamma;\ ,
@@ -286,7 +292,7 @@ where $f(g)$ is the ODF, with $g = \{\varphi_1,\Phi,\varphi_2\}$. In a similar w
 
 
 
-Solving this equation is known as pole figure inversion, for which no analytic solution exists. One method for approximating the ODF is through spherical harmonic series expansion, such that;
+Solving this equation is an inverse problem known as pole figure inversion, for which no analytic solution exists. One method for approximating the ODF is through spherical harmonic series expansion, such that;
 
 
 
@@ -327,7 +333,7 @@ where $\mathrm{d}V(\tilde{g})/V$ is now the fraction of misorientations in the s
 Having established a mathematical way of describing the orientations of grains within a sample (the ODF/MDF, herein referred to indiscriminately as the texture function), the next step is to find a method of quantising the \lq{}sharpness\rq{} or strength of this function, and hence the strength of the texture.
 
 \subsection{J-index} \label{subsec:j-index}
- One of the most widely used indicies is the texture index $(J)$, as described by \cite{bunge1982texture} to be the integral of the square of the texture function,
+ One of the most widely used indicies is the texture index $J$, as described by \cite{bunge1982texture} to be the integral of the square of the texture function,
 
 \begin{equation}
 J = \int [ f(g) ]^2\ \mathrm{d}g \ ,
@@ -339,7 +345,7 @@ where the infinitesimal volume element in Euler angle space $\mathrm{d}g$ is giv
 \mathrm{d}g = \frac{1}{8\pi^2} \sin\Phi\ \mathrm{d}\Phi\ \mathrm{d}\varphi_1\ \mathrm{d}\varphi_2\ .
 \end{equation} 
 \\
-This definition is true for both $f_{ODF}$ and $f_{MDF}$, the difference only being the definition of $g$ (section \ref{subsec:coordinates}). The texture index $J$ is more removed from physical meaning than the M-index (see following section), but as the texture function $f(g)$ is a statistical representation of the physical texture, calculating the magnitude of this function (in this case the $L^2$ norm $||f||^2_{L^2}$) gives information about its overall strength.
+This definition is true for both $f_{ODF}$ and $f_{MDF}$, the difference only being the definition of $g$ (see section \ref{subsec:coordinates}). The texture index $J$ is more removed from physical meaning than the M-index (see following section), but as the texture function $f(g)$ is a statistical representation of the physical texture, calculating the magnitude of this function (in this case the $L^2$ norm $||f||^2_{L^2}$) gives information about its overall strength.
 
 To put the texture index in context it is useful to compare it to another measure, the entropy $S$ of the texture function:
 
@@ -347,9 +353,9 @@ To put the texture index in context it is useful to compare it to another measur
 S\ =\ -\int f(g)\ ln f(g)\ \mathrm{d}g\ ,
 \end{equation}
 \\
-introduced by \cite{Schaeben1988}. The entropy essentially measures the deviation from the uniform ODF \citep[lack of \lq{}organisation\rq{} of orientations,][]{Hielscher2007}. Due to the $ln f(g)$, $S$ is sensitive to very small values of the texture function. In some sense, the texture index $J$ is the opposite of this, as it is a measure of concentration rather than dispersion of orientations. As it includes the square of the texture function $[f(g)]^2$, it is more sensitive to large values, (i.e. peaks) in the function \citep{Mainprice}. For more discussion on the relation between $J$ and $S$ see \cite{Hielscher2007}. 
+introduced by \cite{Schaeben1988}. The entropy essentially measures the deviation from the uniform ODF \citep[lack of \lq{}organisation\rq{} of orientations,][]{Hielscher2007}. Due to the $ln f(g)$ term, $S$ is sensitive to very small values of the texture function. In some sense, the texture index $J$ is the opposite of this, as it is a measure of concentration rather than dispersion of orientations. As it includes the square of the texture function $[f(g)]^2$, it is more sensitive to large values, (i.e. peaks) in the function \citep{Mainprice}. For more discussion on the relation between $J$ and $S$ see \cite{Hielscher2007}. 
 
-By substituting the series expansion for the ODF (eq. \ref{eq:series_exp})  and normalising, \cite{bunge1982texture} was able to determine that for a random texture $J_r = 1$. In addition, if the sample is a perfect single crystal, then the texture changes at only one point $g = g_0$, which results in $J_{ideal} \to \infty$, leading to:
+By substituting the series expansion for the ODF (equation \ref{eq:series_exp})  and normalising, \cite{bunge1982texture} was able to determine that for a random texture $J_r = 1$. In addition, if the sample is a perfect single crystal, then the texture changes at only one point $g = g_0$, which results in $J_{ideal} \to \infty$, leading to:
 
 \begin{equation}
 1 \leq J_{ODF} \leq \infty\ .
@@ -357,7 +363,7 @@ By substituting the series expansion for the ODF (eq. \ref{eq:series_exp})  and 
 \\
 $J_{MDF}$ will not tend to $\infty$ but rather a maximum value \citep{Mainprice}.
 
-In a nearly identical way, and by recalling the definition of pole figures (eq. \ref{eq:pole_figures}) the $J$ index for a pole figure can be defined as:
+In a nearly identical way, and by recalling the definition of pole figures (equation \ref{eq:pole_figures}) the $J$ index for a pole figure can be defined as:
  
 \begin{equation}
 J_{P_h(y)} = \frac{1}{4\pi} \int [ P_{h}(y) ]^2\ dy\ ,
@@ -373,7 +379,7 @@ A more empirical method to quantify texture strength is the M-index. Defined by 
 \cos{\theta}\ =\ \frac{(\tilde{g}_{11} + \tilde{g}_{22} + \tilde{g}_{33} - 1)}{2}\ .
 \end{equation} 
 \\
-\citep{Randle2000}. This is the angle needed to rotate one coordinate system about some common axis of rotation in order for the two coordinate systems (and hence the two crystals) to be aligned. Figure \ref{fig:angle-axis_example} shows an example of how an angle/axis of rotation can describe a misorientation. A misorientation angle distribution is simply a histogram detailing the frequency density of misorientation angles within the sample (the rotation vector is unimportant, we require only the angle $\theta$). There are two types of misorientation angle distributions. A correlated MAD is where only the angles between neighbouring grains are considered, whereas in an uncorrelated MAD, angles between all pairs of crystals are considered.
+\citep{Randle2000}. This is the angle needed to rotate one coordinate system about some common axis of rotation in order for the two coordinate systems (and hence the two crystals) to be aligned. Figure \ref{fig:angle-axis_example} shows an example of how an angle/axis of rotation can describe a misorientation. A misorientation angle distribution is simply a histogram detailing the frequency density of misorientation angles within the sample (the rotation vector is unimportant, we require only the angle $\theta$). There are two types of misorientation angle distributions. A correlated misorientation angle distributions is where only the angles between neighbouring grains are considered, whereas in an uncorrelated distribution, angles between all pairs of crystals are considered.
 
 %---------------------------FIG---------------------------------------------   
 \begin{figure}[h]
@@ -390,7 +396,7 @@ A more empirical method to quantify texture strength is the M-index. Defined by 
 M \equiv \frac{1}{2} \int | f^M(\theta) - f^R(\theta) |\ \mathrm{d}\theta \ .
 \end{equation}  
 \\   
-The physical significance of this index is related to the change in individual misorientation angles within the sample as strain is increased. As strain increases in a sample and grains begin to align (i.e. texture strength increases), misorientation angles between any arbitrary pair of grains will become smaller, due to their coordinate systems being more closely aligned. This makes the M-index definition clearer: at low strains a sample texture will be close to that of the theoretical random texture and so the difference between their misorientation angle distributions (MAD) will be small. As strain increases, the sample MAD will favour lower angles, and the difference between them will become greater (and therefore the index value will be larger). This is demonstrated in figure \ref{fig:misorientation_example} showing distributions for an olivine VPSC model (see section \ref{sec:data}) undergoing simple shear at increasing strain steps.
+The physical significance of this index is related to the change in individual misorientation angles within the sample as strain is increased. As strain increases in a sample and grains begin to align (i.e. texture strength increases), misorientation angles between any arbitrary pair of grains will become smaller, due to their coordinate systems being more closely aligned. This makes the M-index definition clearer: at low strains a sample texture will be close to that of the theoretical random texture and so the difference between their misorientation angle distributions will be small. As strain increases, the sample distribution will favour lower angles, and the difference between them will become greater (and therefore the index value will be larger). This is demonstrated in figure \ref{fig:misorientation_example} showing distributions for an olivine VPSC model (see section \ref{sec:data}) undergoing simple shear at increasing strain steps.
 
 
 %---------------------------FIG---------------------------------------------   
@@ -413,6 +419,16 @@ where the calculation is now for $n$ histogram bins and $\theta_{max}$ is the ma
 
 \cite{Schaeben2007} offers some criticism of the theoretical validity and usefulness of the M-index. In particular he does not agree with the claim of \cite{Skemer} that the M-index provides a more robust and objective than the J-index. He argues that calculating index values by considering each orientation measurement as independent is statistically incorrect as the orientation measurements are spatially correlated. \cite{Skemer2007reply} have responded stating that the M-index is an alternative to the J-index and does not aim to replace it. Emphasis is placed on its use in Earth-sciences due to its apparent robustness at low numbers of measurements. Analysis of these claims by \cite{Skemer} and \cite{Skemer2007reply} forms part of the motivation for this work.  
 
+\section{Elastic anisotropy indices} \label{sec:anisotropy_indices}
+
+Although the texture indices are the main focus of this study, another related measure is seismic anisotropy. As discussed previously, texture strength is often strongly related to seismic anisotropy as the alignment of individually elastically anisotropic crystals can result in bulk anisotropy for a given material \citep[e.g.][]{Tommasi1999,Miyagi2010}. \cite{Ledbetter2006} introduced a measure of anisotropy (lmA) that is simply the ratio of the square of the maximum $(v_2)$ to the square of the minimum $(v_1)$ shear velocity of a given crystal:
+
+\begin{equation}
+lmA\ =\ \frac{v_2^2}{v_1^2}\ ,
+\end{equation}   
+\noindent
+which is calculated by considering $n$ random vectors and finding the two extrema values. \cite{Ranganathan2008} introduced a universal elastic anisotropy index (uA), which is a measure of the deviation of the stiffness coefficients from that of an isotropic crystal. Detailed description of the mathematics of these indices is beyond the scope of this project \citep[for full descriptions see][]{Ledbetter2006,Ranganathan2008} --- the important feature of these indices is that they are a measure of the \lq{}magnitude\rq{} of seismic anisotropy for a given crystal. To find a measure for a sample as a whole, the elastic tensors for each crystal are averaged, and the anisotropy measure calculated from this, as if the sample were a single crystal. 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Data and Methods} \label{chap:methods}
@@ -425,7 +441,7 @@ Now that the necessary theory has been established, the following sections provi
 %---------------------------------------------------------------------------
 \section{Data collection} \label{sec:data}
 %---------------------------------------------------------------------------
-The data in this project come from two sources; 1) numerical models of deformed polycrystalline aggregates and 2) direct texture measurements from physical specimens using electron backscatter diffraction. 
+The data in this project come from two sources: 1) numerical models of deformed polycrystalline aggregates and 2) direct texture measurements from physical specimens using electron backscatter diffraction. 
 
 \subsection{VPSC modelling}
 Viscoplastic self-consistent (VPSC) numerical modelling of LPO \citep{Molinari1987,Lebensohn1993} provides a very versatile dataset of textures to analyse. Using this technique, orientation data can be generated for a polycrystalline material with an entirely random texture, composed of crystals of a specified symmetry. This random texture can then be deformed in a number of ways (simple shear, axial compression etc.), the output of which is the set of Euler angles that describes the orientation of individual grains at time-steps throughout this designated deformation sequence (MAYBE FIG HERE?). Although a number of approaches exist to model polycrystalline deformation such as equilibrium based, purely kinematic or isotropic methods, VPSC is often used because of its robust physical assumptions and relatively quick computation \citep[][and references therein]{Tommasi2000}. 
@@ -454,8 +470,6 @@ VPSC models were run by Dr Andrew Walker (University of Leeds) to provide a rang
 \subsection{Electron backscatter diffraction}
 Electron backscatter techniques have long been used to study various properties of crystals and polycrystalline materials. A number of methods have arisen to determine crystal orientation data using a scanning electron microscope (SEM), including electron channeling patterns and X-ray Kossel-line techniques. However, these have been generally surpassed by electron backscatter diffraction \citep[EBSD or backscatter Kikuchi diffraction,][]{Harland1973}.  In essence, an electron beam is fired at a steeply tilted crystalline sample (to decrease path length for backscattered electrons), which produces distinctive backscatter Kikuchi patterns. These patterns are captured by a phosphor screen and digitised by a camera, and can then be analysed by software to determine crystal orientation information from their geometry  \citep{Zaefferer2007}. By moving the beam over the sample, the orientation information of all grains can be determined. \cite{Prior1999} offer a thorough description of the EBSD technique, specifically it use for rock texture, e.g. sample preparation. Further discussion of the technique is beyond the scope of this project \citep[see][for more info]{Schwarzer1997,Randle2000}.    
 
-Orientation data for a number of samples measured using EBSD were made available by \cite{ParsonsThesis}. The data are from the Annapurna-Dhaulagiri Himalaya, and provide samples with a range of strains that are qualitatively arranged in order from pole figure 1 (least strain) to pole figure 10 (most strain), composed predominately of quartz crystals (figure \ref{fig:EBSD_data}).. 
-
 %---------------------------FIG---------------------------------------------   
 \begin{figure}[h!]
   \centering
@@ -465,6 +479,10 @@ Orientation data for a number of samples measured using EBSD were made available
 \end{figure}  
 %---------------------------FIG---------------------------------------------   
     
+
+Orientation data for a number of samples measured using EBSD were made available by \cite{ParsonsThesis}. The data are from the Annapurna-Dhaulagiri Himalaya, and provide samples with a range of strains that are qualitatively arranged in order from pole figure 1 (least strain) to pole figure 10 (most strain), composed predominately of quartz crystals (figure \ref{fig:EBSD_data}). 
+
+
 
 %---------------------------------------------------------------------------
 \section{Implementation}
@@ -480,7 +498,7 @@ Before outlining the software that I have developed in this project, it is impor
 
 This group of functions (directory \lq{}readfiles\rq{} on disc, see table \ref{tab:read_functions}) deals with the input of orientation data from both VPSC models and EBSD data (in .ctf format). The functions \texttt{read\_{}VPSC} and \texttt{read\_{}EBSD} (derived from original code MVT\_{}read\_{}VPSC\_{}file.m by Andrew Walker\footnote{https://github.com/andreww/microtecm} and REF FOR EBSD respectively) will extract an array of Euler angles defining the orientation of the individual grains within the sample, as well as other metadata such as the number of grains, crystal symmetry (EBSD only) and number of strain steps (VPSC only).                                                
 
-Building on this basic functionality, a useful tool is the ability to subsample from a larger dataset (i.e. extract $n$ random grains from a total of $N$ in the sample). In the context of this project this allows for analysis of the robustness of the indices (see section REF), but also statistical analysis and efficient index calculations. The functions \texttt{sample\_{}VPSC} and \texttt{sample\_{}EBSD} will sample directly from a file, while the function \texttt{sample\_{}texture} will do the same for an array of Euler angles already loaded into the \texttt{Matlab} environment. These functions take an input seed so that the same \lq{}random\rq{} samples can be generated to allow repeatability. Also included in this group are some internal functions such as \texttt{lookupSym} which returns an \texttt{MTEX} crystal symmetry object (REF) for a given crystal name (e.g. \lq{}olivine\rq{}) and \texttt{get\_{}inputInfo} which combines all of the functionality in this section into a compact form.                                                                                                                            
+Building on this basic functionality, a useful tool is the ability to subsample from a larger dataset (i.e. extract $n$ random grains from a total of $N$ in the sample). In the context of this project this allows for analysis of the robustness of the indices (see section REF), but also statistical analysis and efficient index calculations. The functions \texttt{sample\_{}VPSC} and \texttt{sample\_{}EBSD} will sample directly from a file, while the function \texttt{sample\_{}texture} will do the same for an array of Euler angles already loaded into the \texttt{Matlab} environment. These functions take an input seed so that the same \lq{}random\rq{} samples can be generated to allow repeatability. Also included in this group are some internal functions such as \texttt{lookupSym} which returns an \texttt{MTEX} crystal symmetry object \citep{Bachmann2010} for a given crystal name (e.g. \lq{}olivine\rq{}) and \texttt{get\_{}inputInfo} which combines all of the functionality in this section into a compact form.                                                                                                                            
 
 \begin{table}[h!] 
 	\centering
@@ -514,9 +532,9 @@ Function    & Description   \\
 
 \subsection{Index calculation} \label{sec:index_calc}
 
-There are three index calculations available in this toolbox (each with their own directory on disk, see table \ref{tab:index_functions}). The function \texttt{j\_{}index} uses a number of tools provided in \texttt{MTEX} (REF),  such as \texttt{calcODF} which statistically calculates the orientation distribution function from the input Euler angles, and \texttt{textureindex} which calculates the J-index from this ODF \citep[for details on their method of ODF calculation see][]{Hielscher2008}. Similarly, \texttt{m\_{}indexCont} uses this ODF to calculate a \emph{statistical} misorientation distribution function (MDF) for the input Euler angles.  This MDF is then subtracted from the theoretical random MDF to give what I call the \emph{continuous M-index} (equation REF) due to its statistical nature.  Although much of the essential tools are derived from \texttt{MTEX}, both \texttt{j\_{}index} and \texttt{m\_{}indexCont} utilise the functionality described in the previous section in combination with consistent syntax in their use to streamline index calculation using a number of inputs and calculation parameters (e.g. the number of grains $n$ to use, see listing REF in section REF).         
+There are three index calculations available in this toolbox (each with their own directory on disk, see table \ref{tab:index_functions}). The function \texttt{j\_{}index} uses a number of tools provided in \texttt{MTEX},  such as \texttt{calcODF} which statistically calculates the orientation distribution function from the input Euler angles, and \texttt{textureindex} which calculates the J-index from this ODF \citep[for details on their method of ODF calculation see][]{Hielscher2008}. Similarly, \texttt{m\_{}indexCont} uses this ODF to calculate a \emph{statistical} misorientation distribution function (MDF) for the input Euler angles.  This MDF is then subtracted from the theoretical random MDF to give what I call the \emph{continuous M-index} (equation \ref{eq:Mindex_cont}) due to its statistical nature.  Although much of the essential tools are derived from \texttt{MTEX}, both \texttt{j\_{}index} and \texttt{m\_{}indexCont} utilise the functionality described in the previous section in combination with consistent syntax in their use to streamline index calculation using a number of inputs and calculation parameters (e.g. the number of grains $n$ to use, see listing \ref{lst:calcIndices} at the end of this chapter).         
 
-The function \texttt{m\_{}indexDisc} is more involved in its calculation and only relies on \texttt{MTEX} to produce the theoretical misorientation angle distribution for a given symmetry (using \texttt{calcAngleDistribution}). As with the other index functions, \texttt{m\_{}indexDisc} takes either EBSD, VPSC or a list of Euler angles as input, as well as a number of input calculation parameters, using a consistent syntax (see listing REF). To find the misorientation angle distribution, I wrote the function \texttt{discreteMDF}, which finds the misorientation matrix ($\tilde{g}$, equation REF) between all combination of grains within the sample \citep[uncorrelated misorientation angle distribution,][]{Mainprice}. Each $\tilde{g}$ is passed to \texttt{calDisorientation}, a function I wrote that finds the disorientation \citep{Grimmer1979} by applying symmetry operators for the chosen crystal structure and choosing the smallest misorientation angle. Once these are found, \texttt{discreteMDF} returns a list of misorientation angles to \texttt{m\_{}indexDisc} which counts them in bins (the width of which is specified by the user, in degrees) and finds the difference between this calculated misorientation angle distribution and the theoretical random distribution. For detail on the theory see section \ref{sec:indicies} and \cite{Skemer}, for a detailed breakdown of the \texttt{m\_{}indexDisc} code see appendix APPENDIX.                                            
+The function \texttt{m\_{}indexDisc} is more involved in its calculation and only relies on \texttt{MTEX} to produce the theoretical misorientation angle distribution for a given symmetry (using \texttt{calcAngleDistribution}). As with the other index functions, \texttt{m\_{}indexDisc} takes either EBSD, VPSC or a list of Euler angles as input, as well as a number of input calculation parameters, using a consistent syntax (e.g. listing \ref{lst:calcIndices}). To find the misorientation angle distribution, I wrote the function \texttt{discreteMDF}, which finds the misorientation matrix ($\tilde{g}$, equation \ref{eq:misor_matrix}) between all combination of grains within the sample \citep[uncorrelated misorientation angle distribution,][]{Mainprice}. Each $\tilde{g}$ is passed to \texttt{calDisorientation}, a function I wrote that finds the disorientation \citep{Grimmer1979} by applying symmetry operators for the chosen crystal structure and choosing the smallest misorientation angle (see appendices \ref{App:M-index_calc} and \ref{App:symp_ops}). Once these are found, \texttt{discreteMDF} returns a list of misorientation angles to \texttt{m\_{}indexDisc} which counts them in bins (the width of which is specified by the user, in degrees) and finds the difference between this calculated misorientation angle distribution and the theoretical random distribution. For detail on the theory see section \ref{sec:indicies} and \cite{Skemer}, for a detailed breakdown of the \texttt{m\_{}indexDisc} algorithm see appendix \ref{App:M-index_calc}.                                            
 
 All three index functions are designed consistently, e.g. if given a VPSC input file they will return the strain of each step as well as the index calculated (to allow easy plotting of the index-strain relationship). At the request of the user, output can be dumped to a text file with headers describing metadata (e.g. input file, index calculated etc.).                                                                                                                    
 
@@ -551,13 +569,13 @@ Function    & Description   \\
 
 \subsection{Analysis functions}
 
-I wrote a number of functions to aid further analysis of the texture indices and add functionality to the toolkit (directory \lq{}analysis\rq{} on disc, see table \ref{tab:analysis_functions}). The function \texttt{index\_{}repeat} will calculate any of the indices described in the previous section a specified number of times, sampling with replacement. For example, if the input was a VPSC file with 10,000 grains in each strain step, the J-index could be calculated 50 times, subsampling a different $n$ grains each time (sampling with replacement). This is useful in analysing the variability of each index and how this changes as calculation parameters are varied (see SEC REF).  As with the other \texttt{index} functions, \texttt{index\_{}repeat} can output to file.
+I wrote a number of functions to aid further analysis of the texture indices and add functionality to the toolkit (directory \lq{}analysis\rq{} on disc, see table \ref{tab:analysis_functions}). The function \texttt{index\_{}repeat} will calculate any of the indices described in the previous section a specified number of times, sampling with replacement. For example, if the input was a VPSC file with 10,000 grains in each strain step, the J-index could be calculated 50 times, subsampling a different $n$ grains each time (sampling with replacement). This is useful in analysing the variability of each index and how this changes as calculation parameters are varied.  As with the other \texttt{index} functions, \texttt{index\_{}repeat} can output to file.
 
-The function \texttt{read\_{}texout} reads in the output files from the \texttt{index} functions. This is useful as the output of data to disk allows separation of generating the data (which can take many hours for large index calculations), and creating figures from the data.
+The function \texttt{read\_{}texout} reads in the output files from the \texttt{index} functions. This is useful as the output of data to disk allows separation of generating the data (which can take many hours for large index calculations), and creating figures from the output (for example output file, see appendix \ref{App:example_output}).
 
-One of the objectives of this study was to determine whether the indices are a good proxy for strain. Assuming there is a relationship between the two, it is possible to convert an index value to a strain value. I wrote \texttt{get\_{}strain} to take an index as input, usually calculated from EBSD data (where strain is not known), and find a value for strain by comparing this value to an appropriate index reference curve calculated for VPSC data (where strain is known, or can be interpolated, for any index value). This is essentially a way of estimating strain for an EBSD input data set.
+One of the objectives of this study was to determine whether the indices are a good proxy for strain. Assuming there is a relationship between the two, it is possible to convert an index value to a strain value. I wrote \texttt{get\_{}strain} to take an index as input, usually calculated from EBSD data (where strain is not known), and find a value for strain by comparing this value to an appropriate index reference curve calculated for VPSC data (where strain is known, or can be interpolated, for any index value). This is essentially a way of estimating strain for an EBSD input data set --- details of this method can be found in appendix \ref{App:strain}.
 
-Need section about calculating anisotropy
+\textbf{Need section about calculating anisotropy}
 
 \begin{table}[h!] 
 	\centering
@@ -582,7 +600,7 @@ Function    & Description   \\
 
 \subsection{Software development and use}
 
-While developing the software for this project, a number of scientific programming practices were followed --- namely those outlined by REF. For example, each function contains documentation on its usage that can be accessed through the \texttt{Matlab} function \texttt{help}. In addition there are appropriate references to the literature, detailed comments and clear variable names to make it easy as possible to follow the code and reasoning behind the algorithms. In addition, version control software \texttt{Github} was used to track the development of the code. This allows for future users to see the development through time, as well as giving a platform for distribution (https://github.com/ee12lmb/matlabSource).
+While developing the software for this project, a number of scientific programming practices were followed --- namely those outlined by \cite{Wilson2014}. For example, each function contains documentation on its usage that can be accessed through the \texttt{Matlab} function \texttt{help}. In addition there are appropriate references to the literature, detailed comments and clear variable names to make it easy as possible to follow the code and reasoning behind the algorithms. In addition, version control software \texttt{Github} was used to track the development of the code. This allows for future users to see the development through time, as well as giving a platform for distribution\footnote{https://github.com/ee12lmb/matlabSource}.
 
 
 As stated previously, all functions have been developed with consistent syntax in their use. Listing \ref{lst:calcIndices} demonstrates the simplicity with which the three \texttt{index} functions can be used to calculate the indices using a VPSC input data file in the \texttt{Matlab} environment.
@@ -610,21 +628,21 @@ j = j_index(VPSC,1000,1,'crystal','olivine','outfile','~/j_ind.out');
 
 
  \end{lstlisting}
-   \caption{Snippet of code to calculate the discrete M-index, continuous M-index and J-index using a VPSC input data file. All indices are calculated for the same 1000 grains, using olivine symmetry, with the output file names given after the \lq{}outfile\rq{} flag. The discrete M-index is calculated with a bin width of 1$^\circ$.}
+   \caption{Snippet of code to calculate the discrete M-index, continuous M-index and J-index using a VPSC input data file. All indices are calculated for the same 1,000 grains, using olivine symmetry, with the output file names given after the \lq{}outfile\rq{} flag. The discrete M-index is calculated with a bin width of 1$^\circ$.}
    \label{lst:calcIndices}
 \end{program}
 
-Although built for use in the \texttt{Matlab} environment, most analysis was run in batches from the command line, with the data output to file which would then be read in via \texttt{read\_{}texout} in a post-processing script and figures generated. Figure REF shows the general data processing structure, from input data file through to figure output, that is used to form most of the various analysis in the next section.
+Although built for use in the \texttt{Matlab} environment, most analysis was run in batches from the command line, with the data output to file which would then be read in via \texttt{read\_{}texout} in a post-processing script and figures generated. Figure \ref{fig:analysis_workflow} shows the general data processing structure, from input data file through to figure output, that is used to form most of the various analyses in the next section.
 
-Some elements of the code were optimised when it became apparent that significant computational time was being wasted due to inefficiencies. For example, the time taken to read in a data file using \texttt{read\_{}VPSC} would increase exponentially as more strain steps were added to the VPSC file. Due to the exceptionally large data files (e.g. 10,000 grains per strain increment, with 26 increments gives 260,000 grains total), it was necessary to modify the code so that the read time increased linearly (see ** APPENDIX REF **). 
+Finally, some elements of the code were optimised when it became apparent that significant computational time was being wasted due to inefficiencies. For example, the time taken to read in a data file using \texttt{read\_{}VPSC} would increase $O(N_s^2)$ as more strain steps were added to the VPSC file (where $N_s$ is the number of strain steps). Due to the exceptionally large data files (e.g. 10,000 grains per strain increment, with 26 increments gives 260,000 grains total), it was necessary to modify the code. After optimisation, read time increased by $O(N_s)$ (see appendix figure REF). 
 
 %---------------------------FIG---------------------------------------------   
-\begin{figure}[th]
+\begin{figure*}[p]
   \centering
-    \includegraphics[width=0.9\textwidth]{analysis_workflow}
-  \caption[Typical analysis workflow]{Typical analysis workflow. Dark grey boxes indicate general steps and light grey gives examples. The general calculations were always run via shell scripts for two reasons 1) it is easier to check over the inputs to ensure they are correct/re-run the analysis if necessary and 2) the calculations could be run across the university servers rather than one-by-one on an individual instance of \texttt{Matlab}, greatly increasing efficiency.}
+    \includegraphics[width=\textwidth]{analysis_workflow}
+  \caption[Typical analysis workflow]{Typical analysis workflow. Dark grey boxes indicate general steps and light grey gives examples. The general calculations were always run via shell scripts for two reasons: 1) it is easier to check over the inputs to ensure they are correct/re-run the analysis if necessary and 2) the calculations could be run across the university servers rather than one-by-one on an individual instance of \texttt{Matlab}, greatly increasing efficiency.}
   \label{fig:analysis_workflow}
-\end{figure}
+\end{figure*}
 %---------------------------FIG---------------------------------------------   
 
 
@@ -734,11 +752,11 @@ In order to allow for this comparison, I repeated this calculation for a number 
 
 Having established how the indices converge it is also useful to know how the variability of each index will change with $n$, to give some idea of error bounds on individual calculations. To determine this, the I calculated the indices 50 times for each value of $n$. For example, the data point for the continuous M-index at $n = 100$ grains was calculated 50 times, sub-sampling from a total of 10,000 grains (with replacement). The error bars on figures \ref{fig:OLV_AXC_n_conv} and \ref{fig:EBSD_QTZ_n_conv} are from the standard deviation $(\sigma)$ of these 50 calculations (with the plotted data point being the mean).
 
-To further analyse this, $\sigma$ as a function of $n$ can be seen in figure \ref{fig:OLV_AXC_n_conv_err}. There is a clear trend of decreasing $\sigma$ as the number of grains is increased, although the benefit of increasing $n$ is reduced past approximately 1,000 grains, as $\sigma$ converges to zero (for all indices). This compliments the convergence threshold in that at $n >$ 1,000 all indices have converged to a \lq{}true\rq{} value, with the addition of the error being within acceptable bounds. The discrete M-index shows an anomalous drop in $\sigma$ at $n = 5$. This is again due to the need for enough grains to form a representative histogram of the misorientation distribution, and therefore when this distribution is so poorly defined the index will tend to produce similarly \lq{}wrong\rq{} values and so a smaller standard deviation will result.
+To further analyse this, $\sigma$ as a function of $n$ can be seen in figure \ref{fig:OLV_AXC_n_conv_err}. There is a clear trend of decreasing $\sigma$ as the number of grains is increased, although the benefit of increasing $n$ is reduced past approximately 1,000 grains, as $\sigma$ converges close to zero (for all indices). This compliments the convergence threshold in that at $n >$ 1,000 all indices have converged to a \lq{}true\rq{} value, with the addition of the error being within acceptable bounds. The discrete M-index shows an anomalous drop in $\sigma$ at $n = 5$. This is again due to the need for enough grains to form a representative histogram of the misorientation distribution, and therefore when this distribution is so poorly defined the index will tend to produce similarly \lq{}wrong\rq{} values and so a smaller standard deviation will result.
 
 \subsection{Bin size (discrete M-index)} \label{sec:bin_size}
 
-Having established the number of grains $n$ that is necessary for index convergence as approximately $n \geq O(10^{3})$, I can investigate other calculation parameters independently of any effect of $n$, by ensuring all calculations are within this convergent regime. 
+Having established the number of grains $n$ that is necessary for index convergence as $n \approx$ 1,000, I can investigate other calculation parameters independently of any effect of $n$, by ensuring all calculations are within this convergent regime. 
 
 When observing the convergence of the continuous and discrete M-index curves for olivine (axial compression) in figure \ref{fig:OLV_AXC_n_conv} it is clear that the discrete M-index consistently converges to a value greater than that of the continuous M-index. Similar behaviour is seen in the quartz EBSD data for pole figures 1, 4 and 9, although not for 7 (figure \ref{fig:EBSD_QTZ_n_conv}). A calculation parameter that can potentially alter the converged (with respect to $n$) value of the M-index is the bin width of the histogram that makes up the misorientation angle distribution.   
 
@@ -751,7 +769,7 @@ When observing the convergence of the continuous and discrete M-index curves for
 \end{figure}  
 %---------------------------FIG---------------------------------------------   
 
-I calculated the discrete M-index for bin sizes ranging from 3$^\circ$ to 0.25$^\circ$ in 0.25$^\circ$ increments for olivine VPSC model undergoing axial compression, using $n$ = 2,000 grains (Figure \ref{fig:OLV_AXC_b_conv}, continuous M-index shown for reference). It is evident that bin size has a significant effect on the value of the discrete M-index, as at all strain steps the value is much greater at a bin size of 3$^\circ$ than at 0.25$^\circ$ (in some cases approximately double), and decreasing bin size results in convergence towards the continuous value. If increasing the number of grains gives more information about the texture, then decreasing the bin size offers better resolution of this information (in terms of the misorientation angle distribution), and so this relationship is expected. Essentially a larger bin size results in a coarser representation of the misorientation angle distribution (figure \ref{fig:OLV_bin_size_example}). This of course makes a smaller bin size preferable, and in the discrete M-index method there is no real penalty in terms of calculation time as misorentation angles for \emph{all} pairs are grains are calculated regardless of bin size. The only difference is the histograms that are subtracted (both the theoretical random distribution, and the calculated distribution as the bin widths must be equal to allow subtraction, see full listing in appendix \ref{App:M-index_calc} for more detail).
+I calculated the discrete M-index for bin sizes ranging from 3$^\circ$ to 0.25$^\circ$ in 0.25$^\circ$ increments for olivine VPSC model undergoing axial compression, using $n$ = 2,000 grains (Figure \ref{fig:OLV_AXC_b_conv}, continuous M-index shown for reference). It is evident that bin size has a significant effect on the value of the discrete M-index, as at all strain steps the value is much greater at a bin size of 3$^\circ$ than at 0.25$^\circ$ (in some cases approximately double), and decreasing bin size results in convergence towards the continuous value. If increasing the number of grains gives more information about the texture, then decreasing the bin size offers better resolution of this information (in terms of the misorientation angle distribution), and so this relationship is expected. Essentially a larger bin size results in a coarser representation of the misorientation angle distribution (figure \ref{fig:OLV_bin_size_example}). This of course makes a smaller bin size preferable, and in the discrete M-index method there is no real penalty in terms of calculation time as misorentation angles for \emph{all} pairs are grains are calculated regardless of bin size. The only difference is the histograms that are subtracted (both the theoretical random distribution, and the calculated distribution as the bin widths must be equal to allow subtraction, see appendix \ref{App:M-index_calc} for more detail).
 
 %---------------------------FIG---------------------------------------------   
 \begin{figure}[h]
@@ -775,14 +793,14 @@ As each grain is compared to all others around it, the number of pairs of grains
 p_n\ =\ \sum^{n-1}_{i=1}(n - i)\ =\ \frac{n}{2}(n-1)\ ,
 \end{equation} 
 \noindent
-giving the absolute minimum value of $n$ to allow at least one misorientation angle to lie in each bin to be $n$ = 23 (see APPENDIX). In reality this is an extreme lower bound as having a single angle in each bin will never represent the misorientation angle of the distribution of a sample with enough accuracy to produce a meaningful index value. However this demonstrates that, especially when small numbers of grains are available, care must be taken when choosing bin width. 
+giving the absolute minimum value of $n$ to allow at least one misorientation angle to lie in each bin to be $n$ = 23 (see appendix \ref{App:min_no_grains}). In reality this is an extreme lower bound as having a single angle in each bin will never represent the misorientation angle of the distribution of a sample with enough accuracy to produce a meaningful index value. However this demonstrates that, especially when small numbers of grains are available, care must be taken when choosing bin width. 
 
 Returning to figure \ref{fig:OLV_AXC_b_conv}, even at at bin size of 0.25$^\circ$ the discrete M-index does not fully converge to the continuous value (panel (a) shows some evidence of convergence \emph{above} the continuous value). One explanation for this is the inherent differences in their calculation. The continuous M-index is calculated from a \emph{misorientation} distribution function that is in turn calculated statistically from an \emph{orientation} distribution function. This ODF inherently undergoes some level of smoothing in its calculation from the orientation data \citep[e.g. regularisation when inverting for the ODF in the \texttt{MTEX} algorithm, see][]{Hielscher2008}. Any smoothing will reduce the \lq{}sharpness\rq{} of this function and so the continuous M-index will tend to be lower than the discrete M-index (which has no smoothing factors in its calculation). This is because the ODF, and hence the MDF, describe the texture as a whole (section \ref{subsec:ODFs}). Essentially a smoother ODF will dampen a stronger texture to appear weaker, and hence a lower index value will result. 
 
 %---------------------------FIG---------------------------------------------   
 \begin{figure}[h]
   \centering
-    \includegraphics[width=0.8\textwidth]{figs/OLV_SPS_cont_disc_diff.pdf}
+    \includegraphics[width=0.7\textwidth]{figs/OLV_SPS_cont_disc_diff.pdf}
   \caption[Discrete and continuous M-index difference (olivine VPSC)]{The difference between the continuous and discrete M-index calculated for an olivine VPSC model undergoing simple shear. Values are the average of 50 calculations using $n$ = 2,000 grains sampled with replacement from a total of 10,000. Error bars are the standard deviation of the indices. \textbf{Inset} shows a clearer picture of the average difference between the 50 calculations of both indices, with the same axes as the main plot. The difference is on a similar order to the actual values showing that, although the change is small, the increase in difference with strain is not negligible.}
   \label{fig:OLV_SPS_cont_disc_diff}
 \end{figure}  
@@ -825,7 +843,7 @@ To gain an understanding of the indices relationship with strain, I calculated e
 \end{figure*} 
 %---------------------------FIG---------------------------------------------  
 
-It is clear that for both olivine and post-perovskite, the indices increase monotonically with strain. For both crystals, the indices increase relatively linearly to approximately 100 - 150\% strain, after which the behaviour of the two crystals diverges. The J-index for olivine simple shear (panel (b)) continues to increase linearly to a value of $J_O$ = 24.26 at 350\% strain, whereas the J-index for post-perovskite is less linear, and increases to a much greater value of $J_P$ = 86.49. The gradients of the M-index curves for both olivine and post-perovskite simple shear (panels (b) and (f)) decrease past 150\% strain and they begin to tend towards constant values, although both M-indices are much greater for post-perovskite (approximately double). The behaviour is more linear in the lower strain limit of the axial compression curves (50\%), although the post-perovskite M-index values are again approximately double (reasons for this are proposed in section \ref{sec:diss_results_comp}). The similarity in index behaviour for these two minerals (compared to quartz) is likely due to them having similar crystal symmetry (REF?).
+It is clear that for both olivine and post-perovskite, the indices increase monotonically with strain. For both crystals, the indices increase relatively linearly to approximately 100 - 150\% strain, after which the behaviour of the two crystals diverges. The J-index for olivine simple shear (panel (b)) continues to increase linearly to a value of $J_O$ = 24.26 at 350\% strain, whereas the J-index for post-perovskite is less linear, and increases to a much greater value of $J_P$ = 86.49. The gradients of the M-index curves for both olivine and post-perovskite simple shear (panels (b) and (f)) decrease past 150\% strain and they begin to tend towards constant values, although both M-indices are much greater for post-perovskite (approximately double). The behaviour is more linear in the lower strain limit of the axial compression curves (50\%), although the post-perovskite M-index values are again approximately double (reasons for this are proposed in section \ref{sec:diss_results_comp}). The similarity in index behaviour for these two minerals (compared to quartz) is likely due to them having similar crystal symmetry.
 
 %---------------------------FIG---------------------------------------------   
 \begin{figure}[h]
@@ -861,15 +879,15 @@ I propose the reason for this is purely numerical (REF CONV WITH AW?). The symme
 Combining this numerical error with the steep cut-off of the theoretical distribution for quartz produces this error observed in figure \ref{fig:qtz_misorientation_dist}. This would explain the lack of error for the symmetries of olivine and post-perovskite as the cut-off for those theoretical distributions is less sharp \citep[see figure \ref{fig:misorientation_example}, or][for more distributions]{Wheeler2001}.
 
 %---------------------------FIG---------------------------------------------   
-\begin{figure}[h]
+\begin{figure*}[p]
   \centering
-    \includegraphics[width=0.9\textwidth]{figs/m_vs_j.pdf}
-  \caption[Relationship of M- and J-indices]{M-index (continuous and discrete) as a function of J-index. \textbf{Top row} shows olivine, \textbf{bottom row} shows quartz, with the \textbf{left column} showing data from axial compression VPSC models and the \textbf{right column} data from simple shear. Calculations used $n$ = 5,000 grains.} 
+    \includegraphics[width=\textwidth]{figs/m_vs_j.pdf}
+  \caption[Relationship of M- and J-indices]{M-index (continuous and discrete) as a function of J-index. \textbf{Top row} shows olivine, \textbf{middle row} shows quartz and \textbf{bottom row} shows post-perovskite, with the \textbf{left column} showing data from axial compression VPSC models and the \textbf{right column} data from simple shear. Calculations used $n$ = 5,000 grains.} 
   \label{fig:m_vs_j}
-\end{figure} 
+\end{figure*} 
 %---------------------------FIG---------------------------------------------  
   
-Continuing regardless of the multivalued nature of the quartz curves, it would be useful to know how the M-indices compare directly with the J-index. To determine this relationship, I plotted the two M-indices $M$ as a function of the J-index $J$ (figure \ref{fig:m_vs_j}). Aside from highlighting the multivalued problem, this shows that at low $J$, and hence low strain, the indices have a relatively linear relationship (i.e. $\mathrm{d}J \approx \mathrm{d}M$). However as $J$ is increases this relationship breaks down, particularly for olivine, and the gradient becomes less steep (i.e. a change in $J$ now results in a smaller change in $M$). This essentially implies that the M-index becomes saturated at lower strains in comparison to the J-index, which can also be seen in figure \ref{fig:indices_vs_strain}. This is evidently unfavourable for an index, as ideally a certain increase in $M$ will result in the same increase in strain, which is not the case for high strains in the examples presented here. Physically this makes sense --- as the majority of grains are aligned, their rotation rate will be slower, and hence there will be less difference in M-index as strain is increased.  
+Continuing regardless of the multivalued nature of the quartz curves, it would be useful to know how the M-indices compare directly with the J-index. To determine this relationship, I plotted the two M-indices $M$ as a function of the J-index $J$ (figure \ref{fig:m_vs_j}). Aside from highlighting the multivalued problem, this shows that at low $J$, and hence low strain, the indices have a relatively linear relationship (i.e. $\mathrm{d}J \approx \mathrm{d}M$). However as $J$ is increases this relationship breaks down, particularly for olivine and post-perovskite, and the gradient becomes less steep (i.e. a change in $J$ now results in a smaller change in $M$). This essentially implies that the M-index becomes saturated at lower strains in comparison to the J-index, which can also be seen in figure \ref{fig:indices_vs_strain}. This is evidently unfavourable for an index, as ideally a certain increase in $M$ will result in the same increase in strain, which is not the case for high strains in the examples presented here. Physically this makes sense --- as the majority of grains are aligned, their rotation rate will be slower, and hence there will be less difference in M-index as strain is increased.  
 
 \subsection{Estimating strain}
 
@@ -888,6 +906,17 @@ Having established that the indices provide a good proxy for strain, in this sec
 I calculated the index values for the pole figures, and from these values estimated the strain by interpolating the simple shear reference curve (figure \ref{fig:indices_vs_strain_qtz_EBSD}). The index values agree with those from \cite{ParsonsThesis}. Interestingly, the J-index gives consistently greater strain values than either of the M-indices. As expected the discrete M-index gives greater strain values than the continuous, for reasons outlined in section \ref{sec:bin_size}.  
 
 \subsection{Relation to seismic anisotropy}
+
+Having established the relationship between the texture indices and strain, I proceeded to create similar plots for the anisotropy indices established in section \ref{sec:anisotropy_indices}. Figure \ref{fig:ani_vs_strain} shows the universal anisotropy index \citep[uA,][]{Ranganathan2008} and the \cite{Ledbetter2006} anisotropy index (lmA) as a function of strain. It is clear that in general, many features of these indices are similar to the texture indices. For example, the anisotropy indices for the quartz simple shear case (panel (d)) are again multivalued at high strains which supports that this must be due to features inherent in the VPSC model (i.e. dynamic recrystallisation is not taken into account).    
+
+%---------------------------FIG---------------------------------------------   
+\begin{figure*}[p]
+  \centering
+    \includegraphics[width=\textwidth]{figs/ALL_6panel_anisotropy.pdf}
+  \caption[Anisotropy measures and strain]{Seismic anisotropy measures, the Universal Elastic Anisotropy Index (uA) and the ***** against strain. \textbf{Top row} shows data from olivine VPSC models, \textbf{middle row} shows quartz, and \textbf{bottom row} shows post-perovskite. \textbf{Right column} shows data from axial compression models and \textbf{left column} shows data from simple shear models. All calculations use $n$ = 10,000 grains. } 
+  \label{fig:ani_vs_strain}
+\end{figure*} 
+%---------------------------FIG--------------------------------------------- 
 
 
  
@@ -910,7 +939,7 @@ Aside from index convergence, an important result of this work is the issues enc
 
 The differences in J- and M-indices in figure \ref{fig:indices_vs_strain} can be explained by considering the slip systems that are input into the VPSC code when generating the datasets. The slip systems used for post-perovskite are the same as P001 model used in \cite{Walker2012}, which attempts to replicate experimental work by \citep{Miyagi2010}. \cite{Miyagi2010} found that initially (001) lattice planes in post-perovskite are at high angles to compression, and when compressed from 148 GPa to 185 GPa, this preferred orientation doubles in strength, implying slip on (001). When undergoing strain, the crystals are quicker to align along this single dominant slip system than if more were available. This results in textures forming at quicker rates, and hence larger index values at lower strains.
 
-This has important implications for determining strain from the VPSC reference curves, particularly for post-perovskite but possibly other minerals as well. As the VPSC code requires input of slip systems, this introduces a limitation in that the accuracy of the returned strain value depends greatly on how well the slip systems of a mineral are known. In the case of post-perovskite, what little experimental evidence there is in the literature is often contradictory. For example \cite{Merkel2007} find dominant slip systems on (100) and (110) --- \cite{Walker2012} demonstrate the significant effect these different slip systems can have on global mantle flow models. Caution must be taken when inferring strain from index values in these cases.  
+This has important implications for determining strain from the VPSC reference curves, particularly for post-perovskite but possibly other minerals as well. As the VPSC code requires input of slip systems, this introduces a limitation in that the accuracy of the returned strain value depends greatly on how well the slip systems of a mineral are known. In the case of post-perovskite, what little experimental evidence there is in the literature is often contradictory. For example \cite{Merkel2007} find dominant slip systems on (100) and (110) --- \cite{Walker2012} demonstrate the significant effect these different slip systems can have on global mantle flow models. Caution must be taken when inferring strain from index values in these cases, where slip systems are poorly constrained.  
   
 
 
@@ -1076,6 +1105,8 @@ taken from the \texttt{MTEX} function \texttt{crystalSymmetry} for quartz and \c
 \section{Interpolating for strain} \label{App:strain}
 
 
+\section{Code optimisation} \label{App:optimisation}
+
 \section{Minimum number of grains (based on bin size)} \label{App:min_no_grains}
 The formula for the number of pairs of grains $p_n$ (and therefore the number of misorientation angles) within a sample can be calculated as follows. First, let the number of grains in the sample be $n$. For the first grain there are $n - 1$ new pairs of grains (i.e. it is compared against all others in the sample). Moving to the second grain, there are $n - 2$ new pairs, as this grain has already been paired with the grain before it. The third grain will have $n - 3$ new pairs and so on resulting in:
 
@@ -1103,6 +1134,7 @@ n^2\ -\ n\ -\ \frac{2\theta_{max}}{\theta_{bin}}\ =\ 0.
 \noindent
 Solving this quadratic will give values for $n$, for which the positive value is taken and rounded up to provide an absolute minimum number of grains to give enough for one angle in each bin (which depends on crystal symmetry and bin size).
 
+
 %\newpage
 \section{Additional analysis figures} \label{App:analysis_figs}
 %---------------------------FIG---------------------------------------------   
@@ -1115,6 +1147,7 @@ This appendix contains figures that support much of the analysis and discussion 
   \label{fig:APP_misor_dist_qtz_ebsd}
 \end{figure} 
 %---------------------------FIG--
+
 \newpage
 \section{Example function output} \label{App:example_output}
 \begin{texttt}
