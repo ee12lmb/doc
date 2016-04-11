@@ -3,6 +3,7 @@
 \documentclass[a4paper,12pt,twoside]{report}
 %\usepackage[DIV=20,BCOR=30mm,headinclude=true,footinclude=false]{typearea}
 \usepackage[left=3cm,right=1.7cm,bottom=2cm,top=2.2cm]{geometry}
+
 % Page and title setup
 \usepackage{setspace}
 \setstretch{2}
@@ -18,6 +19,8 @@
   {\normalfont\bfseries\vspace{-4.0cm}}{}{0pt}{\Huge}
 \setcounter{secnumdepth}{2}
 \usepackage[toc,page]{appendix}
+\usepackage{pdfpages}
+\usepackage{afterpage}
 
 % font
 \usepackage{charter}    
@@ -75,26 +78,42 @@ morekeywords={m_indexDisc,m_indexCont,j_index}}
 
 \begin{document}
 % -----------    D o c u m e n t     ------------
-
-\maketitle
+\includepdf[pages={1-}]{titlepage/title.pdf}
+%\maketitle
 %\begin{titlepage}
-%\newgeometry{left=2cm,right=2cm}
 %	\centering
+%	\includegraphics[width=\textwidth,trim={3.2cm 10cm 0 0},clip]{../figures/poles_olivine_example.pdf}\par\vspace{1cm}
+%    \huge{\textbf{The M-index: A useful metric for rock deformation?}}\par
+%    \vspace{1cm}
+%    {\Large \textit{Lewis Bailey\\Student ID: 200695089}\par}
 %
-%	\includegraphics[width=0.8\textwidth]{poles_olivine_example}	
-%	
-%	\begin{huge}
-%	\vspace{2cm}
-%The M-index: A useful metric for rock deformation?
-%	\end{huge}
-%	
+%	\vspace{1.5cm}
+%
+%
+%    {\scshape\LARGE University of Leeds \par}
+%	%\vspace{1cm}
+%	{\Large Submitted in accordance with the requirements of the degree of Bachelor of Geophysical Sciences.\par}
+%	%\vfill
+%	%\vspace{2cm}
+%	%\begin{
+%	Supervised by Dr.~Andrew \textsc{Walker}
+%	%\end{Small}
+%
+%	\vfill
+%
+%% Bottom of the page
+%
 %\end{titlepage}
 
+%TC:ignore
 \pagenumbering{roman}
-
+%\newpage\mbox{}\newpage
 
 \vspace{3cm}
 \begin{center}
+{\huge The M-index: A useful metric for rock deformation?}
+\vspace{3cm}
+
 \begin{Large}
 \textbf{Acknowledgements}
 \end{Large}
@@ -107,15 +126,19 @@ I would like to thank my supervisor Dr Andrew Walker for valuable discussions, a
 %\textbf{Statement of academic integrity}
 \end{Large}
 
-This dissertation is submitted in accordance with the requirements of the degree of Bachelor of Geophysical Sciences (Bsc). The candidate confirms that the work is his own, and that credit has been given to the work of others where appropriate.
+This dissertation is submitted in accordance with the requirements of the degree of Bachelor of Geophysical Sciences (Bsc). The candidate confirms that the work is his own, and that credit has been given where reference has been made to the work of others. 
+
 
 \vspace{1cm}
 \noindent
 Signed: .............................................. (Lewis Bailey)
+
 \end{center}
 \tableofcontents
 \listoffigures
 \listoftables
+
+%TC:endignore
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -907,18 +930,26 @@ I calculated the index values for the pole figures, and from these values estima
 
 \subsection{Relation to seismic anisotropy}
 
-Having established the relationship between the texture indices and strain, I proceeded to create similar plots for the anisotropy indices established in section \ref{sec:anisotropy_indices}. Figure \ref{fig:ani_vs_strain} shows the universal anisotropy index \citep[uA,][]{Ranganathan2008} and the \cite{Ledbetter2006} anisotropy index (lmA) as a function of strain. It is clear that in general, many features of these indices are similar to the texture indices. For example, the anisotropy indices for the quartz simple shear case (panel (d)) are again multivalued at high strains which supports that this must be due to features inherent in the VPSC model (i.e. dynamic recrystallisation is not taken into account).    
 
 %---------------------------FIG---------------------------------------------   
 \begin{figure*}[p]
   \centering
     \includegraphics[width=\textwidth]{figs/ALL_6panel_anisotropy.pdf}
-  \caption[Anisotropy measures and strain]{Seismic anisotropy measures, the Universal Elastic Anisotropy Index (uA) and the ***** against strain. \textbf{Top row} shows data from olivine VPSC models, \textbf{middle row} shows quartz, and \textbf{bottom row} shows post-perovskite. \textbf{Right column} shows data from axial compression models and \textbf{left column} shows data from simple shear models. All calculations use $n$ = 10,000 grains. } 
+  \caption[Anisotropy measures and strain]{Seismic anisotropy measures, the Universal Elastic Anisotropy Index (uA) and the \cite{Ledbetter2006} index (lmA) against strain. \textbf{Top row} shows data from olivine VPSC models, \textbf{middle row} shows quartz, and \textbf{bottom row} shows post-perovskite. \textbf{Right column} shows data from axial compression models and \textbf{left column} shows data from simple shear models. All calculations use $n$ = 10,000 grains.} 
   \label{fig:ani_vs_strain}
 \end{figure*} 
 %---------------------------FIG--------------------------------------------- 
 
+Having established the relationship between the texture indices and strain, I proceeded to create similar plots for the anisotropy indices established in section \ref{sec:anisotropy_indices}. Figure \ref{fig:ani_vs_strain} shows the universal anisotropy index \citep[uA,][]{Ranganathan2008} and the \cite{Ledbetter2006} anisotropy index (lmA) as a function of strain for olivine, quartz and post-perovskite (using $n$ = 10,000 grains as calculation of the indices is rapid). It is clear that in general, many features of these indices are similar to the texture indices. For example, the anisotropy indices for the quartz simple shear case (panel (d)) are again multivalued at high strains which supports that this must be due to features inherent in the VPSC model as discussed in the previous section (i.e. dynamic recrystallisation is not taken into account).    
 
+This demonstrates that the anisotropy indices can act as a proxy for strain in a similar way to the texture indices. In addition, the anisotropy indices can to some extent be measured remotely via seismology (for discussion see the following section). As both the anisotropy and texture indices have a similar relationship with strain, relating the two directly would allow for a texture index to be derived from the anisotropy index. This results in a possible method for remotely estimating the strength of texture through seismic observations. Figure \ref{fig:ani_vs_m_disc} shows the anisotropy indices as a function of the discrete M-index. 
+
+\begin{figure*}[p]
+  \centering
+    \includegraphics[width=\textwidth]{figs/ALL_6panel_anisotropy_vs_m.pdf}
+  \caption[Relationship of anisotropy indices and M-index (disc)]{Seismic anisotropy measures, the Universal Elastic Anisotropy Index (uA) and the \cite{Ledbetter2006} index (lmA) as a function of the discrete M-index. \textbf{Top row} shows data from olivine VPSC models, \textbf{middle row} shows quartz, and \textbf{bottom row} shows post-perovskite. \textbf{Right column} shows data from axial compression models and \textbf{left column} shows data from simple shear models. All calculations use $n$ = 10,000 grains.} 
+  \label{fig:ani_vs_m_disc}
+\end{figure*} 
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -926,7 +957,7 @@ Having established the relationship between the texture indices and strain, I pr
 \vspace{-1cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-In the following section I discussion some of the important implications that have arisen from this study. Where relevant I draw comparisons to the literature to put the findings in context, or to provide explanations for the phenomena observed. Following this, I offer suggestions for further work.
+In the following section I discuss some of the important implications that have arisen from this study. Where relevant I draw comparisons to the literature to put the findings in context, or to provide explanations for the phenomena observed. Following this, I offer suggestions for further work.
 
 
 \section{Review and Comparison} \label{sec:diss_results_comp}
@@ -952,7 +983,11 @@ This has important implications for determining strain from the VPSC reference c
 \vspace{-1cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-An important result from this work is the production of a functioning \texttt{Matlab} toolbox for use in quantitative texture strength analysis. I developed this toolbox 
+An important result from this work is the production of a functioning \texttt{Matlab} toolbox for use in quantitative texture strength analysis. I developed this toolbox to function as a standalone package, using version control software to track its development. The toolbox allows easy calculation and analysis of texture indices, as well as additional functionality (e.g. strain estimation) for both VPSC and EBSD datasets. 
+
+Using this software package, I analysed the robustness of the J-index, and the discrete and continuous M-indices. I found that the number of grains used in calculating all indices should be $n \approx$ 1,000 grains or greater to allow for definite convergence to a \lq{}correct\rq{} value, and for the error $(\sigma)$ to be within acceptable limits. In addition, the bin size for the discrete M-index has significant affect on its output value, with smaller bin size resulting in convergence towards the continuous M-index (although a functional limit exists, which is related to the number of grains). The discrete M-index will not converge totally to the continuous, which is likely due to smoothing inherent in the continuous M-index calculation. The variability of all three indices increases with strain, although the effect is small enough in general to be neglected.
+
+I extended the analysis of \cite{Skemer} and \cite{Mainprice} to establish whether the J- and M-indices are a useful proxy for strain for both quartz and post-perovskite, in addition to olivine. I found the indices to generally increase monotonically with strain, with the notable exception of quartz, for which the discrete M-index appears to be multivalued at low strains. I determined this is likely due to a numerical error in its calculation, which is related to the theoretical misorientation angle distribution for quartz (although subsequent work on more crystal symmetries is required to confirm this). From this index-strain relationship established through VPSC models, I predicted the strain for a number of quartz EBSD samples. I analysed the relationship of two anisotropy indices and conclude they can function as proxies for strain, and offer a link to the texture indices, and hence potentially provide a remote measure of texture strength.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1146,6 +1181,11 @@ This appendix contains figures that support much of the analysis and discussion 
   \caption[Misorientation angle distribution (quartz EBSD)]{Misorientation angle distributions for quartz EBSD data, calculated using the same 500 grains with a bin width of 1$^{\circ}$ ** maybe need more grains and smaller bin **. The panels show increasing strain with \textbf{(a)} XX, \textbf{(b)} XX, \textbf{(c)} XX and \textbf{(d)} XX. The solid line shows the theoretical misorientation distribution for a random fabric of quartz grains. } 
   \label{fig:APP_misor_dist_qtz_ebsd}
 \end{figure} 
+%---------------------------FIG--
+
+%---------------------------FIG---------------------------------------------   
+This appendix contains figures that support much of the analysis and discussion in the main body. These figures have been omitted as similar conclusions can be drawn from figures in the text that were chosen to best illustrate the points made there. 
+
 %---------------------------FIG--
 
 \newpage
