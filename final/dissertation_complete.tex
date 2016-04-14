@@ -168,7 +168,7 @@ For example, elastic anisotropy of crystals in rocks can lead to bulk seismic an
 
 Closer to the Earth's surface, studying LPO strength can give insight into processes that have occurred in deformed regions such as shear zones and other tectonic units. \cite{Unzog2000} use LPO to study a number of properties of a transpressional collision zone in Eastern Egypt, such as deformation geometry and finite strain, and \cite{Lloyd2004} analyses LPO to determine microstructural evolution of shear zones. LPO strength is strongly linked to strain history, for quartz and many other minerals, and can therefore be used to interpret aspects of the rock's deformation history \cite{Price1985}.
 
-It is clear from these examples that the strength of LPO, and particularly its relationship with strain, is of vital importance in a number of geological and geophysical settings \citep[and many more besides, see][for more examples]{Wenk1999}. The inherent three-dimensional nature of textures makes their strength difficult to quantify with a single number \citep{Schaeben2007}. However, there exists a number of indices that attempt to do this \citep[e.g. the texture index][]{bunge1982texture}, including a recent proposal by \cite{Skemer} for a misorientation index. Aside from the importance of quantifying texture strength, \cite{Skemer} provide more direct motivation for this study, calling for further research \lq\lq{}to confirm the M-index's validity or practicality for other materials\rq\rq{}. To confirm its validity, it is also necessary to compare the M-index with a number of other metrics in a similar fashion to \cite{Mainprice}, but with greater detail and for a number of crystal structures. This leads to the main aims and objectives of this study.   
+It is clear from these examples that the LPO strength, and particularly its relationship with strain, is vitally important in a number of geological and geophysical settings \citep[and many more besides, see][for more examples]{Wenk1999}. The inherent three-dimensional nature of textures makes their strength difficult to quantify with a single number \citep{Schaeben2007}. However, there exists a number of indices that attempt to do this \citep[e.g. the texture index][]{bunge1982texture}, including a recent proposal by \cite{Skemer} for a misorientation index. Aside from the importance of quantifying texture strength, \cite{Skemer} provide more direct motivation for this study, calling for further research \lq\lq{}to confirm the M-index's validity or practicality for other materials\rq\rq{}. To confirm its validity, it is also necessary to compare the M-index with a number of other metrics in a similar fashion to \cite{Mainprice}, but with greater detail and for a number of crystal structures. This leads to the main aims and objectives of this study.   
    
 
 %The study of textures and their strength has a number of applications in both industry and academia. Textures, or lattice preferred orientations (LPO) arise in rocks that have undergone ductile deformation. The properties of this LPO are dependant on the strain history, and in general increased strain leads to a \lq{}stronger\rq{} LPO \textbf{REF?}. If LPO strength can be quantified by a texture index, and this index can be reliably related to strain, then it could prove a useful tool in determining strain in situations where it is impossible to measure though conventional means.
@@ -755,7 +755,7 @@ To allow for this comparison, I repeated this calculation for a number of quartz
 
 Having established how the indices converge it is also useful to know how their variability will change with $n$, to give some idea of error bounds. To determine this, I calculated the indices 50 times for each value of $n$. For example, the data point for the continuous M-index at $n = 100$ grains was calculated 50 times, sub-sampling from a total of 10,000 grains (with replacement). The error bars on figures \ref{fig:OLV_AXC_n_conv} and \ref{fig:EBSD_QTZ_n_conv} are from the standard deviation $(\sigma)$ of these 50 calculations (with the plotted data point being the mean).
 
-To further analyse this, I plotted $\sigma$ as a function of $n$ (Figure \ref{fig:OLV_AXC_n_conv_err}). There is a clear trend of decreasing $\sigma$ as the number of grains is increased, although the benefit of increasing $n$ is reduced past approximately 1,000 grains, as $\sigma$ converges close to zero (for all indices). This compliments the convergence threshold as at $n >$ 1,000 all indices have converged to a \lq{}true\rq{} value, with the addition of the error being within acceptable bounds. The discrete M-index shows an anomalous drop in $\sigma$ at $n = 5$. This is due to a lack of grains to form a representative histogram of the misorientation distribution, and therefore when this distribution is so poorly defined the index will produce similarly \lq{}wrong\rq{} values --- therefore a smaller standard deviation will result.
+To further analyse this, I plotted $\sigma$ as a function of $n$ in Figure \ref{fig:OLV_AXC_n_conv_err} (appendix Figure \ref{fig:app:QTZ_EBSD_n_conv_err} for EBSD equivalent). There is a clear trend of decreasing $\sigma$ as the number of grains is increased, although the benefit of increasing $n$ is reduced past approximately 1,000 grains, as $\sigma$ converges close to zero (for all indices). This compliments the convergence threshold as at $n >$ 1,000 all indices have converged to a \lq{}true\rq{} value, with the addition of the error being within acceptable bounds. The discrete M-index shows an anomalous drop in $\sigma$ at $n = 5$. This is due to a lack of grains to form a representative histogram of the misorientation distribution, and therefore when this distribution is so poorly defined the index will produce similarly \lq{}wrong\rq{} values --- therefore a smaller standard deviation will result.
 
 \subsection{Bin size (discrete M-index)} \label{sec:bin_size}
 
@@ -1194,12 +1194,12 @@ This appendix contains figures that support the main text but have been omitted 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{figure}[h!]
-%  \centering
-%    \includegraphics[width=\textwidth]{figs/QTZ_EBSD_std_conv.pdf}
-%  \caption[Index error with no. grains (quartz EBSD)]{Relationship between index standard deviation and number of grains used for index calculation, for quartz EBSD data. The data points are the standard deviation of 50 calculations, with $n$ randomly sampled grains for each calculation sampled with replacement. Calculations were ran for $n$ = 5, 10, 50, 100, 200, 500, 1,000, 2,000, 5,000 and 10,000. The panels show approximately increasing strain, shown by the pole figure numbers.}
-%  \label{fig:app:QTZ_EBSD_n_conv_err}
-%\end{figure}
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=\textwidth]{figs/EBSD_QTZ_std_conv.pdf}
+  \caption[Index error with no. grains (quartz EBSD)]{Relationship between index standard deviation and number of grains used for index calculation, for quartz EBSD data. The data points are the standard deviation of 50 calculations, with $n$ randomly sampled grains for each calculation sampled with replacement. Calculations were ran for $n$ = 5, 10, 50, 100, 200, 500, 1,000, 2,000, 5,000 and 10,000. The panels show approximately increasing strain, shown by the pole figure numbers.}
+  \label{fig:app:QTZ_EBSD_n_conv_err}
+\end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1233,24 +1233,24 @@ This appendix contains figures that support the main text but have been omitted 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=0.8\textwidth]{figs/QTZ_AXC_n2000_misor_dist.pdf}
-  \caption[Misorientation angle distribution (quartz VPSC, higher resolution)]{Misorientation angle distributions for a quartz VPSC model undergoing axial compression, calculated using the same 2000 grains with a bin width of 0.25$^{\circ}$. The panels show increasing strain with \textbf{(a)} 2\%, \textbf{(b)} 16\%, \textbf{(c)} 30\% and \textbf{(d)} 42\%. The solid line shows the theoretical misorientation distribution for a random fabric of quartz grains. The red box indicates the potential numerical error.} 
+    \includegraphics[width=\textwidth]{figs/QTZ_AXC_n2000_misor_dist.pdf}
+  \caption[Misorientation angle distribution (quartz VPSC, higher resolution)]{Misorientation angle distributions for a quartz VPSC model undergoing axial compression, calculated using the same 2000 grains with a bin width of 0.25$^{\circ}$. The panels show increasing strain with \textbf{(a)} 2\%, \textbf{(b)} 16\%, \textbf{(c)} 30\% and \textbf{(d)} 42\%. The solid line shows the theoretical misorientation distribution for a random fabric of quartz grains. The red box indicates the potential numerical error. Visualisation is difficult due to small bin width.} 
   \label{fig:app:quartz_VPSC_anomaly}
 \end{figure} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+\clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=0.8\textwidth]{figs/index_speed_comp.pdf}
+    \includegraphics[width=\textwidth]{figs/index_speed_comp.pdf}
   \caption[Index speed comparison]{Calculation speed comparison of all three indices for VPSC olivine. Each index was calculated for a single strain step, with $n$ = 5, 10, 100, 200, 500, 1,000, 2,000 and 5,000. Note the large difference in scales on the time axes.} 
   \label{fig:app:index_speed}
 \end{figure} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
-\clearpage
 \section{Example function output} \label{App:example_output}
 \begin{texttt}
 MD2\hspace{1cm}	     26\\
